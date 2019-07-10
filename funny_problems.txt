@@ -1,13 +1,11 @@
-Avem de a face cu 2 camere: una cu 3 intrerupatoare si una cu 3 becuri.
+1. Avem de a face cu 2 camere: una cu 3 intrerupatoare si una cu 3 becuri.
 - nu poti vedea dintr-o camera in alta
 - nu ai voie sa intri decat o singura data in fiecare camera
 - in camera cu intrerupatoare poti sta maxim 5 min
 - toate becurile sunt stinse la inceput
 Cum identifici intrerupatorul pt fiecare bec?
 
-
-
-Sunt 256 prizonieri intr-o inchisoare si li se propune un joc prin care trebuie sa decida o strategie pentru urmatoarea situatie:
+2. Sunt 256 prizonieri intr-o inchisoare si li se propune un joc prin care trebuie sa decida o strategie pentru urmatoarea situatie:
 Vor fi toti separati, si random o sa duca pe cate unul intr-o camera cu 1 intrerupator si 1 bec.
 Acolo au voie sa aprinda sau nu becul. Un prizonier poate fi adus de mai multe ori in camera.
 La un moment dat, cineva dintre prizonieri trebuie sa zica 100% sigur cand au trecut toti prin camera aia!
