@@ -42,8 +42,7 @@ int main(void)
     func();
 
 
-    //5. func looks like
-    //void(*func)() ---> func -> name of the variable
+    //5. auto func looks like : void(*func)() ---> where func -> is the name of the variable
     void(*var_name)();
     var_name = HelloWorld;
     var_name();
