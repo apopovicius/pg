@@ -130,3 +130,9 @@ int main(void)
 
     return 0;
 }
+
+/*
+* References:
+* https://www.youtube.com/watch?v=p4sDgQ-jao4&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=59&t=0s
+* https://www.geeksforgeeks.org/function-pointer-in-c/
+*/
