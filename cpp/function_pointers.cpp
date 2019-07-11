@@ -1,8 +1,8 @@
-#include <iostream>
-
-#include <vector>
-
 /* assing a function to a variable */
+
+#include <iostream>
+#include <vector>
+#include <cstdlib>
 
 void HelloWorld()
 {
@@ -21,10 +21,51 @@ void PrintValue(int value)
 
 void ForEach(const std::vector<int> & values, void(*f)(int))
 {
-    for(int value:values)
-    {
-         f(value);
-    }
+  for(int value:values)
+  {
+    f(value);
+  }
+}
+
+void f1()
+{
+  std::cout << "F1" << std::endl;
+}
+
+void f2()
+{
+  std::cout << "F2" << std::endl;
+}
+
+void wrapper(void(*fun)())
+{
+  fun();
+}
+
+void add(int a, int b)
+{
+  std::cout << "Addition is: " <<  a+b << std::endl;
+}
+
+void subtract(int a, int b)
+{
+  std::cout << "Subtraction is: " <<  a-b << std::endl;
+}
+
+void multiply(int a, int b)
+{
+  std::cout << "Multiplication is: " << a*b  << std::endl;
+}
+
+int compvar(const void *one, const void *two)
+{
+    int a = *((int*)one);
+    int b = *((int*)two);
+    if (a<b)
+       return -1;
+    if (a == b)
+       return 0;
+    return 1;
 }
 
 int main(void)
@@ -68,6 +109,24 @@ int main(void)
 
     //9. transition to lambda
     ForEach(values,[](int value){std::cout << "Value: " << value << std::endl;});
+
+    //10. function pointer as parameter
+    wrapper(f1);
+    wrapper(f2);
+
+    //11. array of function pointers
+    void (*fun_ptr_arr[])(int, int) = {add, subtract, multiply};
+    unsigned int a = 15, b = 10;
+    for(int i=0;i<=2;i++)
+      (*fun_ptr_arr[i])(a,b);
+
+    //12. void qsort (void* base, size_t num, size_t size, int (*compar)(const void*,const void*));
+    // comparison function which returns:
+    // ​a negative integer value if the first argument is less than the second,
+    // a positive integer value if the first argument is greater than the second
+    // and zero if the arguments are equal.
+    std::qsort(&values[0], values.size(), sizeof(int), compvar);
+    ForEach(values,PrintValue);
 
     return 0;
 }
