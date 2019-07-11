@@ -4,15 +4,19 @@
 #include <vector>
 #include <cstdlib>
 
+/*** label: 1-6 ***/
 void HelloWorld()
 {
     std::cout << "Hello World" << std::endl;
 }
 
+/*** label: 7 ***/
 void Hello(int a)
 {
     std::cout << "Hello: " << a <<std::endl;
 }
+
+/*** label: 8 ***/
 
 void PrintValue(int value)
 {
@@ -27,6 +31,7 @@ void ForEach(const std::vector<int> & values, void(*f)(int))
   }
 }
 
+/*** label: 10 ***/
 void f1()
 {
   std::cout << "F1" << std::endl;
@@ -42,6 +47,7 @@ void wrapper(void(*fun)())
   fun();
 }
 
+/*** label: 11 ***/
 void add(int a, int b)
 {
   std::cout << "Addition is: " <<  a+b << std::endl;
@@ -57,6 +63,7 @@ void multiply(int a, int b)
   std::cout << "Multiplication is: " << a*b  << std::endl;
 }
 
+/*** label: 12 ***/
 int compvar(const void *one, const void *two)
 {
     int a = *((int*)one);
@@ -84,11 +91,11 @@ int main(void)
 
 
     //5. auto func looks like : void(*func)() ---> where func -> is the name of the variable
-    void(*var_name)();
-    var_name = HelloWorld;
-    var_name();
+    void(*varName)();
+    varName = HelloWorld;
+    varName();
 
-    // void(*var_name)() = HelloWorld;
+    // void(*varName)() = HelloWorld;
 
     //6. look better
     typedef void(*HelloWolrdFunction)();
