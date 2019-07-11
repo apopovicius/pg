@@ -135,4 +135,5 @@ int main(void)
 * References:
 * https://www.youtube.com/watch?v=p4sDgQ-jao4
 * https://www.geeksforgeeks.org/function-pointer-in-c/
+* https://en.cppreference.com/w/cpp/algorithm/qsort
 */
