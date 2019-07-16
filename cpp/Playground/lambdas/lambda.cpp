@@ -1,6 +1,6 @@
 /*
 
-Anonymus functions
+Anonymus functions object
 [ captures ] ( params ) -> ret { body }
 [ captures ] ( params ) { body }
 [ captures ] { body }
