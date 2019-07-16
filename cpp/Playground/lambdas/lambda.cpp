@@ -1,5 +1,4 @@
 /*
-
 Anonymus functions object
 [ captures ] ( params ) -> ret { body }
 [ captures ] ( params ) { body }
@@ -13,10 +12,24 @@ Anonymus functions object
 
 Q: Where to use?
 A: Whenever you have a function pointer you can you a lambda
-
 */
 
-#include
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+void ForEach(const std::vector<int>& values, void(*func)(int))
+{
+    for (int value : values)
+        func(value);
+}
+
+int main(void)
+{
+    std::vector<int> values = { 1,5,4,2,6 };
+    ForEach(values, [](int value) { std::cout << "Value: " << value << std::endl; });
+    return 0;
+}
 
 
 

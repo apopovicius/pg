@@ -80,6 +80,9 @@ int main(void)
     //1. direct call
     HelloWorld();
 
+
+    auto func = HelloWorld;
+
     //2. can not deduce auto type because we call function
     //  auto func = HelloWorld();
 
