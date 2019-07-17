@@ -1,7 +1,7 @@
 1. Aprinzi un bec. Stai aproape toate cele 5 minute. Îl stingi și aprinzi altul. În cameră ai un bac stins, unul aprins și unul stins dar care e cald.
 
-2. Prizonierii aleg un lider care are urmatoarea responsabilitate:
+2. Prizonierii aleg un lider care are urmatoarele responsabilitati:
 - doar el are voie sa zica daca au trecut toti prin camera
 - el stinge becul de fiecare data cand intra in camera si numara de cate ori l-a stins
-Prinzonierii nu au decat voie sa aprinda o singura data becul cand intra in camera. Daca au mai trecut nu se ating de intrerupatorul becului.
+Prinzonierii nu au voie sa aprinda doar o singura data becul cand intra in camera. Daca au mai trecut nu se ating de intrerupatorul becului.
 Cand liderul ajunge cu numaratoarea la 256 va putea spune ca au trecut toti prin camera.
