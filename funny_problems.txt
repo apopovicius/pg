@@ -9,3 +9,11 @@ Cum identifici intrerupatorul pt fiecare bec?
 Vor fi toti separati, si random o sa duca pe cate unul intr-o camera cu 1 intrerupator si 1 bec.
 Acolo au voie sa aprinda sau nu becul. Un prizonier poate fi adus de mai multe ori in camera.
 La un moment dat, cineva dintre prizonieri trebuie sa zica 100% sigur cand au trecut toti prin camera aia!
+
+3. Problema pastilelor:
+Esti singur intr-o incapere incuiata si esti orb, pe masa din fata ta sunt 8 pastile toate de aceeasi greutate/forma/miros/marime.
+- Pastilele sunt amestecate: 4 albe si 4 rosii. 
+- Pentru a iti recapata vederea trebuie sa iei 2 pastile rosii din cele 8 
+- Daca iei o pastila rosie ramai orb, daca iei 3 rosii mori
+- Albe poti lua oricate
+Cum procedezi ca sa iti recapeti vederea, stiind ca ai la dispozitie un timp scurt(cateva minute) si nu poti cere ajutorul nimanui. 
