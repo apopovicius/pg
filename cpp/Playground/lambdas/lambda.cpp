@@ -11,7 +11,7 @@ Anonymus functions object
 [=, &epsilon] captures variables like with [=], but epsilon by reference
 
 Q: Where to use?
-A: Whenever you have a function pointer you can you a lambda
+A: Whenever you have a function pointer you can you use a lambda
 */
 
 #include <iostream>
