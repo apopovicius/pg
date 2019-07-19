@@ -34,12 +34,6 @@ int main(void)
     auto it = std::find_if(values.begin(), values.end(), [](int value) { return value > 3; });
     std::cout << *it << std::endl;
 
-    std::cout << "Erase test:" << std::endl;
-    auto lambda = [](int value) { std::cout << "Value: " << value << std::endl; };
-    int xx = 5;
-    values.erase(std::remove_if(values.begin(), values.end(), [xx](int n) { return n < xx; }), values.end());
-    ForEach(values, lambda);
-
     std::cout << "foo/bar test:" << std::endl;
     int i = 0;
     auto foo = [i]() { std::cout << i << std::endl; };
