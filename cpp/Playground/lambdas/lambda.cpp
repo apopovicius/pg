@@ -88,11 +88,6 @@ int main(void)
 * Value: 7
 * Find value test:
 * 8
-* Erase test:
-* Value: 8
-* Value: 5
-* Value: 6
-* Value: 7
 * foo/bar test:
 * 0
 * 10
