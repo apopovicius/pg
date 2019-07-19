@@ -80,9 +80,6 @@ int main(void)
     //1. direct call
     HelloWorld();
 
-
-    auto func = HelloWorld;
-
     //2. can not deduce auto type because we call function
     //  auto func = HelloWorld();
 
@@ -91,7 +88,6 @@ int main(void)
 
     //4. call func
     func();
-
 
     //5. auto func looks like : void(*func)() ---> where func -> is the name of the variable
     void(*varName)();
