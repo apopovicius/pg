@@ -82,6 +82,7 @@ int main(void)
 * References:
 * https://en.cppreference.com/w/cpp/language/lambda
 * https://www.youtube.com/watch?v=mWgmBBz0y8c
+* https://shaharmike.com/cpp/lambdas-and-functions/
 * 
 * Output:
 * Value: 1
