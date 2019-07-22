@@ -18,12 +18,22 @@ A: Whenever you have a function pointer you can you use a lambda
 #include <vector>
 #include <algorithm>
 #include <array>
+#include <functional>
 
-void ForEach(const std::vector<int>& values, void(*func)(int))
+static void ForEach(const std::vector<int>& values, void(*func)(int))
 {
     for (int value : values)
         func(value);
 }
+
+void global_f() {
+    std::cout << "global_f()" << std::endl;
+}
+
+struct Functor {
+    void operator()() { std::cout << "Functor" << std::endl; }
+};
+
 
 int main(void)
 {
@@ -66,6 +76,19 @@ int main(void)
 
     auto f3 = [ar]() {};
     std::cout << sizeof(f3) << std::endl;
+    
+    std::function<void()> f;
+    std::cout << "testing std::function" << std::endl;
+
+    f = global_f;
+    f();
+
+    f = [](){ std::cout << "Lambda" << std::endl;};
+    f();
+
+    Functor functor;
+    f = functor;
+    f();
 
     return 0;
 }
