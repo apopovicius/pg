@@ -131,7 +131,7 @@ int main(void)
     // a negative integer value if the first argument is less than the second,
     // a positive integer value if the first argument is greater than the second
     // and zero if the arguments are equal.
-    std::sort(&values[0], values.size(), sizeof(int), compvar);
+    std::qsort(&values[0], values.size(), sizeof(int), compvar);
     ForEach(values,PrintValue);
 
     return 0;
