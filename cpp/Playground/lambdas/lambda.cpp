@@ -96,11 +96,7 @@ int main(void)
 
 
 /*
-* References:
-* https://en.cppreference.com/w/cpp/language/lambda
-* https://www.youtube.com/watch?v=mWgmBBz0y8c
-* https://shaharmike.com/cpp/lambdas-and-functions/
-* 
+*
 * Output:
 * Value: 1
 * Value: 8
@@ -109,21 +105,33 @@ int main(void)
 * Value: 2
 * Value: 6
 * Value: 7
+*
 * Find value test:
 * 8
+*
 * foo/bar test:
 * 0
 * 10
+*
 * mutable test:
 * 1
 * 2
 * 2
+*
 * Size?:
 * 1
 * 4
 * 100
+*
 * testing std::function
 * global_f()
 * Lambda
 * Functor
+*
+*
+* References:
+* https://en.cppreference.com/w/cpp/language/lambda
+* https://www.youtube.com/watch?v=mWgmBBz0y8c
+* https://shaharmike.com/cpp/lambdas-and-functions/
+* 
 */

@@ -138,6 +138,47 @@ int main(void)
 }
 
 /*
+* Output:
+* Hello World
+*
+* Hello World
+*
+* Hello World
+*
+* Hello World
+*
+* Hello: 5
+* Hello: 6
+* Hello: 7
+*
+* Value 1
+* Value 5
+* Value 6
+* Value 4
+* Value 2
+* Value 3
+*
+* Value: 1
+* Value: 5
+* Value: 6
+* Value: 4
+* Value: 2
+* Value: 3
+*
+* F1
+* F2
+*
+* Addition is: 25
+* Subtraction is: 5
+* Multiplication is: 150
+*
+* Value 1
+* Value 2
+* Value 3
+* Value 4
+* Value 5
+* Value 6
+*
 * References:
 * https://www.youtube.com/watch?v=p4sDgQ-jao4
 * https://www.geeksforgeeks.org/function-pointer-in-c/
