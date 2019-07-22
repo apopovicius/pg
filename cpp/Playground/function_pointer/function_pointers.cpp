@@ -128,10 +128,10 @@ int main(void)
 
     //12. void qsort (void* base, size_t num, size_t size, int (*compar)(const void*,const void*));
     // comparison function which returns:
-    // ​a negative integer value if the first argument is less than the second,
+    // a negative integer value if the first argument is less than the second,
     // a positive integer value if the first argument is greater than the second
     // and zero if the arguments are equal.
-    std::qsort(&values[0], values.size(), sizeof(int), compvar);
+    std::sort(&values[0], values.size(), sizeof(int), compvar);
     ForEach(values,PrintValue);
 
     return 0;
