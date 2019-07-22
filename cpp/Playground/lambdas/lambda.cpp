@@ -122,4 +122,8 @@ int main(void)
 * 1
 * 4
 * 100
+* testing std::function
+* global_f()
+* Lambda
+* Functor
 */
