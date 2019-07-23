@@ -48,8 +48,8 @@ int main(void)
 {
      int x = 10;
 
-    auto lm = [my_x = x](int amount) mutable { my_x += amount; };
-    auto lm_ref = [x](int amount) mutable { x += amount; };
+    auto lm = [my_x = x](int amount) mutable { my_x += amount; }; // won't work without mutable
+    auto lm_ref = [&x](int amount) { x += amount; };
     auto lf = LambdaAsFunctor(x);
 
     lm(5);
