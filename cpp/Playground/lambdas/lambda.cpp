@@ -78,10 +78,10 @@ int main(void)
 
     std::cout << "mutable test:" << std::endl;
     i = 0;
-    auto x = [i]() mutable { std::cout << ++i << std::endl; };
-    x();
+    auto xt = [i]() mutable { std::cout << ++i << std::endl; };
+    xt();
     auto y = x;
-    x();
+    xt();
     y();
 
     std::cout << "Size?:" << std::endl;
