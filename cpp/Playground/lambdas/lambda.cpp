@@ -35,8 +35,26 @@ struct Functor {
 };
 
 
+struct LambdaAsFunctor
+{
+    LambdaAsFunctor(int my_x): my_x(my_x) {}
+
+    void operator()(int amount) { my_x += amount; }
+
+    int my_x;
+};
+
 int main(void)
 {
+     int x = 10;
+
+    auto lm = [my_x = x](int amount) mutable { my_x += amount; };
+    auto lm_ref = [x](int amount) mutable { x += amount; };
+    auto lf = LambdaAsFunctor(x);
+
+    lm(5);
+    lf(5);
+    
     std::vector<int> values = { 1,8,5,4,2,6,7 };
     ForEach(values, [](int value) { std::cout << "Value: " << value << std::endl; });
     
