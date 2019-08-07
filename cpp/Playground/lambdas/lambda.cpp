@@ -122,7 +122,7 @@ int main(void)
         if (isT)
             return 10;
         else
-            reuturn 0.6;
+            return 0.6;
     };
     
     
@@ -131,23 +131,34 @@ int main(void)
         if (isT)
             return "str";
         else
-            reuturn std::string("str");
+            return std::string("str");
     };
     
     auto a = f(true);
     auto b = f(false);
      */
-    
-    auto f = [](bool isT) -> std::string
-    {
-        if (isT)
-            return "str";
-        else
-            reuturn std::string("str");
-    };
-    
-    auto a = f(true);
-    auto b = f(false);
+   
+	auto l_fs = [](bool isT) -> std::string
+	{
+		if (isT)
+			return "str";
+		else
+			return std::string("str");
+	};
+
+	auto l_f2 = [](bool isT) -> float
+	{
+		if (isT)
+			return 1;
+		else
+			return 1.5;
+	};
+
+	auto a = l_f2(true);
+	auto b = l_f2(false);
+
+	auto c = l_fs(true);
+
     
    
     return 0;
