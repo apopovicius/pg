@@ -26,8 +26,8 @@ static void ForEach(const std::vector<int>& values, void(*func)(int))
         func(value);
 }
 
-void global_f() {
-    std::cout << "global_f()" << std::endl;
+void global_f(int x) {
+    std::cout << "global_f(): " << x << std::endl;
 }
 
 struct Functor {
@@ -43,6 +43,8 @@ struct LambdaAsFunctor
 
     int my_x;
 };
+
+int FFF = 0;
 
 int main(void)
 {
@@ -99,15 +101,55 @@ int main(void)
     std::cout << "testing std::function" << std::endl;
 
     f = global_f;
-    f();
+    f(1);
 
     f = [](){ std::cout << "Lambda" << std::endl;};
-    f();
+    f(2);
 
     Functor functor;
     f = functor;
-    f();
+    f(3);
 
+    /* CAN'T CAPTURE */ 
+    static int k = 0;
+	//auto f4 = [FFF]() {}; // cant capture static storage duration
+	//auto f5 = [k]() {}; // cant capture static storage duration
+
+	// can't deduce return type => error or have to specify return type
+    /*
+    auto f = [](bool isT)
+    {
+        if (isT)
+            return 10;
+        else
+            reuturn 0.6;
+    };
+    
+    
+    auto f = [](bool isT)
+    {
+        if (isT)
+            return "str";
+        else
+            reuturn std::string("str");
+    };
+    
+    auto a = f(true);
+    auto b = f(false);
+     */
+    
+    auto f = [](bool isT) -> std::string
+    {
+        if (isT)
+            return "str";
+        else
+            reuturn std::string("str");
+    };
+    
+    auto a = f(true);
+    auto b = f(false);
+    
+   
     return 0;
 }
 
