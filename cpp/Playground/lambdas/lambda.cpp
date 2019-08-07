@@ -164,7 +164,46 @@ int main(void)
     return 0;
 }
 
+// capture this pointer 
+// std::for_each(vec.begin(), vec.end(), [mCounter](int element) -> will not work
+class OddCounter
+{
+	// tracks the count of odd numbers encountered
+	int mCounter = 0;
+public:
+	int getCount()
+	{
+		return mCounter;
+	}
+	void update(std::vector<int> & vec)
+	{
+		// Traverse the vector and increment mCounter if element is odd
+		// this is captured by value inside lambda
+		// Now as “this” is copied by value inside lambda, all member variables from outer scope can be accessed directly.
+		std::for_each(vec.begin(), vec.end(), [this](int element){
+			if(element % 2)
+				mCounter++; // Accessing member variable from outer scope
+		});
+	}
+};
+ 
+/*
+[=] means that all external variables are captured by value. This would allow anonymous function to read value of pointer, deference it and call methods\access fields of the objects it points to.
+[&] would mean capture by reference. Pointer is variable. This would allow lamba to modify it, making it to point to other object.
 
+[=]() mutable {};
+The mutable specifier allows the lambda to modify the parameters captured by copy and to call their non-const member functions. It doesn't affect variables captured by reference.
+The generated class would probably look like:
+struct Lambda {
+    void operator()() { x++; }
+    int x{10};
+};
+If you remove the mutable specifier, the function operator is defined as const:
+struct Lambda {
+    void operator()() const { x++; }
+    int x{10};
+};
+*/
 
 /*
 *
@@ -204,5 +243,8 @@ int main(void)
 * https://en.cppreference.com/w/cpp/language/lambda
 * https://www.youtube.com/watch?v=mWgmBBz0y8c
 * https://shaharmike.com/cpp/lambdas-and-functions/
-* 
+* https://thispointer.com/c11-lambda-how-to-capture-member-variables-inside-lambda-function/
+* https://stackoverflow.com/questions/16944894/c-lambdas-difference-between-mutable-and-capture-by-reference
+* https://stackoverflow.com/questions/42056454/lambda-capture-by-value-and-the-mutable-keyword
+* https://arne-mertz.de/2015/11/lambdas-part-2-capture-lists-and-stateful-closures/
 */
