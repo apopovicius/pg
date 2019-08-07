@@ -31,7 +31,7 @@ void global_f(int x) {
 }
 
 struct Functor {
-    void operator()() { std::cout << "Functor" << std::endl; }
+    void operator()(int x) { std::cout << "Functor: " << x << std::endl; }
 };
 
 
@@ -48,7 +48,7 @@ int FFF = 0;
 
 int main(void)
 {
-     int x = 10;
+    int x = 10;
 
     auto lm = [my_x = x](int amount) mutable { my_x += amount; }; // won't work without mutable
     auto lm_ref = [&x](int amount) { x += amount; };
@@ -82,7 +82,7 @@ int main(void)
     i = 0;
     auto xt = [i]() mutable { std::cout << ++i << std::endl; };
     xt();
-    auto y = x;
+    auto y = xt;
     xt();
     y();
 
@@ -97,13 +97,13 @@ int main(void)
     auto f3 = [ar]() {};
     std::cout << sizeof(f3) << std::endl;
     
-    std::function<void()> f;
+    std::function<void(int)> f;
     std::cout << "testing std::function" << std::endl;
 
     f = global_f;
     f(1);
 
-    f = [](){ std::cout << "Lambda" << std::endl;};
+    f = [](int x){ std::cout << "Lambda:" << x << std::endl;};
     f(2);
 
     Functor functor;
@@ -158,9 +158,7 @@ int main(void)
 	auto b = l_f2(false);
 
 	auto c = l_fs(true);
-
-    
-   
+  
     return 0;
 }
 
