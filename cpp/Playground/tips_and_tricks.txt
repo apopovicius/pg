@@ -1,0 +1,33 @@
+ void clickWaffleButton() const
+    {
+        auto waffleButton = []() {
+            if (auto callActivityWidget = TestUtils::getVisibleQTWidget("CallActivityLandingWidget"); callActivityWidget != nullptr && callActivityWidget->isVisible())
+            {
+                return TestUtils::getVisibleQTWidget("callActivityWaffleButton");
+            }
+            else
+            {
+                return TestUtils::getVisibleQTWidget("waffleButton");
+            }
+        }();
+
+        TestUtils::processMouseClick(waffleButton, Qt::LeftButton, Qt::NoModifier);
+    }
+    
+    
+    
+     void clickWaffleButton()
+    {
+        QWidget* waffleButton = nullptr;
+        QWidget* callActivityWidget = TestUtils::getVisibleQTWidget("CallActivityLandingWidget");
+        if (callActivityWidget != nullptr && callActivityWidget->isVisible())
+        {
+            waffleButton = TestUtils::getVisibleQTWidget("callActivityWaffleButton");
+        }
+        else
+        {
+            waffleButton = TestUtils::getVisibleQTWidget("waffleButton");
+        }
+
+        TestUtils::processMouseClick(waffleButton, Qt::LeftButton, Qt::NoModifier);
+    }
