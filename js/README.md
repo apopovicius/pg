@@ -5,5 +5,7 @@
 
 # References: 
 📚 [Eloquent JavaScript Third Edition - Marijn Haverbeke](https://eloquentjavascript.net/Eloquent_JavaScript.pdf)
+
 📒 [Solutions - Eloquent JavaScript Third Edition - Marijn Haverbeke](https://eloquentjavascript.net/code/)
+
 👥 [Emoji](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md)
