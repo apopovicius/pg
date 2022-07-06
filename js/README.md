@@ -5,7 +5,7 @@
 4. Higher order functions
 5. Modules
 6. Singleton and Module Pattern
-7. Classes: __proto__ vs Prototype / Inheritance 
+7. Classes: `__proto__ vs Prototype` / Inheritance 
 
 # References: 
 📚 [Eloquent JavaScript Third Edition - Marijn Haverbeke](https://eloquentjavascript.net/Eloquent_JavaScript.pdf)
