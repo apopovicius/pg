@@ -12,4 +12,10 @@
 
 📒 [Solutions - Eloquent JavaScript Third Edition - Marijn Haverbeke](https://eloquentjavascript.net/code/)
 
+◼️ [Singleton](https://www.youtube.com/watch?v=C2NxMWQn85c)
+
+🗳️ [Module Pattern](https://www.youtube.com/watch?v=SKBmJ9P6OAk)
+
+ℹ️ [10 things Javascript Developer should know](https://www.youtube.com/playlist?list=PL1PqvM2UQiMoGNTaxFMSK2cih633lpFKP)
+
 👥 [Emoji](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md)
