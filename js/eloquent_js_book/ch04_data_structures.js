@@ -121,11 +121,10 @@ let arrayToList = (array) => {
   console.log(prepend(10, prepend(20, null)));
   // → {value: 10, rest: {value: 20, rest: null}}
   console.log(nth(arrayToList([10, 20, 30]), 2));
-  // → 20
+  // → 30
 
 
-/* Deep comparison
-*/
+/* Deep comparison */
 let deepEqual = (obj1, obj2) => {
     return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
