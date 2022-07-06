@@ -1,6 +1,6 @@
 ## Array & objects & strings
 
-### Strings
+### Strings - Basic Operations
 ```javascript
 let string = "coconuts"
 string.slice(4,7);
@@ -26,8 +26,10 @@ console.log(string.length);
 // → 3
 console.log(string[1]);
 // → b
+```
 
-// Rest parameters
+### Rest parameters
+```javascript
 function max(...numbers) {
    let result = -Infinity;
    for (let number of numbers) {
@@ -45,8 +47,12 @@ console.log(max(...numbers));
 let words = ["never", "fully"]; 
 console.log(["will", ...words, "understand"]); 
 // → ["will", "never", "fully", "understand"]
+ ```
 
-// Destructuring
+
+
+### Destructuring
+```javascript
 let {name} = {name: "Faraji", age: 23}; 
 console.log(name);
 // → Faraji
