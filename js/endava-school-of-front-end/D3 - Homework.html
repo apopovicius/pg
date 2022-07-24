@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Create an account</title>
+    <style>
+
+        body {
+            background: linear-gradient(rgb(54,161,182), rgb(17,78,135)) fixed no-repeat;
+            font-family: "Berlin Sans FB Demi", system-ui;
+        }
+
+        main {
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            width: 400px;
+        }
+
+        .main-header {
+            height: 100px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            background: url("https://c4.wallpaperflare.com/wallpaper/198/387/757/mountains-4k-desktop-background-hd-wallpaper-preview.jpg") no-repeat 0 -180px;
+        }
+
+        .main-header p {
+            text-align: center;
+            vertical-align: middle;
+            line-height: 100px;
+            color: white;
+            font-size: 26px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"], input[type="date"] {
+            border: 0;
+            background: #ededed;
+            color: #77797c;
+            width: 300px;
+        }
+
+        input:focus {
+            outline: none !important;
+            border:1px solid #43b3b8;
+            box-shadow: 0 0 5px #719ECE;
+        }
+
+        input {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        label {
+            color: #77797c;
+            font-size: 14px;
+        }
+
+        #signup {
+            background: #185a9d;
+            color: white;
+            font-size: 14px;
+            width: 135px;
+            height: 30px;
+            border-radius: 67px;
+            border: 0;
+        }
+
+        #signup:hover {
+            background: #43b3b8;
+            cursor: grab;
+        }
+
+        #signup:active {
+            background: #28AFAF;
+        }
+
+        a {
+            color: #185a9d;
+        }
+
+        form {
+            padding: 5% 10%;
+        }
+
+        .form-style {
+            display: block;
+            width: 100%;
+        }
+
+        .div-input {
+            width:100%;
+            display: block;
+        }
+
+        .div-input label {
+            margin: 8px 0;
+            display: block;
+        }
+
+        .div-check {
+            margin:10px 0;
+        }
+
+        .div-check input {
+            margin: 10px 0;
+            display: inline-block;
+            height: 12px;
+        }
+
+        .div-check label {
+            height: 12px;
+        }
+
+        .div-button {
+            margin:10px;
+            text-align: center;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+<main>
+    <div class="main-header"> <p>CREATE AN ACCOUNT</p> </div>
+    <div class="form-style">
+        <form>
+            <div class="div-input">
+                <label for="username">USERNAME*</label>
+                <input type="text" id="username" placeholder="Ana-Maria" minlength="10" maxlength="30" required />
+                <label for="mail">EMAIL*</label>
+                <input type="email" id="mail" placeholder="ana@endava.com" minlength="10" maxlength="30" required />
+                <label for="birthdate">BIRTHDATE*</label>
+                <input type="date" id="birthdate" min="1921-10-27" max="2003-10-27"/>
+                <label for="password">PASSWORD*</label>
+                <input type="password" id="password" placeholder="Enter password" minlength="4" required/>
+            </div>
+            <div class="div-check">
+                <input type="checkbox" id="terms" name="terms" required/>
+                <label for="terms">I agree to the <a href="#">Terms and Services</a></label>
+            </div>
+            <div class="div-button">
+                <input type="submit" id="signup" value="SIGN UP"/>
+            </div>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>
