@@ -21,6 +21,8 @@ and you will display 15 of them in the remaining two thirds of the page (see the
 Display all the images from Exercise 2, with pagination. Each album has 50 photos, so you should have a total of 4 pages
 per album.
 
+![alt text](https://github.com/apopovicius/pg/blob/master/js/endava-school-of-front-end/D5%20-%20Javascript/Homework-Design.png)
+
 
 ## Exercise 3:
 Create a webpage that displays a todo list in a card for a user:
