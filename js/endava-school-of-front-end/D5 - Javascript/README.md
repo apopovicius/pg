@@ -5,6 +5,7 @@ Create a function (getPhotoForStudent) which accepts a single string parameter a
 1) Resolves with the student's name, followed by the .png extension, if the name is one of the following: 
 "Andrei, Alexandru, Claudiu, Cristiana, Florin, Sergiu".
 2) Rejects otherwise.
+
 The promise should return the result after 2 seconds.
 
 Example: getPhotoForStudent('Sergiu') -> Sergiu.png
