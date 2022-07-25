@@ -8,6 +8,7 @@ Create a function (getPhotoForStudent) which accepts a single string parameter a
 The promise should return the result after 2 seconds.
 
 Example: getPhotoForStudent('Sergiu') -> Sergiu.png
+
 Example: getPhotoForStudent('Adrian') -> Reject with error message (The photo doesn't exist)
 
 
