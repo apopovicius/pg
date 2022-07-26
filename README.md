@@ -5,7 +5,7 @@
 
 * [C++ playground](https://github.com/apopovicius/pg/tree/master/cpp/Playground)
 
-* [JavaScript - From hero to zero](https://github.com/apopovicius/pg/tree/master/javascript)
+* [JavaScript - From hero to zero](https://github.com/apopovicius/pg/tree/master/js)
 
 | Subject         |    Date       | Status   |
 | --------------- | :-----------: | :------: |
