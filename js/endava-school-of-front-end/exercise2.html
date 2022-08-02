@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>Exercise 2 - Albums</title>
+        <script src="exercise2.js"></script>
+        <style>
+            body {background-color: powderblue;}
+            h1 {color:black;}
+
+            .layout {
+                display: grid;
+                grid-template-columns: 30% 60%;
+                grid-column-gap: 20px;
+                margin: 10px;
+            }
+
+            .recent {
+                color:blueviolet;
+                margin: 10px;
+            }
+
+            ul {
+                list-style-type: none;
+                padding: 0; /* Remove padding */
+                margin: 0; /* Remove margins */
+            }
+
+            li {
+                background: antiquewhite;
+                border: solid 1px darkblue;
+                margin: 5px;
+                padding: 20px;
+                font-size: larger;
+            }
+
+            li:hover {
+                background: azure;
+            }
+
+            .details {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                margin-top: 80px;
+            }
+
+            .item {
+                margin: 5px;
+                display: flex;
+                align-items: center;
+            }
+
+            button {
+                margin: 10px 5px;
+                width: 80px;
+                height: 40px;
+                background-color:steelblue;
+                color:azure;
+                border-radius: 20px;
+            }
+
+            button:hover {
+                background-color:navy;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout"></div>
+    </body>
+</html>
