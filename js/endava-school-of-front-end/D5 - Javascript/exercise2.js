@@ -138,12 +138,12 @@ function createDivPages(currentPage, currentAlbumImages, currentAlbumId) {
     }
     registerButtonPageClick(currentAlbumImages, currentAlbumId);
 }
-// albumid = 1 - imagesID 1-50
-// albumid = 2 - imagesID 51-100
-// page1 - 1-15
-// page2 - 16-30
 
 function getImagesByPage(imagesForAlbum, albumId, page) {
+    // albumid = 1 - imagesID 1-50
+    // albumid = 2 - imagesID 51-100
+    // page1 - 1-15
+    // page2 - 16-30
     // 15 images per page where each album has 50 images
     const idByAlbum = 50 * (albumId - 1);
     const startTranslatedID = idByAlbum + 15 * (page - 1) + 1;
@@ -155,7 +155,6 @@ function getImagesByPage(imagesForAlbum, albumId, page) {
     const filteredImages = imagesForAlbum.filter((image) => {
         return image.id >= startTranslatedID && image.id < endTranslatedID;
     });
-
     return filteredImages;
 }
 
