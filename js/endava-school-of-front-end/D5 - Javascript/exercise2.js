@@ -68,9 +68,7 @@ function onMenuItemClick(itemSelected, albums, images) {
 }
 
 function onPageClicked(pageButtonId, currentAlbumImages, currentAlbumId) {
-    console.log(`Page ${pageButtonId} clicked`);
-    const pageSelected = pageButtonId;
-    renderPage(pageSelected, currentAlbumImages, currentAlbumId);
+    renderPage(pageButtonId, currentAlbumImages, currentAlbumId);
 }
 
 function registerMenuItemClick(images, albums, onMenuItemClick) {
@@ -85,8 +83,7 @@ function registerMenuItemClick(images, albums, onMenuItemClick) {
 function registerButtonPageClick(currentAlbumImages, currentAlbumId) {
     document.querySelectorAll('button').forEach((item) => {
         item.addEventListener('click', (event) => {
-            const isButton = event.target.nodeName === 'BUTTON';
-            if (!isButton) {
+            if (event.target.nodeName !== 'BUTTON') {
                 return;
             }
             onPageClicked(event.target.id, currentAlbumImages, currentAlbumId);
@@ -105,7 +102,13 @@ function renderPage(pageSelected, albumImages, albumId) {
         divItem.id = 'item';
         const img = document.createElement('img');
         //img.src = image.url;
-        img.title = 'A' + image.albumId + '+i' + image.id + '-' + image.title;
+        img.title =
+            'AlbumId: ' +
+            image.albumId +
+            ' - ImageId: ' +
+            image.id +
+            ' - ' +
+            image.title;
         img.alt = img.title;
         divItem.appendChild(img);
         divItems.append(divItem);
