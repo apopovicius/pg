@@ -26,104 +26,117 @@ per album.
     "id": 1,
     "title": "natus impedit quibusdam illo est"
   },
-  */
+]
+*/
 
 const albums_url = 'https://jsonplaceholder.typicode.com/albums';
 const image_url = 'https://jsonplaceholder.typicode.com/photos';
 
 getMostRecentAlbums();
 
-async function getMostRecentAlbums(){
+async function getMostRecentAlbums() {
     const [albums, images] = await fetchAlbumsAndImages();
-    const first10 = filterAlbums(albums);
 
+    const first10 = obtainAlbumMenuItems(albums);
     const recentAlbumsDiv = createAlbumList(first10);
+
     //const layoutDiv = document.getElementsByClassName('.layout');
     const layoutDiv = document.querySelector('.layout');
     layoutDiv.append(recentAlbumsDiv);
 
+    const albumImagesDiv = document.createElement('div');
+    albumImagesDiv.classList.add('albumImages');
+    const divItems = document.createElement('div');
+    divItems.classList.add('items');
+    const divPages = document.createElement('div');
+    divPages.classList.add('pages');
+
+    albumImagesDiv.append(divItems);
+    albumImagesDiv.append(divPages);
+
+    layoutDiv.append(albumImagesDiv);
+
+    registerMenuItemClick(images, albums, onMenuItemClick);
+}
+
+function onMenuItemClick(itemSelected, albums, images) {
+    // have to display the right content
+    const pageSelected = 1; // all the time you click on new album page becomes 1
+    const albumId = getAlbumIdFromListItem(albums, itemSelected);
+    const albumImages = getImagesForAlbumId(images, albumId);
+    renderPage(pageSelected, albumImages, albumId);
+}
+
+function onPageClicked(pageButtonId, currentAlbumImages, currentAlbumId) {
+    console.log(`Page ${pageButtonId} clicked`);
+    const pageSelected = pageButtonId;
+    renderPage(pageSelected, currentAlbumImages, currentAlbumId);
+}
+
+function registerMenuItemClick(images, albums, onMenuItemClick) {
     document.querySelectorAll('ul li').forEach((item) => {
-      item.addEventListener('click', (event) => {
-          clearPreviousDisplay();
-          console.log(event.target.textContent);
+        item.addEventListener('click', (event) => {
+            console.log(`MenuItem selected: ${event.target.textContent}`);
+            onMenuItemClick(event.target.textContent, albums, images);
+        });
+    });
+}
 
-          const albumIdSelected = getAlbumIdFromListItem(first10, event.target.textContent);
-          const imagesForAlbum = getImagesForAlbumId(images, albumIdSelected);
-
-          const divImages = createImagesForAlbum(imagesForAlbum, albumIdSelected, 1);
-          layoutDiv.append(divImages);
-
-          const divPages = createPages(imagesForAlbum.length/15, 1);
-          layoutDiv.append(divPages);
-
-          document.querySelectorAll('button').forEach( item => {
-            item.addEventListener('click', (event) => {
+function registerButtonPageClick(currentAlbumImages, currentAlbumId) {
+    document.querySelectorAll('button').forEach((item) => {
+        item.addEventListener('click', (event) => {
             const isButton = event.target.nodeName === 'BUTTON';
             if (!isButton) {
-              return;
+                return;
             }
-
-            const newDivImages = createImagesForAlbum(imagesForAlbum, albumIdSelected, event.target.id);
-            layoutDiv.append(newDivImages);
-
-            const newDivPages = createPages(imagesForAlbum.length/15, event.target.id);
-            layoutDiv.append(newDivPages);
-          })
+            onPageClicked(event.target.id, currentAlbumImages, currentAlbumId);
         });
-      })
+    });
+}
+
+function renderPage(pageSelected, albumImages, albumId) {
+    clearPreviousDisplay();
+
+    console.log(`Render page:${pageSelected} for albumId:${albumId}`);
+    const pageImages = getImagesByPage(albumImages, albumId, pageSelected);
+    const divItems = document.querySelector('.items');
+    pageImages.forEach((image) => {
+        const divItem = document.createElement('div');
+        divItem.id = 'item';
+        const img = document.createElement('img');
+        //img.src = image.url;
+        img.title = 'A' + image.albumId + '+i' + image.id + '-' + image.title;
+        img.alt = img.title;
+        divItem.appendChild(img);
+        divItems.append(divItem);
     });
 
+    createDivPages(pageSelected, albumImages, albumId);
 }
 
 function clearPreviousDisplay() {
-  console.log('Clearing');
-  const parent = document.querySelector('.details');
+    const parent = document.querySelector('.items');
 
-  while (parent && parent.firstChild) {
-    parent.firstChild.remove()
-  }
-  parent?.remove();
+    while (parent && parent.firstChild) {
+        parent.firstChild.remove();
+    }
 
-  const pages = document.querySelector('.pages');
-  pages?.remove();
+    const pages = document.querySelector('.pages');
+    while (pages && pages.firstChild) {
+        pages.firstChild.remove();
+    }
 }
 
-function createImagesForAlbum(imagesForAlbum, albumId, pageSelected) {
-  console.log(`Creating images for ${albumId} for page: ${pageSelected}`);
-
-  const divDetails = document.createElement('div');
-  divDetails.classList.add('details');
-
-  const displayImages = getImagesByPage(imagesForAlbum, albumId, pageSelected);
-  appendImages(displayImages, divDetails);
-  return divDetails;
-}
-
-function createPages(pages, currentPage) {
-  const divPages = document.createElement('div');
-  divPages.classList.add('pages');
-
-  for(let i=0; i<pages; i++) {
-    const button = document.createElement('button');
-    button.id = i+1;
-    button.textContent = i === currentPage-1 ? `<Page ${i+1}>`:  `Page ${i+1}`;
-    divPages.append(button);
-  }
-  return divPages;
-}
-
-function appendImages(displayImages, parentDiv) {
-  displayImages.forEach( image => {
-    const divItem = document.createElement('div');
-    divItem.id='item';
-    const img = document.createElement('img')
-    img.src = image.url
-    img.title = 'A' + image.albumId + '+i' + image.id + '-' + image.title
-    img.width = 200;
-    img.height = 200;
-    divItem.appendChild(img);
-    parentDiv.append(divItem);
-  })
+function createDivPages(currentPage, currentAlbumImages, currentAlbumId) {
+    const divPages = document.querySelector('.pages');
+    for (let i = 0; i < 4; i++) {
+        const button = document.createElement('button');
+        button.id = i + 1;
+        button.textContent =
+            i === currentPage - 1 ? `<Page ${i + 1}>` : `Page ${i + 1}`;
+        divPages.append(button);
+    }
+    registerButtonPageClick(currentAlbumImages, currentAlbumId);
 }
 // albumid = 1 - imagesID 1-50
 // albumid = 2 - imagesID 51-100
@@ -131,16 +144,19 @@ function appendImages(displayImages, parentDiv) {
 // page2 - 16-30
 
 function getImagesByPage(imagesForAlbum, albumId, page) {
-  // 15 images per page where each album has 50 images
-  const idByAlbum = 50*(albumId-1);
-  const startTranslatedID = idByAlbum + 15*(page-1) + 1;
-  const endTranslatedID = startTranslatedID + 15;
-  console.log(`start:${startTranslatedID} end:${endTranslatedID} albumIDStart:${idByAlbum}`)
-  const filteredImages = imagesForAlbum.filter(image => {
-    return (image.id >= startTranslatedID && image.id < endTranslatedID);
-  });
+    // 15 images per page where each album has 50 images
+    const idByAlbum = 50 * (albumId - 1);
+    const startTranslatedID = idByAlbum + 15 * (page - 1) + 1;
+    const endTranslatedID = startTranslatedID + 15;
 
-  return filteredImages;
+    // console.log(
+    //     `start:${startTranslatedID} end:${endTranslatedID} albumIDStart:${idByAlbum}`
+    // );
+    const filteredImages = imagesForAlbum.filter((image) => {
+        return image.id >= startTranslatedID && image.id < endTranslatedID;
+    });
+
+    return filteredImages;
 }
 
 function createAlbumList(albums) {
@@ -151,7 +167,7 @@ function createAlbumList(albums) {
     divRecentList.append(h1);
     const ulAlbums = document.createElement('ul');
     divRecentList.append(ulAlbums);
-    albums.forEach(album => {
+    albums.forEach((album) => {
         const listItem = document.createElement('li');
         listItem.textContent = album.title;
         ulAlbums.append(listItem);
@@ -159,31 +175,25 @@ function createAlbumList(albums) {
     return divRecentList;
 }
 
-
-
 function getAlbumIdFromListItem(albums, target) {
-  return albums.filter(album => album.title === target)[0].id;
+    return albums.filter((album) => album.title === target)[0]?.id;
 }
 
 function getImagesForAlbumId(images, albumId) {
-  return images.filter(image => image.albumId === albumId);
+    return images.filter((image) => image.albumId === albumId);
 }
 
-function filterAlbums(albums) {
-    const first10 = albums.filter(album => album.id < 11);
-    return first10;
+function obtainAlbumMenuItems(albums) {
+    return albums.filter((album) => album.id < 11);
 }
 
 async function fetchAlbumsAndImages() {
     //const response = await fetch(albums_url);
     //const albums = await response.json();
-    const [albumResponse, imageResponse] = await Promise.all([ 
-      fetch(albums_url),
-      fetch(image_url)
-      ]);
-
-    return await Promise.all([
-      albumResponse.json(),
-      imageResponse.json()
+    const [albumResponse, imageResponse] = await Promise.all([
+        fetch(albums_url),
+        fetch(image_url),
     ]);
+
+    return await Promise.all([albumResponse.json(), imageResponse.json()]);
 }
