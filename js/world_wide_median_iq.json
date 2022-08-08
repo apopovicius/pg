@@ -1,0 +1,1066 @@
+{
+    "data": [
+        {
+            "cca2": "SG",
+            "name": "Singapore",
+            "iq": 108,
+            "pop2020": "5850.3420"
+        },
+        {
+            "cca2": "HK",
+            "name": "Hong Kong",
+            "iq": 108,
+            "pop2020": "7496.9810"
+        },
+        {
+            "cca2": "KR",
+            "name": "South Korea",
+            "iq": 106,
+            "pop2020": "51269.1850"
+        },
+        {
+            "cca2": "JP",
+            "name": "Japan",
+            "iq": 105,
+            "pop2020": "126476.4610"
+        },
+        {
+            "cca2": "CN",
+            "name": "China",
+            "iq": 105,
+            "pop2020": "1439323.7760"
+        },
+        {
+            "cca2": "TW",
+            "name": "Taiwan",
+            "iq": 104,
+            "pop2020": "23816.7750"
+        },
+        {
+            "cca2": "IT",
+            "name": "Italy",
+            "iq": 102,
+            "pop2020": "60461.8260"
+        },
+        {
+            "cca2": "CH",
+            "name": "Switzerland",
+            "iq": 101,
+            "pop2020": "8654.6220"
+        },
+        {
+            "cca2": "MN",
+            "name": "Mongolia",
+            "iq": 101,
+            "pop2020": "3278.2900"
+        },
+        {
+            "cca2": "IS",
+            "name": "Iceland",
+            "iq": 101,
+            "pop2020": "341.2430"
+        },
+        {
+            "cca2": "GB",
+            "name": "United Kingdom",
+            "iq": 100,
+            "pop2020": "67886.0110"
+        },
+        {
+            "cca2": "NO",
+            "name": "Norway",
+            "iq": 100,
+            "pop2020": "5421.2410"
+        },
+        {
+            "cca2": "NL",
+            "name": "Netherlands",
+            "iq": 100,
+            "pop2020": "17134.8720"
+        },
+        {
+            "cca2": "LU",
+            "name": "Luxembourg",
+            "iq": 100,
+            "pop2020": "625.9780"
+        },
+        {
+            "cca2": "AT",
+            "name": "Austria",
+            "iq": 100,
+            "pop2020": "9006.3980"
+        },
+        {
+            "cca2": "SE",
+            "name": "Sweden",
+            "iq": 99,
+            "pop2020": "10099.2650"
+        },
+        {
+            "cca2": "PL",
+            "name": "Poland",
+            "iq": 99,
+            "pop2020": "37846.6110"
+        },
+        {
+            "cca2": "BE",
+            "name": "Belgium",
+            "iq": 99,
+            "pop2020": "11589.6230"
+        },
+        {
+            "cca2": "DE",
+            "name": "Germany",
+            "iq": 99,
+            "pop2020": "83783.9420"
+        },
+        {
+            "cca2": "FI",
+            "name": "Finland",
+            "iq": 99,
+            "pop2020": "5540.7200"
+        },
+        {
+            "cca2": "EE",
+            "name": "Estonia",
+            "iq": 99,
+            "pop2020": "1326.5350"
+        },
+        {
+            "cca2": "CA",
+            "name": "Canada",
+            "iq": 99,
+            "pop2020": "37742.1540"
+        },
+        {
+            "cca2": "US",
+            "name": "United States",
+            "iq": 98,
+            "pop2020": "331002.6510"
+        },
+        {
+            "cca2": "ES",
+            "name": "Spain",
+            "iq": 98,
+            "pop2020": "46754.7780"
+        },
+        {
+            "cca2": "NZ",
+            "name": "New Zealand",
+            "iq": 98,
+            "pop2020": "4822.2330"
+        },
+        {
+            "cca2": "LV",
+            "name": "Latvia",
+            "iq": 98,
+            "pop2020": "1886.1980"
+        },
+        {
+            "cca2": "AU",
+            "name": "Australia",
+            "iq": 98,
+            "pop2020": "25499.8840"
+        },
+        {
+            "cca2": "HU",
+            "name": "Hungary",
+            "iq": 98,
+            "pop2020": "9660.3510"
+        },
+        {
+            "cca2": "FR",
+            "name": "France",
+            "iq": 98,
+            "pop2020": "65273.5110"
+        },
+        {
+            "cca2": "DK",
+            "name": "Denmark",
+            "iq": 98,
+            "pop2020": "5792.2020"
+        },
+        {
+            "cca2": "CZ",
+            "name": "Czech Republic",
+            "iq": 98,
+            "pop2020": "10708.9810"
+        },
+        {
+            "cca2": "AD",
+            "name": "Andorra",
+            "iq": 98,
+            "pop2020": "77.2650"
+        },
+        {
+            "cca2": "UA",
+            "name": "Ukraine",
+            "iq": 97,
+            "pop2020": "43733.7620"
+        },
+        {
+            "cca2": "RU",
+            "name": "Russia",
+            "iq": 97,
+            "pop2020": "145934.4620"
+        },
+        {
+            "cca2": "MT",
+            "name": "Malta",
+            "iq": 97,
+            "pop2020": "441.5430"
+        },
+        {
+            "cca2": "BY",
+            "name": "Belarus",
+            "iq": 97,
+            "pop2020": "9449.3230"
+        },
+        {
+            "cca2": "UY",
+            "name": "Uruguay",
+            "iq": 96,
+            "pop2020": "3473.7300"
+        },
+        {
+            "cca2": "SI",
+            "name": "Slovenia",
+            "iq": 96,
+            "pop2020": "2078.9380"
+        },
+        {
+            "cca2": "SK",
+            "name": "Slovakia",
+            "iq": 96,
+            "pop2020": "5459.6420"
+        },
+        {
+            "cca2": "MD",
+            "name": "Moldova",
+            "iq": 96,
+            "pop2020": "4033.9630"
+        },
+        {
+            "cca2": "PT",
+            "name": "Portugal",
+            "iq": 95,
+            "pop2020": "10196.7090"
+        },
+        {
+            "cca2": "IL",
+            "name": "Israel",
+            "iq": 95,
+            "pop2020": "8655.5350"
+        },
+        {
+            "cca2": "VN",
+            "name": "Vietnam",
+            "iq": 94,
+            "pop2020": "97338.5790"
+        },
+        {
+            "cca2": "RO",
+            "name": "Romania",
+            "iq": 94,
+            "pop2020": "19237.6910"
+        },
+        {
+            "cca2": "AM",
+            "name": "Armenia",
+            "iq": 94,
+            "pop2020": "2963.2430"
+        },
+        {
+            "cca2": "KZ",
+            "name": "Kazakhstan",
+            "iq": 94,
+            "pop2020": "18776.7070"
+        },
+        {
+            "cca2": "GE",
+            "name": "Georgia",
+            "iq": 94,
+            "pop2020": "3989.1670"
+        },
+        {
+            "cca2": "AR",
+            "name": "Argentina",
+            "iq": 93,
+            "pop2020": "45195.7740"
+        },
+        {
+            "cca2": "BG",
+            "name": "Bulgaria",
+            "iq": 93,
+            "pop2020": "6948.4450"
+        },
+        {
+            "cca2": "MY",
+            "name": "Malaysia",
+            "iq": 92,
+            "pop2020": "32365.9990"
+        },
+        {
+            "cca2": "IE",
+            "name": "Ireland",
+            "iq": 92,
+            "pop2020": "4937.7860"
+        },
+        {
+            "cca2": "GR",
+            "name": "Greece",
+            "iq": 92,
+            "pop2020": "10423.0540"
+        },
+        {
+            "cca2": "BN",
+            "name": "Brunei",
+            "iq": 91,
+            "pop2020": "437.4790"
+        },
+        {
+            "cca2": "TH",
+            "name": "Thailand",
+            "iq": 91,
+            "pop2020": "69799.9780"
+        },
+        {
+            "cca2": "SL",
+            "name": "Sierra Leone",
+            "iq": 91,
+            "pop2020": "7976.9830"
+        },
+        {
+            "cca2": "LT",
+            "name": "Lithuania",
+            "iq": 91,
+            "pop2020": "2722.2890"
+        },
+        {
+            "cca2": "CY",
+            "name": "Cyprus",
+            "iq": 91,
+            "pop2020": "1207.3590"
+        },
+        {
+            "cca2": "KH",
+            "name": "Cambodia",
+            "iq": 91,
+            "pop2020": "16718.9650"
+        },
+        {
+            "cca2": "AL",
+            "name": "Albania",
+            "iq": 90,
+            "pop2020": "2877.7970"
+        },
+        {
+            "cca2": "TR",
+            "name": "Turkey",
+            "iq": 90,
+            "pop2020": "84339.0670"
+        },
+        {
+            "cca2": "BA",
+            "name": "Bosnia and Herzegovina",
+            "iq": 90,
+            "pop2020": "3280.8190"
+        },
+        {
+            "cca2": "KG",
+            "name": "Kyrgyzstan",
+            "iq": 90,
+            "pop2020": "6524.1950"
+        },
+        {
+            "cca2": "HR",
+            "name": "Croatia",
+            "iq": 90,
+            "pop2020": "4105.2670"
+        },
+        {
+            "cca2": "CL",
+            "name": "Chile",
+            "iq": 90,
+            "pop2020": "19116.2010"
+        },
+        {
+            "cca2": "SR",
+            "name": "Suriname",
+            "iq": 89,
+            "pop2020": "586.6320"
+        },
+        {
+            "cca2": "RS",
+            "name": "Serbia",
+            "iq": 89,
+            "pop2020": "8737.3710"
+        },
+        {
+            "cca2": "MU",
+            "name": "Mauritius",
+            "iq": 89,
+            "pop2020": "1271.7680"
+        },
+        {
+            "cca2": "LA",
+            "name": "Laos",
+            "iq": 89,
+            "pop2020": "7275.5600"
+        },
+        {
+            "cca2": "CR",
+            "name": "Costa Rica",
+            "iq": 89,
+            "pop2020": "5094.1180"
+        },
+        {
+            "cca2": "WS",
+            "name": "Samoa",
+            "iq": 88,
+            "pop2020": "198.4140"
+        },
+        {
+            "cca2": "MX",
+            "name": "Mexico",
+            "iq": 88,
+            "pop2020": "128932.7530"
+        },
+        {
+            "cca2": "EC",
+            "name": "Ecuador",
+            "iq": 88,
+            "pop2020": "17643.0540"
+        },
+        {
+            "cca2": "UZ",
+            "name": "Uzbekistan",
+            "iq": 87,
+            "pop2020": "33469.2030"
+        },
+        {
+            "cca2": "TM",
+            "name": "Turkmenistan",
+            "iq": 87,
+            "pop2020": "6031.2000"
+        },
+        {
+            "cca2": "TJ",
+            "name": "Tajikistan",
+            "iq": 87,
+            "pop2020": "9537.6450"
+        },
+        {
+            "cca2": "BR",
+            "name": "Brazil",
+            "iq": 87,
+            "pop2020": "212559.4170"
+        },
+        {
+            "cca2": "BO",
+            "name": "Bolivia",
+            "iq": 87,
+            "pop2020": "11673.0210"
+        },
+        {
+            "cca2": "NR",
+            "name": "Nauru",
+            "iq": 87,
+            "pop2020": "10.8240"
+        },
+        {
+            "cca2": "IQ",
+            "name": "Iraq",
+            "iq": 87,
+            "pop2020": "40222.4930"
+        },
+        {
+            "cca2": "ID",
+            "name": "Indonesia",
+            "iq": 87,
+            "pop2020": "273523.6150"
+        },
+        {
+            "cca2": "GY",
+            "name": "Guyana",
+            "iq": 87,
+            "pop2020": "786.5520"
+        },
+        {
+            "cca2": "AZ",
+            "name": "Azerbaijan",
+            "iq": 87,
+            "pop2020": "10139.1770"
+        },
+        {
+            "cca2": "MM",
+            "name": "Myanmar",
+            "iq": 87,
+            "pop2020": "54409.8000"
+        },
+        {
+            "cca2": "TO",
+            "name": "Tonga",
+            "iq": 86,
+            "pop2020": "105.6950"
+        },
+        {
+            "cca2": "SC",
+            "name": "Seychelles",
+            "iq": 86,
+            "pop2020": "98.3470"
+        },
+        {
+            "cca2": "PH",
+            "name": "Philippines",
+            "iq": 86,
+            "pop2020": "109581.0780"
+        },
+        {
+            "cca2": "KW",
+            "name": "Kuwait",
+            "iq": 86,
+            "pop2020": "4270.5710"
+        },
+        {
+            "cca2": "YE",
+            "name": "Yemen",
+            "iq": 85,
+            "pop2020": "29825.9640"
+        },
+        {
+            "cca2": "TT",
+            "name": "Trinidad and Tobago",
+            "iq": 85,
+            "pop2020": "1399.4880"
+        },
+        {
+            "cca2": "PE",
+            "name": "Peru",
+            "iq": 85,
+            "pop2020": "32971.8540"
+        },
+        {
+            "cca2": "KI",
+            "name": "Kiribati",
+            "iq": 85,
+            "pop2020": "119.4490"
+        },
+        {
+            "cca2": "FJ",
+            "name": "Fiji",
+            "iq": 85,
+            "pop2020": "896.4450"
+        },
+        {
+            "cca2": "ER",
+            "name": "Eritrea",
+            "iq": 85,
+            "pop2020": "3546.4210"
+        },
+        {
+            "cca2": "CU",
+            "name": "Cuba",
+            "iq": 85,
+            "pop2020": "11326.6160"
+        },
+        {
+            "cca2": "SB",
+            "name": "Solomon Islands",
+            "iq": 84,
+            "pop2020": "686.8840"
+        },
+        {
+            "cca2": "VE",
+            "name": "Venezuela",
+            "iq": 84,
+            "pop2020": "28435.9400"
+        },
+        {
+            "cca2": "BZ",
+            "name": "Belize",
+            "iq": 84,
+            "pop2020": "397.6280"
+        },
+        {
+            "cca2": "UG",
+            "name": "Uganda",
+            "iq": 84,
+            "pop2020": "45741.0070"
+        },
+        {
+            "cca2": "AE",
+            "name": "United Arab Emirates",
+            "iq": 84,
+            "pop2020": "9890.4020"
+        },
+        {
+            "cca2": "SA",
+            "name": "Saudi Arabia",
+            "iq": 84,
+            "pop2020": "34813.8710"
+        },
+        {
+            "cca2": "PY",
+            "name": "Paraguay",
+            "iq": 84,
+            "pop2020": "7132.5380"
+        },
+        {
+            "cca2": "PA",
+            "name": "Panama",
+            "iq": 84,
+            "pop2020": "4314.7670"
+        },
+        {
+            "cca2": "PK",
+            "name": "Pakistan",
+            "iq": 84,
+            "pop2020": "220892.3400"
+        },
+        {
+            "cca2": "MH",
+            "name": "Marshall Islands",
+            "iq": 84,
+            "pop2020": "59.1900"
+        },
+        {
+            "cca2": "FM",
+            "name": "Micronesia",
+            "iq": 84,
+            "pop2020": "115.0230"
+        },
+        {
+            "cca2": "NG",
+            "name": "Nigeria",
+            "iq": 84,
+            "pop2020": "206139.5890"
+        },
+        {
+            "cca2": "VU",
+            "name": "Vanuatu",
+            "iq": 84,
+            "pop2020": "307.1450"
+        },
+        {
+            "cca2": "MA",
+            "name": "Morocco",
+            "iq": 84,
+            "pop2020": "36910.5600"
+        },
+        {
+            "cca2": "JO",
+            "name": "Jordan",
+            "iq": 84,
+            "pop2020": "10203.1340"
+        },
+        {
+            "cca2": "AF",
+            "name": "Afghanistan",
+            "iq": 84,
+            "pop2020": "38928.3460"
+        },
+        {
+            "cca2": "IR",
+            "name": "Iran",
+            "iq": 84,
+            "pop2020": "83992.9490"
+        },
+        {
+            "cca2": "CO",
+            "name": "Colombia",
+            "iq": 84,
+            "pop2020": "50882.8910"
+        },
+        {
+            "cca2": "TN",
+            "name": "Tunisia",
+            "iq": 83,
+            "pop2020": "11818.6190"
+        },
+        {
+            "cca2": "SY",
+            "name": "Syria",
+            "iq": 83,
+            "pop2020": "17500.6580"
+        },
+        {
+            "cca2": "PG",
+            "name": "Papua New Guinea",
+            "iq": 83,
+            "pop2020": "8947.0240"
+        },
+        {
+            "cca2": "OM",
+            "name": "Oman",
+            "iq": 83,
+            "pop2020": "5106.6260"
+        },
+        {
+            "cca2": "BH",
+            "name": "Bahrain",
+            "iq": 83,
+            "pop2020": "1701.5750"
+        },
+        {
+            "cca2": "LY",
+            "name": "Libya",
+            "iq": 83,
+            "pop2020": "6871.2920"
+        },
+        {
+            "cca2": "DZ",
+            "name": "Algeria",
+            "iq": 83,
+            "pop2020": "43851.0440"
+        },
+        {
+            "cca2": "ZW",
+            "name": "Zimbabwe",
+            "iq": 82,
+            "pop2020": "14862.9240"
+        },
+        {
+            "cca2": "BD",
+            "name": "Bangladesh",
+            "iq": 82,
+            "pop2020": "164689.3830"
+        },
+        {
+            "cca2": "MG",
+            "name": "Madagascar",
+            "iq": 82,
+            "pop2020": "27691.0180"
+        },
+        {
+            "cca2": "LB",
+            "name": "Lebanon",
+            "iq": 82,
+            "pop2020": "6825.4450"
+        },
+        {
+            "cca2": "IN",
+            "name": "India",
+            "iq": 82,
+            "pop2020": "1380004.3850"
+        },
+        {
+            "cca2": "DO",
+            "name": "Dominican Republic",
+            "iq": 82,
+            "pop2020": "10847.9100"
+        },
+        {
+            "cca2": "EG",
+            "name": "Egypt",
+            "iq": 81,
+            "pop2020": "102334.4040"
+        },
+        {
+            "cca2": "NI",
+            "name": "Nicaragua",
+            "iq": 81,
+            "pop2020": "6624.5540"
+        },
+        {
+            "cca2": "MV",
+            "name": "Maldives",
+            "iq": 81,
+            "pop2020": "540.5440"
+        },
+        {
+            "cca2": "HN",
+            "name": "Honduras",
+            "iq": 81,
+            "pop2020": "9904.6070"
+        },
+        {
+            "cca2": "BT",
+            "name": "Bhutan",
+            "iq": 80,
+            "pop2020": "771.6080"
+        },
+        {
+            "cca2": "BB",
+            "name": "Barbados",
+            "iq": 80,
+            "pop2020": "287.3750"
+        },
+        {
+            "cca2": "KE",
+            "name": "Kenya",
+            "iq": 80,
+            "pop2020": "53771.2960"
+        },
+        {
+            "cca2": "SV",
+            "name": "El Salvador",
+            "iq": 80,
+            "pop2020": "6486.2050"
+        },
+        {
+            "cca2": "ZM",
+            "name": "Zambia",
+            "iq": 79,
+            "pop2020": "18383.9550"
+        },
+        {
+            "cca2": "GT",
+            "name": "Guatemala",
+            "iq": 79,
+            "pop2020": "17915.5680"
+        },
+        {
+            "cca2": "LK",
+            "name": "Sri Lanka",
+            "iq": 79,
+            "pop2020": "21413.2490"
+        },
+        {
+            "cca2": "QA",
+            "name": "Qatar",
+            "iq": 78,
+            "pop2020": "2881.0530"
+        },
+        {
+            "cca2": "NP",
+            "name": "Nepal",
+            "iq": 78,
+            "pop2020": "29136.8080"
+        },
+        {
+            "cca2": "ZA",
+            "name": "South Africa",
+            "iq": 77,
+            "pop2020": "59308.6900"
+        },
+        {
+            "cca2": "KM",
+            "name": "Comoros",
+            "iq": 77,
+            "pop2020": "869.6010"
+        },
+        {
+            "cca2": "SN",
+            "name": "Senegal",
+            "iq": 76,
+            "pop2020": "16743.9270"
+        },
+        {
+            "cca2": "MR",
+            "name": "Mauritania",
+            "iq": 76,
+            "pop2020": "4649.6580"
+        },
+        {
+            "cca2": "CV",
+            "name": "Cape Verde",
+            "iq": 76,
+            "pop2020": "555.9870"
+        },
+        {
+            "cca2": "NA",
+            "name": "Namibia",
+            "iq": 74,
+            "pop2020": "2540.9050"
+        },
+        {
+            "cca2": "ML",
+            "name": "Mali",
+            "iq": 74,
+            "pop2020": "20250.8330"
+        },
+        {
+            "cca2": "GH",
+            "name": "Ghana",
+            "iq": 73,
+            "pop2020": "31072.9400"
+        },
+        {
+            "cca2": "TZ",
+            "name": "Tanzania",
+            "iq": 72,
+            "pop2020": "59734.2180"
+        },
+        {
+            "cca2": "SD",
+            "name": "Sudan",
+            "iq": 71,
+            "pop2020": "43849.2600"
+        },
+        {
+            "cca2": "VC",
+            "name": "Saint Vincent and the Grenadines",
+            "iq": 71,
+            "pop2020": "110.9400"
+        },
+        {
+            "cca2": "JM",
+            "name": "Jamaica",
+            "iq": 71,
+            "pop2020": "2961.1670"
+        },
+        {
+            "cca2": "CF",
+            "name": "Central African Republic",
+            "iq": 71,
+            "pop2020": "4829.7670"
+        },
+        {
+            "cca2": "TG",
+            "name": "Togo",
+            "iq": 70,
+            "pop2020": "8278.7240"
+        },
+        {
+            "cca2": "BW",
+            "name": "Botswana",
+            "iq": 70,
+            "pop2020": "2351.6270"
+        },
+        {
+            "cca2": "RW",
+            "name": "Rwanda",
+            "iq": 70,
+            "pop2020": "12952.2180"
+        },
+        {
+            "cca2": "AG",
+            "name": "Antigua and Barbuda",
+            "iq": 70,
+            "pop2020": "97.9290"
+        },
+        {
+            "cca2": "BJ",
+            "name": "Benin",
+            "iq": 70,
+            "pop2020": "12123.2000"
+        },
+        {
+            "cca2": "NE",
+            "name": "Niger",
+            "iq": 69,
+            "pop2020": "24206.6440"
+        },
+        {
+            "cca2": "MW",
+            "name": "Malawi",
+            "iq": 69,
+            "pop2020": "19129.9520"
+        },
+        {
+            "cca2": "ET",
+            "name": "Ethiopia",
+            "iq": 69,
+            "pop2020": "114963.5880"
+        },
+        {
+            "cca2": "BI",
+            "name": "Burundi",
+            "iq": 69,
+            "pop2020": "11890.7840"
+        },
+        {
+            "cca2": "BF",
+            "name": "Burkina Faso",
+            "iq": 68,
+            "pop2020": "20903.2730"
+        },
+        {
+            "cca2": "SO",
+            "name": "Somalia",
+            "iq": 68,
+            "pop2020": "15893.2220"
+        },
+        {
+            "cca2": "DJ",
+            "name": "Djibouti",
+            "iq": 68,
+            "pop2020": 988
+        },
+        {
+            "cca2": "AO",
+            "name": "Angola",
+            "iq": 68,
+            "pop2020": "32866.2720"
+        },
+        {
+            "cca2": "TD",
+            "name": "Chad",
+            "iq": 68,
+            "pop2020": "16425.8640"
+        },
+        {
+            "cca2": "KN",
+            "name": "Saint Kitts and Nevis",
+            "iq": 67,
+            "pop2020": "53.1990"
+        },
+        {
+            "cca2": "GW",
+            "name": "Guinea-Bissau",
+            "iq": 67,
+            "pop2020": "1968.0010"
+        },
+        {
+            "cca2": "LR",
+            "name": "Liberia",
+            "iq": 67,
+            "pop2020": "5057.6810"
+        },
+        {
+            "cca2": "LS",
+            "name": "Lesotho",
+            "iq": 67,
+            "pop2020": "2142.2490"
+        },
+        {
+            "cca2": "HT",
+            "name": "Haiti",
+            "iq": 67,
+            "pop2020": "11402.5280"
+        },
+        {
+            "cca2": "GN",
+            "name": "Guinea",
+            "iq": 67,
+            "pop2020": "13132.7950"
+        },
+        {
+            "cca2": "DM",
+            "name": "Dominica",
+            "iq": 67,
+            "pop2020": "71.9860"
+        },
+        {
+            "cca2": "MZ",
+            "name": "Mozambique",
+            "iq": 64,
+            "pop2020": "31255.4350"
+        },
+        {
+            "cca2": "GA",
+            "name": "Gabon",
+            "iq": 64,
+            "pop2020": "2225.7340"
+        },
+        {
+            "cca2": "CM",
+            "name": "Cameroon",
+            "iq": 64,
+            "pop2020": "26545.8630"
+        },
+        {
+            "cca2": "LC",
+            "name": "Saint Lucia",
+            "iq": 62,
+            "pop2020": "183.6270"
+        },
+        {
+            "cca2": "GQ",
+            "name": "Equatorial Guinea",
+            "iq": 59,
+            "pop2020": "1402.9850"
+        }
+    ]
+}
