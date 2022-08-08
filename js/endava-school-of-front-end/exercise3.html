@@ -1,0 +1,96 @@
+<html>
+    <title>
+        Vanilla ToDo list
+    </title>
+    <head>
+        <script src='exercise3.js' defer></script>
+        <style>
+            .layout {
+                display: flex;
+                flex-direction: row;
+                margin: 10px;
+            }
+
+            .input-form {
+                display: block; 
+                width: 45%;
+                text-align: center;
+            }
+            
+            .todo-list {
+                margin-left: 50px;
+                width: 45%;
+                color: green;
+                text-align: center;
+            }
+
+            .input-form h2 {
+                color:blueviolet;
+                background-color: black;
+                padding: 10px;
+            }
+
+            .todo-list h2 {
+                color:darkorange;
+                background-color: green;
+                padding: 10px;
+            }
+
+            textarea {
+                width: 250px;
+                height: 150px;
+            }
+
+            .item {
+                display: block;
+                width: 350px;
+                min-height: 75px;
+                background-color: yellow;
+                color: darkmagenta;
+                margin: 10px auto;
+                border: 1px solid green;
+                border-radius: 10px;
+                padding:10px;
+                overflow: hidden;
+            }
+
+            .item h4 {
+                color: white;
+                background-color: blueviolet;
+                height: auto;
+                margin-top: 0px;
+                padding: 5px;
+            }
+
+            #order-btn {
+                padding: 5  px;
+                border-radius: 10px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class='layout'>
+            <div class='input-form'>
+                <h2>Add new item in the ToDo list?</h2>
+                <form id='form-add-todo'>
+                    <textarea id='todo-message' rows='10' cols='30' placeholder='Type here your todo text' required></textarea> 
+                    <br/><br/>
+                    <label for='priority'>Priority</label>                    
+                    <select id='priority'>
+                        <option>P1</option> 
+                        <option>P2</option>
+                        <option>P3</option>
+                    </select> 
+                    <input type='submit' value='Add item'></input>     
+                </form>
+            </div>
+            <div class='todo-list'>
+                <h2>Here is your list of things to be done!</h2>
+                <button id='order-btn' class='order-by-date'>Order by Date &#x2193;</button>
+                <button id='order-btn' class='order-by-priority'>Order by Priority &#x2193;</button>
+            </div>
+        </div>
+    </body>
+</html>
