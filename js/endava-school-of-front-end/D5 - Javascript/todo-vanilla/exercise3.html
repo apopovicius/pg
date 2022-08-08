@@ -1,8 +1,7 @@
+<!DOCTYPE html>
 <html>
-    <title>
-        Vanilla ToDo list
-    </title>
     <head>
+        <title>Vanilla ToDo list</title>
         <script src="exercise3.js" defer></script>
         <style>
             .layout {
@@ -63,8 +62,8 @@
                 padding: 5px;
             }
 
-            #order-btn {
-                padding: 5  px;
+            .order-by-date, .order-by-priority {
+                padding: 5px;
                 border-radius: 10px;
             }
 
@@ -84,13 +83,13 @@
                         <option>P2</option>
                         <option>P3</option>
                     </select> 
-                    <input type="submit" value="Add item"></input>     
+                    <input type="submit" value="Add item"/>
                 </form>
             </div>
             <div class="todo-list">
                 <h2>Here is your list of things to be done!</h2>
-                <button id="order-btn" class="order-by-date">Order by Date &#x2193;</button>
-                <button id="order-btn" class="order-by-priority">Order by Priority &#x2193;</button>
+                <button id="order-btn-date" class="order-by-date">Order by Date &#x2193;</button>
+                <button id="order-btn-priority" class="order-by-priority">Order by Priority &#x2193;</button>
             </div>
         </div>
     </body>
