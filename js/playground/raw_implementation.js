@@ -77,7 +77,7 @@ function deepEquals(valueOne, valueTwo) {
 // takes a string in isoDate format
 // return an object that could be use for a timmer functionality
 // timmerInfo = {hours: number, minutes: number, seconds: number}
-// how many hours, min, seconds PASTS from the date passed as input?
+// how many hours, min, seconds TILL reach the date passed as input?
 function getTimmer(isoDate, timmerInfo) {
     const date = new Date(isoDate);
     setInterval(() => {
