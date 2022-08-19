@@ -17,24 +17,23 @@ Closures remember the outer function scope even after creation time.
 
 function human(name) {
     function sayHi() {
-        console.log(`Hi I am ${name}`)
+        console.log(`Hi I am ${name}`);
     }
     function sayHowYouFeel() {
-        console.log(`${name} is feeling good`)
+        console.log(`${name} is feeling good`);
     }
 
     return {
         sayHi,
-        sayHowYouFeel
-    }
+        sayHowYouFeel,
+    };
 }
 
 //human()
-human('Eugene')
+human('Eugene');
 
-const marko = human('Marko')
-const ted = human('Ted')
+const marko = human('Marko');
+const ted = human('Ted');
 
-marko.sayHi()
-ted.sayHowYouFeel()
-
+marko.sayHi();
+ted.sayHowYouFeel();

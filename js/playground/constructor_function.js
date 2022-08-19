@@ -10,16 +10,15 @@ class ConstructorFunction {
 */
 
 function Person(name) {
-    this.name = name
+    this.name = name;
     this.talk = () => {
         return `Hello ${this.name}`;
-    }
+    };
 }
 
 const sina = new Person('Sina');
 const sam = new Person('Sam');
 const ben = new Person('Ben');
-
 
 // constructor vs factory function
 // how to make factory behave like constructor
@@ -28,13 +27,13 @@ const ben = new Person('Ben');
 const myCoolProto = {
     talk() {
         return `Hello ${this.name}`;
-    }
-}
+    },
+};
 
 function createPerson(name) {
     return Object.create(myCoolProto, {
         name: {
-            value: name
-        }
-    })
+            value: name,
+        },
+    });
 }

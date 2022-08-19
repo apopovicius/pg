@@ -11,33 +11,30 @@ const me = {
     name: 'Ben',
     talk() {
         return `Hello I am ${this.name}`;
-    }
-}
+    },
+};
 
 const mark = {
     name: 'Mark',
     talk() {
         return `Hello I am ${this.name}`;
-    }
-}
+    },
+};
 me.talk();
 mark.talk();
-
 
 function personFactory(name) {
     return {
         talk() {
             return `Hello I am ${name}`;
-        }
-    }
+        },
+    };
 }
 
 const me2 = personFactory('Eugene');
 me2.talk();
 const mark2 = personFactory('Marcos');
 mark2.talk();
-
-
 
 // example 2
 function createElement(type, text, color) {
@@ -52,15 +49,14 @@ function createElement(type, text, color) {
         },
         setColor(color) {
             el.style.color = color;
-        }
-    }
+        },
+    };
 }
 
-const h1 = createElement('h1', 'Ahoy', 'red')
+const h1 = createElement('h1', 'Ahoy', 'red');
 h1.setColor('blue');
-h1.setText('Not so easy!')
+h1.setText('Not so easy!');
 
-
-const p = createElement('p', 'para', 'yellow')
+const p = createElement('p', 'para', 'yellow');
 p.setColor('grey');
-p.setText('my para')
+p.setText('my para');
