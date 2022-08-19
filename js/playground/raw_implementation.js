@@ -73,7 +73,7 @@ function deepEquals(valueOne, valueTwo) {
     return true;
 }
 
-//3. timmer isoDate: '2022-06-02T00:00:00.000-07:00'
+//3. CountDownTimmer isoDate: '2022-06-02T00:00:00.000-07:00'
 // takes a string in isoDate format
 // return an object that could be use for a timmer functionality
 // timmerInfo = {hours: number, minutes: number, seconds: number}
