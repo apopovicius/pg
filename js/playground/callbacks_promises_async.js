@@ -1,17 +1,16 @@
-const  posts = [
-    {title: 'Post one', body: 'This is post one'},
-    {title: 'Post two', body: 'This is post two'}
+const posts = [
+    { title: 'Post one', body: 'This is post one' },
+    { title: 'Post two', body: 'This is post two' },
 ];
-
 
 // callbacks
 function getPosts() {
-    setTimeout( ()=> {
+    setTimeout(() => {
         let output = '';
-        posts.forEach( post => {
-            output += `<li>${post.title}</li>`
+        posts.forEach((post) => {
+            output += `<li>${post.title}</li>`;
         });
-        document.body.innerHTML = output
+        document.body.innerHTML = output;
     }, 1000);
 }
 
@@ -25,18 +24,16 @@ function getPosts() {
 
 // creatPost( {title: 'Post three', body: 'This is post three'}, getPosts);
 
-
 // promises
 function creatPost(post) {
     return new Promise((resolve, reject) => {
-        setTimeout( () => {
+        setTimeout(() => {
             posts.push(post);
 
             const error = false;
-            if(!error) {
+            if (!error) {
                 resolve();
-            }
-            else { 
+            } else {
                 reject('Error: Something went wrong');
             }
         }, 2000);
@@ -49,11 +46,17 @@ function creatPost(post) {
 
 // promise.all
 const promise1 = Promise.resolve('Hello world');
-const promise2 =10;
-const promise3 = new Promise((resolve,reject) => setTimeout(resolve,2000, 'Goodbye'));
-const promise4 = fetch('https://jsonplaceholder.typicode.com/users').then(response => response.json())
+const promise2 = 10;
+const promise3 = new Promise((resolve, reject) =>
+    setTimeout(resolve, 2000, 'Goodbye')
+);
+const promise4 = fetch('https://jsonplaceholder.typicode.com/users').then(
+    (response) => response.json()
+);
 
-Promise.all([promise1,promise2,promise3, promise4]).then( ( values) => console.log(values) );
+Promise.all([promise1, promise2, promise3, promise4]).then((values) =>
+    console.log(values)
+);
 
 // → ['Hello world', 10, 'Goodbye']
 // → 0: "Hello world"
@@ -62,14 +65,12 @@ Promise.all([promise1,promise2,promise3, promise4]).then( ( values) => console.l
 // → 3: (10) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
 // → length: 4
 
-
 // async/await
 async function init() {
-    await creatPost( {title: 'Post three', body: 'This is post three'} );
+    await creatPost({ title: 'Post three', body: 'This is post three' });
     getPosts();
 }
 init();
-
 
 // async/await/fetch
 async function fetchUsers() {

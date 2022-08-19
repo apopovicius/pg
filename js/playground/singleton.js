@@ -1,13 +1,12 @@
 class Singleton {
     constructor() {
-
-        if(Singleton.instance instanceof Singleton) {
+        if (Singleton.instance instanceof Singleton) {
             return Singleton.instance;
         }
 
-        this.data = { 
-            'location': 'Iasi',
-            'age': Math.floor(Math.random() * 80)
+        this.data = {
+            location: 'Iasi',
+            age: Math.floor(Math.random() * 80),
         };
 
         Object.freeze(this.data); // wont allow to modify from exterior
@@ -19,7 +18,6 @@ class Singleton {
         return this.data[key];
     }
 }
-
 
 let s1 = new Singleton();
 console.log(s1.get('age'));
