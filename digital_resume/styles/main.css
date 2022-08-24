@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+
+:root{
+    --mainTextColor-light:#000;
+    --secondaryTextColor-light:rgb(51 51 51);
+    --mainLinkColor-light:#0da2b8;
+    --mainBorderColor-light:rgb(218, 218, 218);
+    --mainBgColor-light:rgb(249, 250, 251);
+    --mainImageBgColor-light: rgb(51 51 51);
+
+    --mainTextColor-dark:#fff;
+    --secondaryTextColor-dark:#adb0b1;
+    --mainLinkColor-dark:rgb(30, 190,214);
+    --mainBorderColor-dark:#2b3031;
+    --mainBgColor-dark:#131415;
+    --mainImageBgColor-dark: #adb0b1;
+
+    --mainTextColor:var(--mainTextColor-light);
+    --secondaryTextColor:var(--secondaryTextColor-light);
+    --mainLinkColor:var(--mainLinkColor-light);
+    --mainBorderColor:var(--mainBorderColor-light);
+    --mainBgColor:var(--mainBgColor-light);
+    --mainImageBgColor:var(--mainImageBgColor-light);
+}
+
+*{
+    font-family: 'Readex Pro';
+    line-height: 1.5em;
+    box-sizing: border-box;
+    color: var(--mainTextColor);
+
+}
+
+body{
+    background-color: var(--mainBgColor);            
+}
+
+p, span, li {
+    color: var(--secondaryTextColor);
+    font-size: 1em;
+}
+
+a{
+    text-decoration: underline;
+    color: var(--mainLinkColor);
+    font-size: 500;
+}
+
+li{
+    line-height: 1.9em;
+    list-style-type: circle;
+}
+
+ul li::before {
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: var(--mainLinkColor); /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    width: 1em; /* Also needed for space (tweak if needed) */
+    margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+li:hover{
+    background: var(--mainBorderColor);
+    filter: alpha(opacity=20);
+}
+
+#container--main{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.section--page{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#wrapper--hero{
+    display:flex;
+    align-items: center;
+    gap: 4em;
+}
+
+#profile-image{
+    width: 200px;
+    height: 200px; 
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#bio, a{
+    font-weight: 300;
+}
+
+#user-name{
+    font-size:2.5em;
+    line-height: 1em;
+}
+
+#email{
+    color:var(--mainTextColor);
+}
+
+#email, a{
+    font-weight: 300;
+}
+
+#spoken-languages{
+    display:flex;
+    column-gap: 1em;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.language{
+    max-width: 120px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.flag-image{
+    width: 55px;
+    height: auto;
+    border-radius: 10%;
+}
+
+.name{
+    color: var(--mainTextColor);
+    font-size: 1em;
+    margin: 5px 0px;
+}
+
+.level{
+    color: var(--secondaryTextColor);
+    font-size:  0.9em;
+    font-weight: 200;
+    margin: 5px 0px;
+}
+
+.work-experience{
+    display: block;
+}
+
+.experience{
+    display: flex;
+    column-gap: 0.5em;
+}
+
+.period{
+    margin-top: 0px;
+    min-width: 230px;
+    width: 230px;
+}
+
+.image-timeline{
+    background: var(--mainImageBgColor);
+    font-weight: 500;
+    font-size: large;
+}
+
+.image-timeline p{
+    margin-top:-5px;
+    color: var(--mainBgColor);
+}
+
+.description{
+    margin:0px 0px 10px 10px;
+    min-width: 500px;
+    padding: 5px 5px 5px 5px;
+}
+
+.job-title{
+    margin-top: -6px;
+    margin-bottom: 0px;
+    font-size: 1em;
+    color: var(--mainTextColor);
+}
+
+.company{
+    font-size: 0.9em;
+    color: var(--mainLinkColor);
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+.job-description{
+    font-size: 0.8em;
+    color: var(--secondaryTextColor);
+}
