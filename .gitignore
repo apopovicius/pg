@@ -76,3 +76,4 @@ ipch/
 *.vsp
 *.vspx
 *.sap
+node_modules/
