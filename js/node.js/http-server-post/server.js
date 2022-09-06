@@ -1,6 +1,5 @@
 const http = require('http');
 const fs = require('fs');
-const { getPostData } = require('./utils');
 
 const PORT = process.env.PORT || 5000;
 const server = http.createServer();
