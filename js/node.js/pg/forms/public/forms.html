@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="full-screen-container">
+        <div class="login-container">
+            <h1 class="login-title">Welcome</h1>
+            <form class="form" action="/register" method="get"> <!-- no method post here => default = GET -->
+                <!-- <div class="input-group success"> -->
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email">
+                    <span class="msg">Valid email</span>
+                </div>
+                <!-- <div class="input-group error"> -->
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                    <span class="msg">Incorrect password</span>
+                </div>
+                <input type="submit" value="Register" class="register-button">
+            </form>
+        </div>
+    </div>
+    <!--
+    <script>
+        document.querySelector("form").addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
+    </script>
+    -->
+</body>
+</html>
