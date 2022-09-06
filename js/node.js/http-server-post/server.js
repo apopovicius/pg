@@ -23,7 +23,6 @@ function renderIndex(res) {
 
 server.on('request', (req, res) => {
     renderIndex(res);
-    fillTodoItemList();
 });
 
 server.on('request', (req, res) => {
