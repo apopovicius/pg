@@ -1,6 +1,6 @@
-> Here is a sample of how to load static html in node.js server.
+# Here is a sample of how to load static html in node.js server.
 
-Example here: https://www.pabbly.com/tutorials/node-js-http-module-serving-static-files-html-css-images/
+> Example here: https://www.pabbly.com/tutorials/node-js-http-module-serving-static-files-html-css-images/
 
 # Key Notes
 
