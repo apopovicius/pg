@@ -38,7 +38,7 @@ if (req.method === 'POST') {
 }
 ```
 
-# Usage: just edit action on the form from form.html to use either GET or POST method
+# Usage: just edit action on the **form** from **form.html** to use either GET or POST method
 
 ```html
 <form class="form" action="/register" method="get"></form>
