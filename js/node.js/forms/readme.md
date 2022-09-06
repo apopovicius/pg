@@ -7,7 +7,13 @@
 Form with no method has set GET as default
 
 **get** - Appends the form-data to the URL in name/value pairs: URL?name=value&name=value
-// eg. /register?email=test%40test.com&password=TTTT
+
+> eg. /register?email=test%40test.com&password=TTTT
+> values of get url are taken from _name_ tag of the form component
+
+```html
+<input type="email" name="email" id="email" />
+```
 
 ```js
 if (req.method === 'GET') {
@@ -17,7 +23,8 @@ if (req.method === 'GET') {
 ```
 
 **post** - Sends the form-data as an HTTP post transaction
-// you need to parse the request on chunk data
+
+> you need to parse the request on chunk data
 
 ```js
 if (req.method === 'POST') {
@@ -31,7 +38,7 @@ if (req.method === 'POST') {
 }
 ```
 
-# Just edit action on the form from form.html to use either GET or POST method
+# Usage: just edit action on the form from form.html to use either GET or POST method
 
 ```html
 <form class="form" action="/register" method="get"></form>
