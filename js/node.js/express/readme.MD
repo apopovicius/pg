@@ -67,7 +67,7 @@ app.use(express.static('public')); //public is the folder path
 
 > Params from GET method can be found in _req.query.name_, where name is the name of the param from path. eg /users?name=Mark
 
-> Params from POST method can be found in _req.body_, where name is the name of the param from path. eg /users?name=Mark
+> Params from POST method can be found in _req.body.firstName_, where firstName taken from _name property_ of form input component
 
 ```js
 app.use(express.urlEncoded({ extended: true })); // this is to access the body of request for post
@@ -129,7 +129,7 @@ router
     });
 ```
 
-> An other important thing we can use with routes is PARAM. It's a middleware that runs before client request reach to its destination (route)
+> An other important thing we can use with routes is _param_. It's a middleware that runs before client request reach to its destination (route)
 
 ```js
 router.param('id', (req, res, next) => {

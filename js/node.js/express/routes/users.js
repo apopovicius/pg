@@ -19,7 +19,7 @@ router.get('/new', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    console.log(req.body.firstName); // firstName taken from name field of form component
+    console.log(req.body.firstName); // firstName taken from name property of form input component
     const isValid = false;
     if (isValid) {
         users.push({ name: req.body.firstName });
