@@ -22,8 +22,8 @@ class Todo {
             task,
             created,
             priority
-            ) 
-            VALUES 
+            )
+            VALUES
             (
             '${this.task}',
             STR_TO_DATE('${createdDate}', '%d-%m-%Y %H:%i:%s'),
@@ -39,8 +39,8 @@ class Todo {
     }
 
     static findById(id) {
-        let sql = `SELECT * FROM TODO.TODOS WHERE id = ${id};`;
-        return db.execute(sql);
+        let sql = `SELECT * FROM TODO.TODOS WHERE id = ?`;
+        return db.execute(sql, [id]); // to protect from SQL INJECTIONS
     }
 }
 
