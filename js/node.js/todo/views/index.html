@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo application</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/main.css">
+</head>
+<body>
+    <div class="full-screen-container">
+        <div id="container--main">
+            <section class="section-page">
+                <p class="user">👤 Hey <%= user %>! <br/>
+                    <a href="#">⇄ Switch user</a>
+                </p>
+                <h1>T O D O 📝</h1>
+            </section>
+
+
+            <section class="section-page">
+                <div id="add-todo">
+                    <form>
+                        <input type="text" name="todoText" id="todoText" placeholder="Create a new todo item... "><input type="submit" value="+">
+                    </form>
+                </div>
+            </section>
+
+            <section class="section-page">
+                <div id="todo-list">
+                    <div class="item">
+                        <div class="checkboxes"> 
+                            <label><input type="checkbox"> <span>Label text x</span></label>
+                        </div>
+                        <div class="modify-todo">
+                            <button class="button">-</button>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="checkboxes"> 
+                            <label>
+                                <input type="checkbox"> 
+                                <span>Label text x</span>
+                            </label>
+                        </div>
+                        <div class="modify-todo">
+                            <button class="button">-</button>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="checkboxes"> 
+                            <label><input type="checkbox"> <span>Label text x</span></label>
+                        </div>
+                        <div class="modify-todo">
+                            <button class="button">-</button>
+                        </div>
+                    </div>
+
+                    <div class="footer-todo">
+                        <span class="remaining">5 items left</span>
+                        <a>All Σ</a>
+                        <a>Active ☐</a>
+                        <a>Completed ☑</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-page">
+                <h2>© 2022</h2>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

@@ -17,13 +17,12 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 // set view engine
 app.set('view engine', 'ejs');
-// if there is no views folder(default get by ejs)
-// app.set('views', ')
+// if there is no views folder(default get by ejs) -> app.set('views', '')
 
 // load assets
-app.use('/css', express.static(path.resolve(__dirname, 'assets/css')));
-app.use('/img', express.static(path.resolve(__dirname, 'assets/img')));
-app.use('/js', express.static(path.resolve(__dirname, 'assets/js')));
+app.use('/css', express.static(path.resolve(__dirname, 'public/css')));
+app.use('/img', express.static(path.resolve(__dirname, 'public/img')));
+app.use('/js', express.static(path.resolve(__dirname, 'public/js')));
 
 //Global error handler. IMP function params MUST start with err
 app.use((err, req, res, next) => {
@@ -37,7 +36,8 @@ app.use((err, req, res, next) => {
 });
 
 // load routers
-//app.use('/', require('./server/routes/router'));
+const todosRouter = require('./server/routes/todos');
+app.use('/todos', todosRouter);
 
 app.get('/', (req, res) => {
     res.render('index');

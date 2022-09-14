@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+
+:root{
+    --mainTextColor-light:#000;
+    --secondaryTextColor-light:rgb(51 51 51);
+    --mainLinkColor-light:#0da2b8;
+    --mainBorderColor-light:rgb(222,101,144);
+    --mainButtonColor-light:rgb(222,101,144);
+    --mainButtonColorHover-light: rgba(222,101,144, 0.8);
+    --mainItemBoder-light:#D3D3D3;
+    --mainBgColor-light:rgba(249, 250, 251, 0.901);
+    --mainListBgColor-light:rgba(255, 255, 255, 1);
+    --mainImageBgColor-light: rgb(51 51 51);
+
+    --mainTextColor:var(--mainTextColor-light);
+    --secondaryTextColor:var(--secondaryTextColor-light);
+    --mainLinkColor:var(--mainLinkColor-light);
+    --mainBorderColor:var(--mainBorderColor-light);
+    --mainButtonColor:var(--mainButtonColor-light);
+    --mainButtonColorHover:var(--mainButtonColorHover-light);
+    --mainItemBoder:var(--mainItemBoder-light);
+    --mainBgColor:var(--mainBgColor-light);
+    --mainListBgColor:var(--mainListBgColor-light);
+    --mainImageBgColor:var(--mainImageBgColor-light);
+}
+
+*{
+    font-family: 'Readex Pro';
+    line-height: 1.5em;
+    box-sizing: border-box;
+    color: var(--mainTextColor);
+}
+
+body{
+    background-color: var(--mainBgColor);      
+    margin: 0;   
+}
+
+.full-screen-container {
+    background-image: url('../img/bgImage.png');
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: bottom;
+    opacity: 0.95;
+}
+
+#container--main{
+    min-width: 550px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.section--page{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.user {
+    color:var(--mainLinkColor);
+    font-size: small;
+    font-weight: 500;
+    margin-top: 0px;
+    text-align: right;
+    line-height: 2em;
+    padding-top: 10px;
+}
+
+.user a{
+    color:var(--mainLinkColor);
+    opacity: 1;
+    text-decoration: none;
+}
+
+.user a:hover{
+    opacity: 0.8;
+}
+
+.user a:visited{
+    color:var(--mainLinkColor);
+}
+
+
+h1{
+    color:var(--mainLinkColor);
+    font-size: xx-large;
+    font-weight: 500;
+    margin-top: 0px;
+    padding-top: 30px;
+    text-align: center;
+    line-height: 1rem;
+}
+
+#add-todo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+form {
+    width: 100%;
+}
+
+form input { 
+    vertical-align: middle; 
+    height: 50px;
+    outline: none;
+    font-size: x-large;
+    border: 1px solid var(--mainBorderColor)
+}
+
+form input[type="text"] {
+    padding: 5px;
+    width: calc(100% - 100px);
+}
+
+form input:focus {
+    outline: none;
+    background-color: var(--mainBorderColor);
+    color: var(--mainBgColor);
+}
+
+form input:focus::placeholder {
+    color: var(--mainBgColor);
+}
+
+form input[type="submit"] {
+    background-color: var(--mainButtonColor);
+    color: var(--mainBgColor);
+    font-weight: 500;
+    font-size: medium;
+    width: 100px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: var(--mainButtonColorHover);
+}
+
+#todo-list {
+    margin-top: 20px;
+    background-color: var(--mainListBgColor);
+    border-radius: 3px;
+    box-shadow: 0 0 10px 0 var(--mainBorderColor);
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--mainItemBoder);
+    padding: 10px 5px 10px 5px;
+    font-weight: 200;
+}
+
+.item:hover{
+    background-color: var(--mainItemBoder);
+}
+
+.button{
+    background-color: var(--mainButtonColor);
+    color: var(--mainBgColor);
+    font-weight: 500;
+    font-size: medium;
+    width: 50px;
+    padding: 5px;
+    border: 0;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--mainButtonColorHover);
+    opacity: 1;
+}
+
+.checkboxes {
+    --padding: 10px;
+    --buttonSize: 50px;
+    --labelWidth: calc(100% - var(--padding) - var(--buttonSize));
+    width: var(--labelWidth);
+}
+
+.checkboxes input {
+    vertical-align: middle;
+}
+
+.checkboxes label span {
+    vertical-align: middle;
+}
+
+.footer-todo{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px 25px;
+    font-weight: 500;
+    color: var(--mainLinkColor);
+}
+
+.footer-todo a{
+    text-decoration: none;
+}
+.footer-todo a:hover{
+    opacity: 0.2;
+    cursor: pointer;
+}
+
+h2{
+    padding: 20px;
+    color:var(--mainLinkColor);
+    font-size: medium;
+    font-weight: 400;
+    text-align: center;
+    opacity: 0.7;
+}
