@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo application</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="/js/form.js" defer></script>
 </head>
 <body>
-    <!-- Header -->
-    <header id="header">
-        <nav>
-            <div class="container">
-                <div class="text-center">
-                    <a href="/" class="nav-brand text-dark">ToDo nodejs application</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <div class="full-screen-container">
+        <div id="container--main">
+            <section class="section-page">
+                <p class="user">👤 Hey <%= locals.user || 'No Authentication' %>! <br/>
+                    <a href="#">⇄ Switch user</a>
+                </p>
+                <h1>T O D O 📝</h1>
+            </section>

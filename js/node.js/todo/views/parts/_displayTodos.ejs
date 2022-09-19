@@ -1,0 +1,36 @@
+<section class="section-page">
+    <div id="todo-list">
+        <% let totalTodos = userTodos.length %>
+        <% let doneTodos = userTodos.map(todo => !todo.done ).reduce((prev, curr) => prev + curr, 0) %>
+        <% userTodos.forEach( todo => { %>
+        <% let todoStatus = todo.done ? 'checked' : '' %>
+        <% let checkId = 'check'+todo.id %>
+        <div class="item">
+            <div class="checkboxes"> 
+                <label>
+                    <input type="checkbox" name=<%=checkId%> id=<%=checkId%> <%=todoStatus%> />
+                    <span class="strikethrough"><%=todo.task%></span>
+                </label>
+            </div>
+            <div class="modify-todo">
+                    <% let doneButtonText = !todo.done ? 'Done' : 'Undone' %>
+                    <a class="solved" data-id=<%=todo.id%> status=<%=!todo.done%>>
+                        <%=doneButtonText%>
+                    </a>
+                    <a class="erase" data-id=<%=todo.id%> >
+                        Erase
+                    </a>
+            </div>
+        </div>
+        <% }) %>
+
+        <div class="footer-todo">
+            <span class="remaining"><%=doneTodos%> of <%=totalTodos%> remaining todo items</span>
+            <form class="form-filter">
+                <a class="active" href="/todos/active">Active ☐</a>
+                <a class="completed" href="/todos/completed">Completed ☑</a>
+                <a class="all" href="/todos">All Σ</a>
+            </form>
+        </div>
+    </div>
+</section>

@@ -6,6 +6,8 @@
     --mainLinkColor-light:#0da2b8;
     --mainBorderColor-light:rgb(222,101,144);
     --mainButtonColor-light:rgb(222,101,144);
+    --mainButtonSolvedColor-light:rgb(107,142,35);
+    --mainButtonSolvedColorHover-light:rgba(107,142,35, 0.8);
     --mainButtonColorHover-light: rgba(222,101,144, 0.8);
     --mainItemBoder-light:#D3D3D3;
     --mainBgColor-light:rgba(249, 250, 251, 0.901);
@@ -17,11 +19,16 @@
     --mainLinkColor:var(--mainLinkColor-light);
     --mainBorderColor:var(--mainBorderColor-light);
     --mainButtonColor:var(--mainButtonColor-light);
+    --mainButtonSolvedColor:var(--mainButtonSolvedColor-light);
+    --mainButtonSolvedColorHover:var(--mainButtonSolvedColorHover-light);
     --mainButtonColorHover:var(--mainButtonColorHover-light);
     --mainItemBoder:var(--mainItemBoder-light);
     --mainBgColor:var(--mainBgColor-light);
     --mainListBgColor:var(--mainListBgColor-light);
     --mainImageBgColor:var(--mainImageBgColor-light);
+
+    --buttonSize: 80px;
+    --buttonDoneSize: 80px;
 }
 
 *{
@@ -98,7 +105,7 @@ h1{
     width: 100%;
 }
 
-form {
+#add-todo form {
     width: 100%;
 }
 
@@ -111,7 +118,7 @@ form input {
 }
 
 form input[type="text"] {
-    padding: 5px;
+    padding: 10px;
     width: calc(100% - 100px);
 }
 
@@ -119,6 +126,7 @@ form input:focus {
     outline: none;
     background-color: var(--mainBorderColor);
     color: var(--mainBgColor);
+    border-right: 1px solid var(--mainBgColor);
 }
 
 form input:focus::placeholder {
@@ -144,6 +152,7 @@ form input[type="submit"]:hover {
     background-color: var(--mainListBgColor);
     border-radius: 3px;
     box-shadow: 0 0 10px 0 var(--mainBorderColor);
+    width: 100%;
 }
 
 .item {
@@ -153,37 +162,69 @@ form input[type="submit"]:hover {
     border-bottom: 1px solid var(--mainItemBoder);
     padding: 10px 5px 10px 5px;
     font-weight: 200;
+    width: auto;
 }
 
 .item:hover{
     background-color: var(--mainItemBoder);
 }
 
-.button{
-    background-color: var(--mainButtonColor);
+.modify-todo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.modify-todo a{
     color: var(--mainBgColor);
     font-weight: 500;
     font-size: medium;
-    width: 50px;
+    display: block;
+    text-align: center;
     padding: 5px;
     border: 0;
     cursor: pointer;
+    margin-right: 10px;
+    height: 35px;
 }
 
-.button:hover {
+.solved{
+    background-color: var(--mainButtonSolvedColor);
+    width: var(--buttonDoneSize);
+}
+
+.erase{
+    background-color: var(--mainButtonColor);
+    width: var(--buttonSize);
+}
+
+.solved:hover {
+    background-color: var(--mainButtonSolvedColorHover);
+}
+
+.erase:hover {
     background-color: var(--mainButtonColorHover);
-    opacity: 1;
 }
 
 .checkboxes {
     --padding: 10px;
-    --buttonSize: 50px;
-    --labelWidth: calc(100% - var(--padding) - var(--buttonSize));
+    --margin: 20px;
+    --labelWidth: calc(100% - var(--padding) - var(--margin) - var(--buttonSize) - var(--buttonDoneSize));
     width: var(--labelWidth);
 }
 
 .checkboxes input {
     vertical-align: middle;
+}
+
+.checkboxes input[type=checkbox] {
+    opacity: 0;
+}
+
+input[type=checkbox]:checked + span.strikethrough{
+    text-decoration:line-through;
+    font-style: italic;
+    
 }
 
 .checkboxes label span {
@@ -196,15 +237,17 @@ form input[type="submit"]:hover {
     flex-wrap: wrap;
     align-items: center;
     padding: 10px 25px;
-    font-weight: 500;
+    font-weight: 400;
+    font-size: large;
     color: var(--mainLinkColor);
+    background-color: rgba(189,195,199, 0.4);
 }
 
 .footer-todo a{
     text-decoration: none;
 }
 .footer-todo a:hover{
-    opacity: 0.2;
+    opacity: 0.6;
     cursor: pointer;
 }
 
@@ -214,5 +257,9 @@ h2{
     font-size: medium;
     font-weight: 400;
     text-align: center;
-    opacity: 0.7;
+    opacity: 0.8;
+}
+
+.form-filter a{
+    margin-left:15px;
 }

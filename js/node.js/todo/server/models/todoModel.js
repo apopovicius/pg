@@ -31,13 +31,23 @@ class Todo {
     }
 
     static findAll() {
-        let sql = `SELECT * FROM TODOS`;
+        let sql = `SELECT * FROM TODOS ORDER BY done, id, created_on`;
         return db.query(sql);
     }
 
     static findById(id) {
         let sql = `SELECT * FROM TODOS WHERE id = $1`;
         return db.query(sql, [id]); // to protect from SQL INJECTIONS
+    }
+
+    static findAllDone() {
+        let sql = `SELECT * FROM TODOS WHERE done = $1`;
+        return db.query(sql, [true]);
+    }
+
+    static findAllNotDone() {
+        let sql = `SELECT * FROM TODOS WHERE done = $1`;
+        return db.query(sql, [false]);
     }
 }
 

@@ -5,69 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo application</title>
-    <link rel="stylesheet" type="text/css" href="../public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/join.css">
 </head>
 <body>
-    <div class="full-screen-container">
-        <div id="container--main">
-            <section class="section-page">
-                <p class="user">👤 Hey <%= user %>! <br/>
-                    <a href="#">⇄ Switch user</a>
-                </p>
-                <h1>T O D O 📝</h1>
-            </section>
-
-
-            <section class="section-page">
-                <div id="add-todo">
-                    <form>
-                        <input type="text" name="todoText" id="todoText" placeholder="Create a new todo item... "><input type="submit" value="+">
-                    </form>
+    <div class="welcome-container">
+        <div class="login-container">
+            <h1 class="login-title">Hey there, how you doing? </h1>
+            <form class="form" action="/enter" method="post"> <!-- no method post here => default = GET -->
+                <!-- <div class="input-group success"> -->
+                <div class="input-group">
+                    <input type="email" name="email" id="email" placeholder="email">
+                    <span class="msg">Valid email</span>
                 </div>
-            </section>
-
-            <section class="section-page">
-                <div id="todo-list">
-                    <div class="item">
-                        <div class="checkboxes"> 
-                            <label><input type="checkbox"> <span>Label text x</span></label>
-                        </div>
-                        <div class="modify-todo">
-                            <button class="button">-</button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="checkboxes"> 
-                            <label>
-                                <input type="checkbox"> 
-                                <span>Label text x</span>
-                            </label>
-                        </div>
-                        <div class="modify-todo">
-                            <button class="button">-</button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="checkboxes"> 
-                            <label><input type="checkbox"> <span>Label text x</span></label>
-                        </div>
-                        <div class="modify-todo">
-                            <button class="button">-</button>
-                        </div>
-                    </div>
-
-                    <div class="footer-todo">
-                        <span class="remaining">5 items left</span>
-                        <a>All Σ</a>
-                        <a>Active ☐</a>
-                        <a>Completed ☑</a>
-                    </div>
+                <!-- <div class="input-group error"> -->
+                <div class="input-group">
+                    <input type="password" name="password" id="password" placeholder="password">
+                    <span class="msg">Incorrect password</span>
                 </div>
-            </section>
-
-            <section class="section-page">
-                <h2>© 2022</h2>
-            </section>
+                <input type="submit" value="ENTER" class="register-button">
+            </form>
         </div>
     </div>
 </body>
