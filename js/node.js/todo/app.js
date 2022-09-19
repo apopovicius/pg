@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const express = require('express');
 const bodyparser = require('body-parser');
 const path = require('path');
+const uiRoutes = require('./server/services/uiRoutes');
 
 const app = express();
 
@@ -36,12 +37,11 @@ app.use((err, req, res, next) => {
 });
 
 // load routers
-const todosRouter = require('./server/routes/todos');
-app.use('/todos', todosRouter);
+const apiTodosRouter = require('./server/routes/todos');
+app.use('/api/todos', apiTodosRouter);
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
+const uiRouter = require('./server/routes/ui');
+app.use('/', uiRouter);
 
 //listen on part
 dotenv.config('.env');
