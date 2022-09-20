@@ -37,6 +37,9 @@ app.use((err, req, res, next) => {
 });
 
 // load routers
+const auth = require('./server/routes/authentication');
+app.use('/api/', auth);
+
 const apiTodosRouter = require('./server/routes/todos');
 app.use('/api/todos', apiTodosRouter);
 
