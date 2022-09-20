@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+
+*{
+    font-family: 'Readex Pro';
+    line-height: 1.5em;
+    box-sizing: border-box;
+    color: var(--mainTextColor);
+}
+
+body {
+    margin:0;
+}
+
+.main-container {
+    background-image: url('../img/bgImage.png');
+    background-size: cover;
+    background-position: bottom;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    width: 80%;
+    max-width: 600px;
+    border-radius: 20px;
+    background-color: lightgray;
+    padding: 40px 30px;
+}
+
+.login-title {
+    margin: 0;
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: normal;
+    color: black;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top:40px;
+}
+
+.input-group {
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.3rem;
+}
+
+.input-group input {
+    font-size: medium;
+    outline: none;
+    border: none;
+    padding: 5px;
+    color: black;
+    font-size: 1.3rem;
+    font-weight: lighter;
+    padding: 0.5em;
+    border-radius: .25em;
+}
+
+.input-group input:focus {
+    outline: none;
+    background-color: rgb(222,101,144);
+    color: white;
+    border-right: 1px solid var(--mainBgColor);
+    box-shadow: 0 0 0 2px rgba(30,144,255, 1.00);
+}
+
+.input-group input:focus::placeholder {
+    color: white;
+}
+
+.enter-button {
+    height: 50px;
+    font-size: medium;
+    padding: 5px;
+    background-color: rgb(222,101,144);
+    border: 0;
+    outline: 0;
+    color: white;
+    font-size: 1.3rem;
+    border-radius: .25em;
+}
+
+.enter-button:focus {
+    box-shadow: 0 0 0 2px rgba(30,144,255, 1.00);
+    background-color: rgba(222,101,144,0.7);
+}
+
+
+.enter-button:hover{
+    background-color: rgba(222,101,144,0.7);
+    cursor: pointer;
+}
+
+
+.input-group.success input{
+    box-shadow: 0 0 0 2px rgba(51,184,100, 1.00);
+}
+
+.input-group.error input{
+    box-shadow: 0 0 0 2px rgba(255,0,0, 1.0);
+}
+
+.input-group .msg {
+    display: none; /* no error */
+    font-size: 1.2rem;
+}
+
+.input-group.success .msg,
+.input-group.error .msg {
+    display: block;
+}
+
+.input-group.error .msg {
+    color: rgba(255,0,0, 1.0);
+    
+}
+
+.input-group.success .msg {
+    color: rgba(51,184,100, 1.00);
+    
+}
+
+.input-group.success:focus .msg,
+.input-group.error:focus .msg {
+    box-shadow: 0 0 0 2px rgba(30,144,255, 1.00);
+}
