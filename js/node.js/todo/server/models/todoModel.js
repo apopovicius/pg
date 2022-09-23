@@ -49,6 +49,11 @@ class Todo {
         let sql = `SELECT * FROM TODOS WHERE done = $1`;
         return db.query(sql, [false]);
     }
+
+    static findByUserId(user_id) {
+        let sql = `SELECT * FROM TODOS WHERE user_id = $1`;
+        return db.query(sql, [user_id]); // to protect from SQL INJECTIONS
+    }
 }
 
 module.exports = Todo;

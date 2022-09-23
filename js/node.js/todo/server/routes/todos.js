@@ -8,7 +8,13 @@ router.route('/completed').get(todoController.getAllTodosDone);
 
 router
     .route('/')
-    .get(todoController.getAllTodos)
+    .get((req, res, next) => {
+        if (req.query.userId != null) {
+            todoController.getTodoByUserId(req, res, next);
+        } else {
+            todoController.getAllTodos(req, res, next);
+        }
+    })
     .post(todoController.createNewTodo)
     .put(todoController.updateTodo);
 

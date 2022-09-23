@@ -45,6 +45,16 @@ exports.getTodoById = async (req, res, next) => {
     }
 };
 
+exports.getTodoByUserId = async (req, res, next) => {
+    try {
+        const response = await Todo.findById(req.query.userId);
+        res.status(200).status(200).json(response.rows);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
 exports.removeTodo = async (req, res, next) => {
     try {
         const id = req.params.id;
