@@ -2,7 +2,7 @@
 
 
 # vscode user settings
-> settings.json
+[settings.json](https://github.com/apopovicius/pg/blob/master/config/settings.json)
 > 
 > path on disk: C:\Users\ViciuS\AppData\Roaming\Code\User
 
