@@ -1,6 +1,4 @@
 {
-    "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false,
     "window.restoreWindows": "all",
     "editor.suggestSelection": "first",
     "workbench.iconTheme": "vscode-icons",
