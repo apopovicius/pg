@@ -7,6 +7,8 @@
 > path on disk: C:\Users\ViciuS\AppData\Roaming\Code\User
 
 ## vscode extension
+> code --list-extensions
+> 
 - EliverLara.andromeda
 - formulahendry.auto-close-tag
 - formulahendry.auto-rename-tag
