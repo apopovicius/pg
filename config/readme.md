@@ -3,4 +3,5 @@
 
 # vscode 
 > settings.json
+> 
 > path on disk: C:\Users\ViciuS\AppData\Roaming\Code\User
