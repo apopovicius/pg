@@ -22,3 +22,4 @@
 - voldemortensen.rainbow-tags
 - vscode-icons-team.vscode-icons
 - qhoekman.language-plantuml
+- aslamanver.vsc-export
