@@ -1,0 +1,47 @@
+{
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "window.restoreWindows": "all",
+    "editor.suggestSelection": "first",
+    "workbench.iconTheme": "vscode-icons",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "security.workspace.trust.startupPrompt": "never",
+    "settingsSync.ignoredExtensions": [
+        "ms-toolsai.jupyter",
+        "tht13.python",
+        "dongli.python-preview",
+        "formulahendry.code-runner"
+    ],
+    "eslint.run": "onSave",
+    "eslint.alwaysShowStatus": true,
+    "eslint.codeActionsOnSave.rules": null,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.sortImports": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 160,
+    "prettier.singleQuote": true,
+    "prettier.enable": true,
+    "prettier.tabWidth": 4,
+    "git.enableSmartCommit": true,
+    "debug.javascript.autoAttachFilter": "always",
+    "git.confirmSync": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "window.zoomLevel": 1,
+    "database-client.highlightSQLBlock": true,
+    "database-client.showQuery": true,
+    "database-client.showView": false,
+    "database-client.showFilter": true,
+    "workbench.colorTheme": "Andromeda",
+    "editor.fontSize": 16,
+    "editor.mouseWheelZoom": true,
+    "editor.linkedEditing": true
+}
