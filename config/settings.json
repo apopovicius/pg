@@ -41,5 +41,6 @@
     "workbench.colorTheme": "Andromeda",
     "editor.fontSize": 16,
     "editor.mouseWheelZoom": true,
-    "editor.linkedEditing": true
+    "editor.linkedEditing": true,
+    "terminal.integrated.fontFamily": "MesloLGS NF"
 }
