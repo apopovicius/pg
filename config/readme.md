@@ -25,3 +25,6 @@
 - vscode-icons-team.vscode-icons
 - qhoekman.language-plantuml
 - aslamanver.vsc-export
+
+## config font terminal vscode
+> https://dev.to/avantar/how-to-fix-zsh-icons-in-visual-studio-code-terminal-38bb
