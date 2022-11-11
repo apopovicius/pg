@@ -173,3 +173,5 @@ Every module is automatically a shared module. Once created it can be reused by 
 -   Now any module that imports the RandomModule has access to the RandomService and will share the same instance with all other modules that import it as well.
 
 ---
+
+## Middleware
