@@ -1,7 +1,7 @@
 {
     "window.restoreWindows": "all",
     "editor.suggestSelection": "first",
-    "workbench.iconTheme": "vscode-icons",
+    "workbench.iconTheme": "material-icon-theme",
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -38,7 +38,6 @@
     "database-client.showQuery": true,
     "database-client.showView": false,
     "database-client.showFilter": true,
-    "workbench.colorTheme": "Andromeda",
     "editor.fontSize": 16,
     "editor.mouseWheelZoom": true,
     "editor.linkedEditing": true,
@@ -46,5 +45,15 @@
     "workbench.colorCustomizations": {
         "tab.activeBorder": "#ff0000",
         "tab.unfocusedActiveBorder": "#000000"
-    }
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "[typescriptreact]": {},
+    "files.eol": "\n",
+    "editor.stickyScroll.enabled": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
+    "workbench.colorTheme": "Community Material Theme High Contrast",
+    "workbench.preferredDarkColorTheme": "Community Material Theme High Contrast",
+    "workbench.preferredHighContrastColorTheme": "Community Material Theme High Contrast",
+    "git.autofetch": true
 }
