@@ -1,30 +1,39 @@
 # My config files for IDEs and tools I use
 
-
 # vscode user settings
+
 [settings.json](https://github.com/apopovicius/pg/blob/master/config/settings.json)
-> 
+
 > path on disk: C:\Users\ViciuS\AppData\Roaming\Code\User
 
 ## vscode extension
+
 > code --list-extensions
-> 
-- EliverLara.andromeda
-- formulahendry.auto-close-tag
-- formulahendry.auto-rename-tag
-- cweijan.vscode-database-client2
-- dbaeumer.vscode-eslint
-- ecmel.vscode-html-css
-- ctf0.htmlhint
-- oderwat.indent-rainbow
-- Zignd.html-css-class-completion
-- ZainChen.json
-- ritwickdey.LiveServer
-- esbenp.prettier-vscode
-- voldemortensen.rainbow-tags
-- vscode-icons-team.vscode-icons
-- qhoekman.language-plantuml
-- aslamanver.vsc-export
+
+-   alefragnani.Bookmarks
+-   EliverLara.andromeda
+-   formulahendry.auto-close-tag
+-   formulahendry.auto-rename-tag
+-   formulahendry.code-runner
+-   cweijan.vscode-database-client2
+-   dbaeumer.vscode-eslint
+-   ecmel.vscode-html-css
+-   Equinusocio.vsc-community-material-theme
+-   ctf0.htmlhint
+-   oderwat.indent-rainbow
+-   Zignd.html-css-class-completion
+-   ZainChen.json
+-   ritwickdey.LiveServer
+-   esbenp.prettier-vscode
+-   voldemortensen.rainbow-tags
+-   vscode-icons-team.vscode-icons
+-   qhoekman.language-plantuml
+-   aslamanver.vsc-export
+-   jebbs.plantuml
+-   mhutchie.git-graph
+-   PKief.material-icon-theme
+-   usernamehw.errorlens
 
 ## config font terminal vscode
+
 > https://dev.to/avantar/how-to-fix-zsh-icons-in-visual-studio-code-terminal-38bb
