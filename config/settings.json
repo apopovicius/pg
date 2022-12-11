@@ -55,5 +55,6 @@
     "workbench.colorTheme": "Community Material Theme High Contrast",
     "workbench.preferredDarkColorTheme": "Community Material Theme High Contrast",
     "workbench.preferredHighContrastColorTheme": "Community Material Theme High Contrast",
-    "git.autofetch": true
+    "git.autofetch": true,
+    "editor.guides.bracketPairs": "active"
 }
