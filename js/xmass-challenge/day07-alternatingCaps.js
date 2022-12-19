@@ -10,7 +10,7 @@ Example output: "I'M So hApPy iT'S MoNdAy"
 function altCaps(str) {
     let newStr = '';
     for (let i = 0; i < str.length; i++) {
-        i % 2
+        i % 2 === 1
             ? (newStr += str[i].toLowerCase())
             : (newStr += str[i].toUpperCase());
     }
