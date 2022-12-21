@@ -2,8 +2,8 @@
 // Created by ViciuS on 8/9/2021.
 //
 
-#ifndef AIRTAME_TIMER_H
-#define AIRTAME_TIMER_H
+#ifndef AT_TIMER_H
+#define AT_TIMER_H
 
 
 class Timer {
