@@ -23,16 +23,16 @@ function awardBonuses() {
     for (let n = 1; n <= 100; n++) {
         switch (true) {
             case n % 15 === 0:
-                console.log('n - JACKPOT! 1 Million and a Yacht!');
+                console.log(`${n} - JACKPOT! 1 Million and a Yacht!`);
                 break;
             case n % 5 === 0:
-                console.log('n - $100,000 bonus!');
+                console.log(`${n}  - $100,000 bonus!`);
                 break;
             case n % 3 === 0:
-                console.log('n - Vacation!');
+                console.log(`${n}  - Vacation!`);
                 break;
             default:
-                console.log('n - :(');
+                console.log(`${n}  - :(`);
         }
     }
 }
