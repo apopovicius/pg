@@ -20,20 +20,19 @@ Your function's output should look something like this:
  */
 
 function awardBonuses() {
-    const nn = Math.floor(Math.random() * 100);
     for (let n = 1; n <= 100; n++) {
         switch (true) {
             case n % 15 === 0:
-                console.log('JACKPOT! 1 Million and a Yacht!');
+                console.log('n - JACKPOT! 1 Million and a Yacht!');
                 break;
             case n % 5 === 0:
-                console.log('$100,000 bonus!');
+                console.log('n - $100,000 bonus!');
                 break;
             case n % 3 === 0:
-                console.log('Vacation!');
+                console.log('n - Vacation!');
                 break;
             default:
-                console.log(':(');
+                console.log('n - :(');
         }
     }
 }
