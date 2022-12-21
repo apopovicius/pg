@@ -26,13 +26,13 @@ function awardBonuses() {
                 console.log(`${n} - JACKPOT! 1 Million and a Yacht!`);
                 break;
             case n % 5 === 0:
-                console.log(`${n}  - $100,000 bonus!`);
+                console.log(`${n} - $100,000 bonus!`);
                 break;
             case n % 3 === 0:
-                console.log(`${n}  - Vacation!`);
+                console.log(`${n} - Vacation!`);
                 break;
             default:
-                console.log(`${n}  - :(`);
+                console.log(`${n} - :(`);
         }
     }
 }
