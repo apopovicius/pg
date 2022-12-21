@@ -2,8 +2,8 @@
 // Created by ViciuS on 8/9/2021.
 //
 
-#ifndef AIRTAME_SOLUTION_H
-#define AIRTAME_SOLUTION_H
+#ifndef AT_SOLUTION_H
+#define AT_SOLUTION_H
 
 #include<mutex>
 #include<condition_variable>
