@@ -35,7 +35,7 @@ int solution(vector<int>& A) {
         }
     }
     int r=0;
-    for( int i=0; i< n-1; i++ ) {
+    for( int i=0; i< n; i++ ) {
         int count = 0;
         if(i>0) {
             if(A[i-1]!=A[i])
