@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="main.js"></script>
+    <title>Open AI generated</title>
+</head>
+<body>
+    <div class="login-container">
+    <div id="login-form">
+        <h1>Welcome to our website!</h1>
+        <form>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="register-link">Sign up</a></p>
+    </div>
+    <div id="register-form" style="display: none;">
+        <h1>Sign up</h1>
+        <form>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username-register" name="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password-register" name="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Confirm password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign up</button>
+        </form>
+        <p>Already have an account? <a href="#" id="login-link">Log in</a></p>
+    </div>
+    </div>
+</body>
+</html>
