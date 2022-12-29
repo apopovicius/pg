@@ -5,3 +5,7 @@
 https://tldp.org/LDP/abs/html/
 
 https://devhints.io/bash
+
+## Katas here
+
+https://exercism.org/t
