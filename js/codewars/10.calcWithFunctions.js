@@ -152,7 +152,7 @@ function six(fn) {
     return fn ? fn(6) : 6;
 }
 function seven(fn) {
-    return fn ? fn(7) : 7;
+    return fn ? fn(7) : 7;-
 }
 function eight(fn) {
     return fn ? fn(8) : 8;
@@ -178,7 +178,7 @@ function times(n) {
 }
 function dividedBy(n) {
     return function (v) {
-        return v / n;
+        return (v / n) | 0;
     };
 }
 
@@ -192,3 +192,15 @@ result = eight(minus(three()));
 console.log(`Expected 5 => got ${result}`);
 result = six(dividedBy(two()));
 console.log(`Expected 3 => got ${result}`);
+
+// ORDER
+//seven(times(five()))
+//1. five() with no parameters
+//2. return fn ? fn(5) : 5; => return 5;
+//3. times(5)
+//4. return function (v) {
+//    return v * n;
+//} => return function(5) = return v * 5
+//5. seven(fn(5))
+//6. return fn ? fn(7) : 7; => fn(7) => return 7 * 5
+//7. 35
