@@ -1,5 +1,9 @@
 # My config files for IDEs and tools I use
 
+# in github to open web vscode just press . while on a repository or add 1s to the github link.
+
+| e.g github1s.com/apopovicius
+
 # vscode user settings
 
 [settings.json](https://github.com/apopovicius/pg/blob/master/config/settings.json)
