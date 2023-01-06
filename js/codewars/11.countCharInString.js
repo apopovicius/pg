@@ -6,7 +6,7 @@ What if the string is empty? Then the result should be empty object literal, {}.
 function count(string) {
     // The function code should be here
     let counter = {};
-    for (char of string) {
+    for (let char of string) {
         // counter[char] = !counter.hasOwnProperty(char)
         //     ? 1
         //     : counter[char] + 1;
