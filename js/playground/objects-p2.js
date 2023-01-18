@@ -212,8 +212,10 @@ function likeProduct(id, userId) {
     let newLike1 = product.likes.slice(0, position);
     let newLike2 = product.likes.slice(position + 1, product.likes.length);
     if (position !== -1) product.likes = newLike1.concat(newLike2);
+    // the above code can be simplified with splice
+    // if (position !== -1) product.likes.splice(position, 1)
 
-    return 'Product like list updated';
+    return 'Product like list';
 }
 
 console.log(rateProduct(5, 'sasd', 5));
