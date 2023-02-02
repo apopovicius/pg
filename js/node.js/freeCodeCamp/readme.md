@@ -33,7 +33,7 @@ module.exports = sayHi;
 // console.log(myModule.quantity)
 ```
 
-### > os module
+### > os module <
 
 > require('os')
 
@@ -41,7 +41,7 @@ module.exports = sayHi;
 
 > os.uptime()
 
-### path module
+### > path module <
 
 > require('path')
 
@@ -53,7 +53,7 @@ module.exports = sayHi;
 
 > path.resolve(\_\_dirname, 'example', 'my.txt') - return absolute path
 
-### fs module sync
+### > fs module sync <
 
 > const {readFileSync, writeFileSync} = require('fs')
 
@@ -61,7 +61,7 @@ module.exports = sayHi;
 
 > writeFileSync(path, content, {flag: 'a'})
 
-### fs module async
+### > fs module async <
 
 > const {readFile, writeFile} = require('fs')
 
@@ -69,7 +69,7 @@ module.exports = sayHi;
 
 > writeFile(path, whatToWrite, (err, result) => {})
 
-### http module
+### > http module <
 
 > const http = require('http')
 
@@ -77,7 +77,7 @@ module.exports = sayHi;
 
 > server.listen(PORT)
 
-### util module
+### > util module <
 
 > require('util')
 
