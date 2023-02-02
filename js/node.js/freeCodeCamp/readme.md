@@ -1,6 +1,8 @@
 # Practice from freeCodeCamp.org youtube tutorials
 
-> https://www.youtube.com/watch?v=Oe421EPjeBE > https://www.youtube.com/watch?v=qwfE7fSVaZM
+> https://www.youtube.com/watch?v=Oe421EPjeBE
+
+> https://www.youtube.com/watch?v=qwfE7fSVaZM
 
 ## Globals - NO WINDOW!
 
@@ -34,39 +36,53 @@ module.exports = sayHi;
 ### os module
 
 > require('os')
+
 > os.userInfo()
+
 > os.uptime()
 
 ### path module
 
 > require('path')
+
 > path.sep
+
 > path.join()
+
 > path.basename() - name of the file
+
 > path.resolve(\_\_dirname, 'example', 'my.txt') - return absolute path
 
 ### fs module sync
 
 > const {readFileSync, writeFileSync} = require('fs')
+
 > const content = readFileSync(path, 'utf8')
+
 > writeFileSync(path, content, {flag: 'a'})
 
 ### fs module async
 
 > const {readFile, writeFile} = require('fs')
+
 > readFile(path, encoding, (err, result) => {}) -> result -> content of read
+
 > writeFile(path, whatToWrite, (err, result) => {})
 
 ### http module
 
 > const http = require('http')
+
 > const server = http.createServer( (req, res) => { res.end('hi') } )
+
 > server.listen(PORT)
 
 ### util module
 
 > require('util')
+
 > const {readFile} = require('fs')
+
 > const readFilePromise = util.promisify(readFile)
 
 Same result can be obtain by using:
@@ -113,5 +129,7 @@ customEmmitter.emit('response', 'jhon', 34);
 -   Transform
 
 > require('fs')
+
 > createReadStream()
+
 > createWriteStream()
