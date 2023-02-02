@@ -14,7 +14,7 @@
 
 ## Modules
 
-    > Node uses CommonJS as default => every file is a module(by default)
+> Node uses CommonJS as default => every file is a module(by default)
 
 ```javascript
 const quantity = 5;
@@ -33,7 +33,7 @@ module.exports = sayHi;
 // console.log(myModule.quantity)
 ```
 
-### os module
+### > os module
 
 > require('os')
 
