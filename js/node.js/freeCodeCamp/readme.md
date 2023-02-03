@@ -107,6 +107,8 @@ Same result can be obtain by using:
 
 > https://www.freecodecamp.org/news/how-to-code-your-own-event-emitter-in-node-js-a-step-by-step-guide-e13b7e7908e1/
 
+> https://www.youtube.com/watch?v=9ErAONqE6HE
+
 ```javascript
 const EventEmitter = require('events');
 const customEmmitter = new EventEmitter();
