@@ -63,9 +63,11 @@ HMACSHA256(
 ## Login route
 
 App ----- login request ---------> NodeServer
+
 App <--- Response + Signed JWT --- NodeServer
 
 ## Dashboard route
 
 App --- Request + Signed JWT ---> NodeServer
+
 App <---------- Response -------- NodeServer
