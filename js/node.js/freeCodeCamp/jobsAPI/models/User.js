@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 // mongoose middleware - check documentation for more details
-// always use function not arrow function to have this pointing to this document
+// always use function not arrow function to have 'this' pointing to this document
 UserSchema.pre('save', async function (next) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
@@ -42,6 +42,11 @@ UserSchema.methods.createJWT = function () {
             expiresIn: process.env.JWT_LIFETIME,
         }
     );
+};
+
+UserSchema.methods.checkPassword = async function (candidatePassword) {
+    const isMatch = await bcrypt.compare(candidatePassword, this.password);
+    return isMatch;
 };
 
 module.exports = mongoose.model('User', UserSchema);

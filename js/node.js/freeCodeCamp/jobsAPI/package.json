@@ -4,9 +4,10 @@
   "description": "It's the API used by FE for Jobs Application",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
-  "author": "",
+  "author": "Andrei Popovici",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.20"
