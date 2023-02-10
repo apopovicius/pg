@@ -1,28 +1,29 @@
 # Greetings
 
 ## What you will find here?
-* [Funny logic problems](https://github.com/apopovicius/pg/tree/master/funny_problems)
 
-* [C++ playground](https://github.com/apopovicius/pg/tree/master/cpp/Playground)
+-   [Funny logic problems](https://github.com/apopovicius/pg/tree/master/funny_problems)
 
-* [JavaScript - From hero to zero](https://github.com/apopovicius/pg/tree/master/js)
+-   [C++ playground](https://github.com/apopovicius/pg/tree/master/cpp/Playground)
 
-* [Python practice](https://github.com/apopovicius/pg/tree/master/python)
+-   [JavaScript - From hero to zero](https://github.com/apopovicius/pg/tree/master/js)
 
-* [Java - TBD](https://github.com/apopovicius/pg/tree/master/java)
+-   [Python practice](https://github.com/apopovicius/pg/tree/master/python)
 
-* [React workshop](https://github.com/adaschevici/goodreads)
+-   [Bash pg](https://github.com/apopovicius/pg/tree/master/bash)
+
+-   [React workshop](https://github.com/adaschevici/goodreads)
 
 ## Interesting links
 
-* [Data Structures](https://github.com/apopovicius/Data_Structure_and_Algorithms_Library)
+-   [Data Structures](https://github.com/apopovicius/Data_Structure_and_Algorithms_Library)
 
-* [LeetCode problems solutions](https://github.com/apopovicius/LeetCode_problems_solution)
+-   [LeetCode problems solutions](https://github.com/apopovicius/LeetCode_problems_solution)
 
-* [Clean Code JavaScript](https://github.com/apopovicius/clean-code-javascript)
+-   [Clean Code JavaScript](https://github.com/apopovicius/clean-code-javascript)
 
-* [You don't know JS](https://github.com/getify/You-Dont-Know-JS)
+-   [You don't know JS](https://github.com/getify/You-Dont-Know-JS)
 
-* [System Programming](https://github.com/angrave/SystemProgramming/wiki)
+-   [System Programming](https://github.com/angrave/SystemProgramming/wiki)
 
-* [Awesome C++](https://github.com/fffaraz/awesome-cpp)
+-   [Awesome C++](https://github.com/fffaraz/awesome-cpp)
