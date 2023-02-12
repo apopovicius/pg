@@ -4,7 +4,7 @@ const CustomError = require('../errors');
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
 
-const upploadProductImageLocal = async (req, res) => {
+const uploadProductImageLocal = async (req, res) => {
     if (!req.files) {
         throw new CustomError.BadRequestError('No file Uploaded');
     }
@@ -32,7 +32,7 @@ const upploadProductImageLocal = async (req, res) => {
     });
 };
 
-const upploadProductImage = async (req, res) => {
+const uploadProductImage = async (req, res) => {
     const result = await cloudinary.uploader.upload(
         req.files.image.tempFilePath,
         { use_filename: true, folder: 'file-upload' }
@@ -43,4 +43,4 @@ const upploadProductImage = async (req, res) => {
         image: { src: result.secure_url },
     });
 };
-module.exports = { upploadProductImage };
+module.exports = { uploadProductImage };
