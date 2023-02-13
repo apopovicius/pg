@@ -16,4 +16,9 @@ app.post('/stripe', stripeController);
 app.use(notFoundMW);
 app.use(errorHandlerHW);
 
-app.listen(3000, console.log('Server is stated and listening on port 3000...'));
+app.listen(
+    3000,
+    console.log(
+        `Server is stated and listening on port 3000 - random crypto UUID: ${require('crypto').randomUUID()}...`
+    )
+);
