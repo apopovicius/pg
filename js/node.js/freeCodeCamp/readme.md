@@ -7,9 +7,13 @@
 ## Globals - NO WINDOW!
 
 `__dirname` - path to current dir
+
 `__filename` - file name
+
 `require` - fuction to use modules(CommonJS)
+
 `module` - info about current module(file)
+
 `process` - info about env where the progam is being executed
 
 ## Modules
