@@ -1,0 +1,30 @@
+### !This relies on REST-CLIENT vscode extension
+@baseUrl = http://localhost:3000
+@id = 1
+@accessToken = 'this is a test'
+
+### Get Request
+GET {{baseUrl}}/coffees
+Authorization: Bearer {{accessToken}}
+
+
+### Get Request
+GET {{baseUrl}}/coffees/{{id}}
+
+### Post Request
+POST {{baseUrl}}/coffees
+Content-Type: application/json
+
+{
+  "name": "XY",
+  "brand": "TT",
+  "flavors": ["cara"]
+}
+
+###  PATCH
+PATCH {{baseUrl}}/coffees/1
+Content-Type: application/json
+
+{
+	"name": "Mocka"
+}
