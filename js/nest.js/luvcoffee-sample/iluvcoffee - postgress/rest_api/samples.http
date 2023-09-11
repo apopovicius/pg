@@ -1,12 +1,17 @@
 ### !This relies on REST-CLIENT vscode extension
 @baseUrl = http://localhost:3000
-@id = 1
+@id = 2
 @accessToken = 'this is a test'
 
 ### Get Request
 GET {{baseUrl}}/coffees
 Authorization: Bearer {{accessToken}}
 
+### Get Request with limit
+GET {{baseUrl}}/coffees?limit=1
+
+### Get Request with offset
+GET {{baseUrl}}/coffees?offset=1
 
 ### Get Request
 GET {{baseUrl}}/coffees/{{id}}
@@ -16,15 +21,15 @@ POST {{baseUrl}}/coffees
 Content-Type: application/json
 
 {
-  "name": "XY",
+  "name": "Coffee #5",
   "brand": "TT",
-  "flavors": ["cara"]
+  "flavors": ["moi"]
 }
 
 ###  PATCH
-PATCH {{baseUrl}}/coffees/1
+PATCH {{baseUrl}}/coffees/2
 Content-Type: application/json
 
 {
-	"name": "Mocka"
+	"name": "Coffee #2"
 }
