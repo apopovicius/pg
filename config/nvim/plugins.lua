@@ -16,17 +16,17 @@ return require("packer").startup(function(use)
 	use("nvim-tree/nvim-web-devicons")
 
 	-- Colorschema
-	use("rebelot/kanagawa.nvim")
+	use("navarasu/onedark.nvim")
 
 	-- Statusline
 	use({
 		"nvim-lualine/lualine.nvim",
-    --"archibate/lualine-time",
+		--"archibate/lualine-time",
 		event = "BufEnter",
 		config = function()
 			require("configs.lualine")
 		end,
-    requires = { "nvim-web-devicons", opt = true },
+		requires = { "nvim-web-devicons", opt = true },
 	})
 
 	-- Treesitter
@@ -113,19 +113,11 @@ return require("packer").startup(function(use)
 		},
 	})
 
-  -- buffer/tabs
-  use({
-    "romgrk/barbar.nvim",
-    config = function()
-      require("barbar").setup()
-    end,
-  })
-
-	-- Show colors
+	-- buffer/tabs
 	use({
-		"norcalli/nvim-colorizer.lua",
+		"romgrk/barbar.nvim",
 		config = function()
-			require("colorizer").setup({ "*" })
+			require("barbar").setup()
 		end,
 	})
 
@@ -162,24 +154,18 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Background Transparent
+	-- debugger
 	use({
-		"xiyaowong/nvim-transparent",
+		"mfussenegger/nvim-dap",
 		config = function()
-			require("configs.transparent")
-    end, 
-  })
+			require("configs.dap")
+		end,
+	})
 
-  -- debugger
-  use({
-    "mfussenegger/nvim-dap",
-    config = function()
-      require("configs.dap")
-    end,
-  })
+	use({
+		"rcarriga/nvim-dap-ui",
+		requires = { "mfussenegger/nvim-dap" },
+	})
 
-  use({
-    "rcarriga/nvim-dap-ui",
-    requires = { "mfussenegger/nvim-dap" }
-  })
+	use("folke/zen-mode.nvim")
 end)

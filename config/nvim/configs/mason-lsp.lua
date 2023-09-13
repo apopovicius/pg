@@ -6,7 +6,7 @@ end
 
 masonlsp.setup({
 	automatic_installation = true,
-  PATH="prepend",
+	PATH = "prepend",
 	ensure_installed = {
 		"cssls",
 		"eslint",
