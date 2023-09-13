@@ -19,16 +19,19 @@ o.shiftwidth = 2
 o.tabstop = 2
 o.encoding = "utf-8"
 o.ruler = true
-o.mouse  = "a"
+o.mouse = "a"
 o.title = true
 o.hidden = true
 o.ttimeoutlen = 0
 o.wildmenu = true
 o.showcmd = true
 o.showmatch = true
-o.inccommand = "split"
-o.splitbelow = "splitright"
-o.termguicolors= true
-
-
-
+o.termguicolors = true
+o.wrap = false
+o.smartindent = true
+o.hlsearch = false
+o.incsearch = true
+o.updatetime = 50
+o.scrolloff = 8
+o.signcolumn = "yes"
+o.colorcolumn = "80"

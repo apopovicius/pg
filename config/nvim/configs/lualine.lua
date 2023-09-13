@@ -6,7 +6,7 @@ end
 lualine.setup({
 	options = {
 		icons_enabled = true,
-		theme = "powerline",
+		theme = "onedark",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
@@ -32,10 +32,10 @@ lualine.setup({
 	},
 	inactive_sections = {
 		lualine_a = {},
-		lualine_b = {},	
+		lualine_b = {},
 		lualine_c = { "filename" },
 		lualine_x = { "location" },
-    lualine_y = {},
+		lualine_y = {},
 		lualine_z = {},
 	},
 	tabline = {},
