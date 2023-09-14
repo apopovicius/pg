@@ -34,4 +34,4 @@ o.incsearch = true
 o.updatetime = 50
 o.scrolloff = 8
 o.signcolumn = "yes"
-o.colorcolumn = "80"
+o.colorcolumn = "150"

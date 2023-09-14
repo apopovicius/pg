@@ -76,12 +76,11 @@ map("n", "<C-b>", "<CMD>lua require'dap' .toogle_breakpoint()<CR>")
 --map("n", "<F12>", require 'dap'.step_out)
 --map("n", "<F6>", require 'dap'.repl.open)
 --map("n", "dl", require 'dap'.run_last)
---
 
 map("n", "<leader>zz", function()
 	require("zen-mode").setup({
 		window = {
-			width = 90,
+			width = 130,
 			options = {},
 		},
 	})
@@ -89,13 +88,13 @@ map("n", "<leader>zz", function()
 	vim.wo.wrap = false
 	vim.wo.number = true
 	vim.wo.rnu = true
-	ColorMyPencils()
+	--ColorMyPencils()
 end)
 
 map("n", "<leader>zZ", function()
 	require("zen-mode").setup({
 		window = {
-			width = 80,
+			width = 120,
 			options = {},
 		},
 	})
@@ -104,5 +103,5 @@ map("n", "<leader>zZ", function()
 	vim.wo.number = false
 	vim.wo.rnu = false
 	vim.opt.colorcolumn = "0"
-	ColorMyPencils()
+	--ColorMyPencils()
 end)

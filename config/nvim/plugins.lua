@@ -21,7 +21,6 @@ return require("packer").startup(function(use)
 	-- Statusline
 	use({
 		"nvim-lualine/lualine.nvim",
-		--"archibate/lualine-time",
 		event = "BufEnter",
 		config = function()
 			require("configs.lualine")
@@ -167,5 +166,15 @@ return require("packer").startup(function(use)
 		requires = { "mfussenegger/nvim-dap" },
 	})
 
-	use("folke/zen-mode.nvim")
+	use({ "folke/zen-mode.nvim" })
+
+	use({
+		"rest-nvim/rest.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("configs.rest")
+		end,
+	})
 end)
