@@ -17,3 +17,5 @@ Esti singur intr-o incapere incuiata si esti orb, pe masa din fata ta sunt 8 pas
 - Daca iei o pastila rosie ramai orb, daca iei 3 rosii mori
 - Albe poti lua oricate
 Ca sa iti recapeti vederea trebuie sa iei 2 pastile rosii din cele 8. Cum procedezi stiind ca ai la dispozitie un timp scurt(cateva minute) si nu poti cere ajutorul nimanui? 
+
+4. Avem 25 de cai frumosi. Care ar fi numarul minim de curse pentru a putea afla cei mai rapizi 3 cai? Pot concura in acelasi timp in aceeasi cursa 5 cai, dar nu poti avea un ceas pentru a masura timpii.

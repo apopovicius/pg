@@ -9,3 +9,33 @@ Cand liderul ajunge cu numaratoarea la 256 va putea spune ca au trecut toti prin
 3. Iei cele 8 pastile si le injumatesti(tai in 2) una cate una, creand astfel 2 grupuri de jumatati de pastiel.  
 Vei inghiti toate pastile din unul din cele 2 grupuri. 
 Cu siguranta vei avea doar 2 pastile rosii in acel grup deci iti vei recapata vederea.
+
+4. 
+Pasul 1: Imparte caii in 5 grupe de cate 5 cai.
+
+a: 1, 2, 3, 4, 5
+b: 1, 2, 3, 4, 5
+c: 1, 2, 3, 4, 5
+d: 1, 2, 3, 4, 5
+e: 1, 2, 3, 4, 5
+
+slowest -> fastest
+
+=> 5 curse
+
+Pasul 2: Castigatorii vor avea avea cursa pentru a determina castigatorul castigatorilor
+
+a5, b5, c5, d5, e5
+fast -> slow => A5 - cel mai rapid cal
+
+=> 6 curse
+
+Pasul 3: 
+- cum caii din grupa d, e au deja cel putin alti 3 cai care au terminat inaintea lor => putem elimina toti caii din grupa d si elimina
+- in grupa c care a terminat pe 3 stim sigur ca doar 1 cal mai poate participa la cursa restul fiind la fel cu siguranta mai slabi decat alti 3 cai => pastram castigatorul grupei C pentru inca o cursa
+- in grupa b calul a terminat pe 2 deci mai putem selecta maxim un cal pentru ultima cursa si acela va fi b4(calul care e terminat pe 2 grupa b). caii de pe locurile 3,4,5 stim sigur ca deja sunt 3 cai mai rapizi decat ei( castigatorul castigatorilor, castigatorul grupei si locul 2 din grupa)
+- in grupa a avem cel mai rapid cal si stim cu certitudine ca avem doar 1 singur cal care poate fi mai rapid si anume castigatorul grupei care este si castigatorul castigatorilor => raman in cursa locul 3 si locul 2
+- Ramanem asadar cu 6 cai(unul fiind castigatorul castigatorilor - deci il putem elimina pt cursa finala)
+- Cursa finala va stabili cei mai rapizi 2 cai(ramasi): locul 1, locul 2
+
+=> 7 curse
