@@ -15,17 +15,17 @@ function getPosts() {
 }
 
 //getPosts();
-// function creatPost(post, callbacks) {
+// function createPost(post, callbacks) {
 //     setTimeout( () => {
 //         posts.push(post);
 //         callbacks();
 //     }, 2000);
 // }
 
-// creatPost( {title: 'Post three', body: 'This is post three'}, getPosts);
+// createPost( {title: 'Post three', body: 'This is post three'}, getPosts);
 
 // promises
-function creatPost(post) {
+function createPost(post) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             posts.push(post);
@@ -40,7 +40,7 @@ function creatPost(post) {
     });
 }
 
-//creatPost( {title: 'Post three', body: 'This is post three'} )
+//createPost( {title: 'Post three', body: 'This is post three'} )
 //    .then(getPosts)
 //    .catch(error => console.log(error))
 
@@ -67,7 +67,7 @@ Promise.all([promise1, promise2, promise3, promise4]).then((values) =>
 
 // async/await
 async function init() {
-    await creatPost({ title: 'Post three', body: 'This is post three' });
+    await createPost({ title: 'Post three', body: 'This is post three' });
     getPosts();
 }
 init();
