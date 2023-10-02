@@ -25,3 +25,9 @@ A function or class that returns a JAVASCRIPT object containing JSX code. This r
 ```
 $npm create vite@latest
 ```
+
+> Clasic
+
+```
+$npx create-react-app app-name
+```

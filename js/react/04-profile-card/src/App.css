@@ -1,0 +1,180 @@
+.App {
+  width: 317px;
+  border-radius: 10px;
+  background-color: #F5F5F5;
+  margin: auto;
+}
+
+.hero {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero--name {
+  font-weight: 700;
+  font-size: 25px;
+  color: #2B283A;
+  margin-bottom: 0px;
+}
+
+.hero--job {
+  color: #F47D27;
+  font-weight: 400;
+  font-size: 13px;
+  margin: 0px;
+}
+
+.hero--website {
+  font-size: 11px;
+  color: #4A4E74;
+  margin-top: 0px;
+}
+
+.hero--email {
+  width: 250px;
+  border: 1px solid #D1D5DB;
+  background-color: #FFFFFF;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 9px 13px 9px 11px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.hero--email:hover{
+  background-color: rgba(244,125,39,0.3);
+  border: 1px solid #000000;
+}
+
+.hero--email-logo {
+  height: 16px;
+}
+
+.hero--email-text {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  height: 16px;
+  font-style: normal;
+}
+
+.content {
+  width:250px;
+  margin: 25px 35px 30px 35px;
+}
+
+.content--header {
+  font-weight: 700;
+  font-size: 16px;
+  color: #2B283A;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.content--text {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  color: #4A4E74;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 150%;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0px;
+  background-color: #D5D4D8;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.footer-image {
+  height: 25px;
+}
+
+
+/* I am a frontend developer with a particular interest in making things simple and automating daily tasks. I try to keep up with security and best practices, and am always looking for new things to learn. */
+
+position: absolute;
+width: 247px;
+height: 61px;
+left: 151px;
+top: 554px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 10.24px;
+line-height: 150%;
+/* or 15px */
+
+color: #4A4E74;
+
+
+
+/* Food expert. Music scholar. Reader. Internet fanatic. Bacon buff. Entrepreneur. Travel geek. Pop culture ninja. Coffee fanatic. */
+
+position: absolute;
+width: 247px;
+height: 61px;
+left: 151px;
+top: 668px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 10.24px;
+line-height: 150%;
+/* or 15px */
+
+color: #4A4E74;
+
+
+
+/* About */
+
+position: absolute;
+width: 242.71px;
+height: 21px;
+left: 151px;
+top: 528px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 150%;
+/* or 24px */
+
+color: #2B283A;
+
+
+
+/* Interests */
+
+position: absolute;
+width: 242.71px;
+height: 21px;
+left: 151px;
+top: 642px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 150%;
+/* or 24px */
+
+color: #2B283A;
