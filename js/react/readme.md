@@ -206,3 +206,32 @@ const paragraphs = pokemon.map(mon => `<p>${mon}</p>`)
 
 3. Why is using `.map()` better than just creating the components manually by typing them out?
 It makes our code more "self-sustaining" - not requiring additional changes whenever the data changes.
+
+
+### Fix key prop warning
+> Fixing warning: react-jsx-dev-runtime.development.js:85 Warning: Each child in a list should have a unique "key" prop.
+
+```
+<Card key={item.id} img={item.coverImg}/>
+```
+
+> Just add **key** as prop with value some unique value(in our case id)
+
+### Conditional rendering
+> Render UI elements based on prop conditions
+
+```
+export default function Card(props) {
+  let badgeText = "";
+  if (props.openSpots === 0) {
+    badgeText = "SOLD OUT";
+  } else if (props.country === "Online") {
+    badgeText = "ONLINE";
+  }
+  return (
+    <div className="card">
+      {badgeText !== "" && <div className="card--badge">{badgeText}</div>}
+    </div>
+  );
+}
+```
