@@ -1,0 +1,106 @@
+.App {
+  margin: auto;
+  max-width: 550px;
+  background-color: #FFFFFF;
+}
+
+nav {
+  background-color: #F55A5A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 7px;
+}
+
+.nav--image {
+  width: 24px;
+}
+
+.nav--text {
+  color: #FFFFFF;
+  line-height: 18px;
+  font-size: 15px;
+}
+
+.card {
+  padding: 0px 40px;
+  margin-top: 18px;
+}
+
+.card--area {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card--description {
+  color: #2B283A;
+  font-size: 11px;
+ }
+
+.card--image {
+  width: 125px;
+  height: 168px;
+  border-radius: 5px;
+}
+
+.card--header {
+  font-size: 11px;
+  line-height: 12px;
+  letter-spacing: 0.17em;
+  align-self: center;
+ }
+
+.card--header-pin {
+  height: 10px;
+  width: 7px;
+}
+
+.card--header-country{
+  color:#2B283A;
+  margin-left: 4px;
+}
+
+.card--header-mapUrl {
+  margin-left: 12px;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.card-header a{
+ color: #918E9B;
+ text-decoration: underline;
+}
+
+.card-header a:visited {
+ color: #918E9B;
+}
+
+.card--header a:hover {
+  color: rgba(145,142,155, 0.7)
+}
+
+.card--title {
+  font-weight: 700;
+  font-size: 25px;
+  margin-top: 7px;
+}
+
+.card--period {
+  font-weight: 700;
+  margin-top: 13px;
+}
+
+.card--story {
+  margin-top: 9px;
+  margin-bottom:0px;
+}
+
+.card hr{
+  border: none;
+  height: 0px;
+  border-top: 1px solid #F5F5F5;
+  margin-top: 18px;
+}
