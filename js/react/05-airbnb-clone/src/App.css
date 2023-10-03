@@ -31,11 +31,22 @@ nav {
 .card {
   width: 175px;
   font-size: 12px;
+  flex: 0 0 auto;         /* ADD */
+  display: flex;          /* ADD */
+  flex-direction: column; /* ADD */
+  position: relative;
 }
 
 .card--image {
  width: 100%;
  border-radius: 9px;
+ margin-bottom: 9px;
+}
+
+/* ADD */
+.card--title {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card--stats {
@@ -43,8 +54,30 @@ nav {
   align-items: center;
 }
 
+/* ADD */
+.card--price {
+    margin-top: auto;
+}
+
 .card--star {
   height: 14px;
+}
+
+.cards{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+.card--badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background-color: white;
+    padding: 5px 7px;
+    border-radius: 2px;
+    font-weight: bold;
 }
 
 .gray {
@@ -56,50 +89,53 @@ nav {
 }
 
 
-/* this is for the conctact- card section */
+/* this is for the conctact- card section
+ * just comment line display: none to make this div visible in UI
+*/
 .contacts {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
+  display: flex;
+  display: none;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
 .contact-card {
-    flex-basis: 225px;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    padding: 13px;
-    padding-bottom: 20px;
-    background-color: white;
+  flex-basis: 225px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 13px;
+  padding-bottom: 20px;
+  background-color: white;
 }
 
 .contact-card > img {
-    width: 100%;
-    height: auto;
-    align-self: center;
-    border-radius: 5px;
-    object-fit: cover;
+  width: 100%;
+  height: auto;
+  align-self: center;
+  border-radius: 5px;
+  object-fit: cover;
 }
 
 .contact-card > h3 {
-    font-weight: 700;
-    font-size: 18px;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .info-group {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .info-group > img {
-    height: 11px;
-    margin-right: 8px;
+  height: 11px;
+  margin-right: 8px;
 }
 
 .info-group > p {
-    margin-block: 3px;
-    font-size: 12px;
-    color: #2B283A;
+  margin-block: 3px;
+  font-size: 12px;
+  color: #2B283A;
 }
