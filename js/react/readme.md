@@ -4,7 +4,7 @@
 
 ---
 
-> ## JSX
+## JSX
 
 > https://react.dev/learn/writing-markup-with-jsx
 
@@ -53,11 +53,11 @@ const page = (
 
 ---
 
-> ## React Components
+### React Components
 
 A function or class that returns a JAVASCRIPT object containing JSX code. This represents your HTML elements grouped under a div tag. We use components for modularity, reusability.
 
-## Create react app with vite
+### Create react app with vite
 
 > Vite is a tool for creating FE apps
 
@@ -171,7 +171,7 @@ function Navbar(props) {
 5. What data type is `props` when the component receives it?
    An object!
 
-## React render arrays / Mapping components
+### React render arrays / Mapping components
 
 > You can map javascript objects to obtain the JSX elements.
 
@@ -237,7 +237,7 @@ export default function Card(props) {
 }
 ```
 
-## Adding event listener to buttons in React
+### Adding event listener to buttons in React
 
 > https://legacy.reactjs.org/docs/events.html#mouse-events
 
@@ -248,6 +248,8 @@ export default function Card(props) {
         </button>
   );
 ```
+
+---
 
 ## React State
 
@@ -513,11 +515,11 @@ export default function Star(props) {
 }
 ```
 
-## Passing data to child components
+### Passing data to child components
 
 ![Alt text](image.png)
 
-## Dynamic styles
+### Dynamic styles
 
 ```
 import React from "react"
@@ -600,6 +602,8 @@ function App() {
     )
 }
 ```
+
+---
 
 ## React forms
 
@@ -798,7 +802,7 @@ const [formData, setFormData] = React.useState(
 
 > **checked={formData.employment === "part-time"}** without this check the selection will be buggy in React. We use checked to let React manage this component
 
-## Select boxes
+### Select boxes
 
 ```
  const [formData, setFormData] = React.useState(
