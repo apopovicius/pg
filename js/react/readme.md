@@ -188,7 +188,7 @@ export default function App() {
 ### Quiz
 
 1. What does the `.map()` array method do?
-Returns a new array. Whatever gets returned from the callback function provided is placed at the same index in the new array. Usually we take the items from the original array and modify them in some way.
+   Returns a new array. Whatever gets returned from the callback function provided is placed at the same index in the new array. Usually we take the items from the original array and modify them in some way.
 
 ```
 const capitalized = names.map((name) => {
@@ -197,7 +197,7 @@ const capitalized = names.map((name) => {
 ```
 
 2. What do we usually use `.map()` for in React?
-Convert an array of raw data into an array of JSX elements that can be displayed on the page.
+   Convert an array of raw data into an array of JSX elements that can be displayed on the page.
 
 ```
 const pokemon = ["Bulbasaur", "Charmander", "Squirtle"]
@@ -205,10 +205,10 @@ const paragraphs = pokemon.map(mon => `<p>${mon}</p>`)
 ```
 
 3. Why is using `.map()` better than just creating the components manually by typing them out?
-It makes our code more "self-sustaining" - not requiring additional changes whenever the data changes.
-
+   It makes our code more "self-sustaining" - not requiring additional changes whenever the data changes.
 
 ### Fix key prop warning
+
 > Fixing warning: react-jsx-dev-runtime.development.js:85 Warning: Each child in a list should have a unique "key" prop.
 
 ```
@@ -218,6 +218,7 @@ It makes our code more "self-sustaining" - not requiring additional changes when
 > Just add **key** as prop with value some unique value(in our case id)
 
 ### Conditional rendering
+
 > Render UI elements based on prop conditions
 
 ```
@@ -235,3 +236,638 @@ export default function Card(props) {
   );
 }
 ```
+
+## Adding event listener to buttons in React
+
+> https://legacy.reactjs.org/docs/events.html#mouse-events
+
+```
+ return (
+        <button className="form--button" onClick={handleClick}>
+          Get a new meme image 🖼
+        </button>
+  );
+```
+
+## React State
+
+### Changing state of array
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+function App() {
+    const [things, setThings] = React.useState(["Thing 1", "Thing 2"])
+
+    function addItem() {
+        const newThingText = `Thing ${things.length + 1}`
+        setThings(prevState => [...prevState, newThingText])
+    }
+
+    const thingsElements = things.map(thing => <p key={thing}>{thing}</p>)
+
+    return (
+        <div>
+            <button onClick={addItem}>Add Item</button>
+            {thingsElements}
+        </div>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+> We create a state using **React.useState()** - this is a hook in react.
+
+### Yes/No button example
+
+```
+export default function App() {
+    const [isImportant, setIsImportant] = React.useState("Yes")
+
+    function handleClick() {
+        setIsImportant("No")
+    }
+
+    return (
+        <div className="state">
+            <h1 className="state--title">Is state important to know?</h1>
+            <div className="state--value" onClick={handleClick}>
+                <h1>{isImportant}</h1>
+            </div>
+        </div>
+    )
+}
+```
+
+> **"Yes"** is the default/initial value for the state, **isImportant** is the state value that we are changing and **setIsImportant** is the function that modify the value of isImportant
+
+### Counter increment example
+
+```
+import React from "react"
+export default function App() {
+    const [counter, setCounter] = React.useState(0)
+    function incrementCounter() {
+        setCounter(counter+1);
+    }
+    function decrementCounter() {
+        setCounter(counter-1);
+    }
+    return (
+        <div className="counter">
+            <button className="counter--minus" onClick={decrementCounter}>–</button>
+            <div className="counter--count">
+                <h1>{count}</h1>
+            </div>
+            <button className="counter--plus" onClick={incrementCounter}>+</button>
+        </div>
+    )
+}
+```
+
+> Avoid using **setCounter(counter++)**. This is a violation that change the value by yourself of the state. React doesn't allow this and you should let React increment de value.
+
+> Note: if you ever need the old value of state to help you determine the new value of state, you should pass a callback function to your state setter function **instead of using state directly**. This callback function will receive the old value of state as its parameter, which you can then use to determine your new value of state.
+
+```
+ function incrementCounter(){
+    setCounter(function(oldValue) {
+        return oldValue+1
+    })
+```
+
+or
+
+```
+ function incrementCounter(){
+    setCounter(prev => prev +1 )
+```
+
+### Complex state: arrays
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+function App() {
+    const [thingsArray, setThingsArray] = React.useState(["Thing 1", "Thing 2"])
+    function addItem() {
+        setThingsArray(prevState => {
+            return [...prevState, `Thing ${prevState.length + 1}`]
+        })
+    }
+    const thingsElements = thingsArray.map(thing => <p key={thing}>{thing}</p>)
+    return (
+        <div>
+            <button onClick={addItem}>Add Item</button>
+            {thingsElements}
+        </div>
+    )
+}
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+> ! Remember to **NOT** do setThingsArray(prevState => prevState.push(`Thing ${prevState.length + 0}`) because this change directly the state, so use spread operator to make a copy.
+
+### Complex state: objects
+
+```
+import React from "react"
+export default function App() {
+    const [contact, setContact] = React.useState({
+        firstName: "John",
+        lastName: "Doe",
+        phone: "+1 (719) 555-1212",
+        email: "itsmyrealname@example.com",
+        isFavorite: false
+    })
+    let starIcon = contact.isFavorite ? "star-filled.png" : "star-empty.png"
+    function toggleFavorite() {
+        setContact(prevContact => ({
+            ...prevContact,
+            isFavorite: !prevContact.isFavorite
+        }))
+    }
+    return (
+        <main>
+            <article className="card">
+                <img src="./images/user.png" className="card--image" />
+                <div className="card--info">
+                    <img
+                        src={`../images/${starIcon}`}
+                        className="card--favorite"
+                        onClick={toggleFavorite}
+                    />
+                    <h2 className="card--name">
+                        {contact.firstName} {contact.lastName}
+                    </h2>
+                    <p className="card--contact">{contact.phone}</p>
+                    <p className="card--contact">{contact.email}</p>
+                </div>
+            </article>
+        </main>
+    )
+}
+```
+
+### Passing state as props
+
+```
+import React from "react"
+export default function App() {
+    const [count, setCount] = React.useState(0)
+    function add() {
+        setCount(prevCount => prevCount + 1)
+    }
+    function subtract() {
+        setCount(prevCount => prevCount - 1)
+    }
+    return (
+        <div className="counter">
+            <button className="counter--minus" onClick={subtract}>–</button>
+            <div className="counter--count">
+                <h1>{count}</h1>
+            </div>
+            <button className="counter--plus" onClick={add}>+</button>
+        </div>
+    )
+}
+```
+
+> Newly component & how to pass state as props
+
+```
+export default function Count(props) {
+    return (
+        <div className="counter--count">
+            <h1>{props.number}</h1>
+        </div>
+    )
+}
+
+// Pass state as prop
+
+    return (
+        <div className="counter">
+            <button className="counter--minus" onClick={subtract}>–</button>
+            <Count number={count} />
+            <button className="counter--plus" onClick={add}>+</button>
+        </div>
+    )
+```
+
+### Changing parent component state
+
+```
+import React from "react"
+import Star from "./Star"
+
+export default function App() {
+    const [contact, setContact] = React.useState({
+        firstName: "John",
+        lastName: "Doe",
+        phone: "+1 (719) 555-1212",
+        email: "itsmyrealname@example.com",
+        isFavorite: true
+    })
+
+    function toggleFavorite() {
+        setContact(prevContact => ({
+            ...prevContact,
+            isFavorite: !prevContact.isFavorite
+        }))
+    }
+
+    return (
+        <main>
+            <article className="card">
+                <img src="./images/user.png" className="card--image" />
+                <div className="card--info">
+                    <Star isFilled={contact.isFavorite} handleClick={toggleFavorite} />
+                    <h2 className="card--name">
+                        {contact.firstName} {contact.lastName}
+                    </h2>
+                    <p className="card--contact">{contact.phone}</p>
+                    <p className="card--contact">{contact.email}</p>
+                </div>
+            </article>
+        </main>
+    )
+}
+```
+
+> Card.js
+
+```
+import React from "react"
+export default function Star(props) {
+    const starIcon = props.isFilled ? "star-filled.png" : "star-empty.png"
+    return (
+        <img
+            src={`../images/${starIcon}`}
+            className="card--favorite"
+            onClick={props.handleClick}
+        />
+    )
+}
+```
+
+## Passing data to child components
+
+![Alt text](image.png)
+
+## Dynamic styles
+
+```
+import React from "react"
+import boxes from "./boxes"
+
+export default function App(props) {
+    const [squares, setSquares] = React.useState(boxes)
+    const styles = {
+        //backgroundColor: "black"
+        backgroundColor: props.darkMode ? "#222222": "#cccccc"
+    }
+
+    const squareElements = squares.map(square => (
+        <div style={styles} className="box" key={square.id}></div>
+    ))
+    return (
+        <main>
+            {squareElements}
+        </main>
+    )
+}
+```
+
+### Advices
+
+> Incoming props should always be immutable and never changed. We can see props as properties pass to a component to configure it.
+
+> States refers to values that are managed by the component similar to variables declared inside a function. Changing values in component should be handle by state
+
+### Quiz
+
+1. How would you describe the concept of "state"?
+   A way for React to remember saved values from within a component.
+   This is similar to declaring variables from within a component, with a few added bonuses (which we'll get to later).
+
+2. When would you want to use props instead of state?
+   Anytime you want to pass data into a component so that component can determine what will get displayed on the screen.
+
+3. When would you want to use state instead of props?
+   Anytime you want a component to maintain some values from within the component. (And "remember" those values even when React re-renders the component).
+
+4. What does "immutable" mean? Are props immutable? Is state immutable?
+   Unchanging. Props are immutable. State is mutable.
+
+5. You have 2 options for what you can pass into a state setter function (e.g. `setCount`). What are they?
+   a. New value of state (setCount(42))
+   b. Callback function - whatever the callback function
+   returns === new value of state
+
+6. When would you want to pass the first option (from answer above) to the state setter function?
+   Whenever you don't need the previous value of state to determine what the new value of state should be.
+
+7. When would you want to pass the second option (from answer above) to the state setter function?
+   Whenever you DO need the previous value to determine the new value
+
+8. What is "conditional rendering"?
+   When we want to only sometimes display something on the page based on a condition of some sort
+
+9. When would you use &&?
+   When you want to either display something or NOT display it. If the condition is truly than component will be displayed
+
+10. When would you use a ternary?
+    When you need to decide which thing among 2 options to display
+
+11. What if you need to decide between > 2 options on what to display?
+    Use an `if...else if... else` conditional or a `switch` statement
+
+```
+function App() {
+    let someVar
+    if () {
+        someVar = <SomeJSX />
+    } else if() {
+        ...
+    } else {
+        ...
+    }
+    return (
+        <div>{someVar}</div>
+    )
+}
+```
+
+## React forms
+
+> https://legacy.reactjs.org/docs/forms.html
+
+> Tips: **name** in form element needs to match the property in state: eg. we have in state {firstName: ""} this mean \<input type="text" **name="firstName"**\>
+
+### Input changes in React
+
+```
+import React from "react"
+export default function Form() {
+    const [formData, setFormData] = React.useState(
+        {firstName: "", lastName: ""}
+    )
+    function handleChange(event) {
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [event.target.name]: event.target.value
+            }
+        })
+    }
+    return (
+        <form>
+            <input
+                type="text"
+                placeholder="First Name"
+                onChange={handleChange}
+                name="firstName"
+            />
+            <input
+                type="text"
+                placeholder="Last Name"
+                onChange={handleChange}
+                name="lastName"
+            />
+        </form>
+    )
+}
+```
+
+> **[event.target.name]** [ES6 Computed Properties](https://www.javascripttutorial.net/es6/javascript-computed-property/): surround keys with [] to turn dynamic strings. something saved in a variable as property in an object.
+
+### Controlled components
+
+> https://legacy.reactjs.org/docs/forms.html#controlled-components
+
+```
+import React from "react"
+
+export default function Form() {
+    const [formData, setFormData] = React.useState(
+        {firstName: "", lastName: "", email: ""}
+    )
+
+    function handleChange(event) {
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [event.target.name]: event.target.value
+            }
+        })
+    }
+
+    return (
+        <form>
+            <input
+                type="text"
+                placeholder="First Name"
+                onChange={handleChange}
+                name="firstName"
+                value={formData.firstName}
+            />
+            <input
+                type="text"
+                placeholder="Last Name"
+                onChange={handleChange}
+                name="lastName"
+                value={formData.lastName}
+            />
+            <input
+                type="email"
+                placeholder="Email"
+                onChange={handleChange}
+                name="email"
+                value={formData.email}
+            />
+        </form>
+    )
+}
+```
+
+> Key here is that we add **value** for all inputs. this way we make sure we maintain one source of truth and input html control will have all the time its state value.
+
+### Textarea
+
+```
+<textarea value={formData.textArea}/>
+```
+
+> Main difference here from classic Textarea form element is that in react there is no closing element so this is self closing. Also to be notice this one doesn't need type even it behave like input
+
+### Checkboxes
+
+```
+const [formData, setFormData] = React.useState(
+        {
+            firstName: "",
+            lastName: "",
+            email: "",
+            comments: "",
+            isFriendly: true
+        }
+    )
+
+function handleChange(event) {
+        const {name, value, type, checked} = event.target
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: type === "checkbox" ? checked : value
+            }
+        })
+    }
+
+...
+
+<input
+    type="checkbox"
+    id="isFriendly"
+    checked={formData.isFriendly>}
+    onChange={handleChange}
+    name="isFriendly"
+/>
+<label htmlFor="isFriendly">Are you friendly?</label>
+```
+
+> Key here is that checkboxes don't have a **value** property, it has **checked** so the input type will determine what will be used to set the state, value or checked **[name]: type === "checkbox" ? checked : value**
+
+### Radio Buttons
+
+```
+const [formData, setFormData] = React.useState(
+        {
+            firstName: "",
+            lastName: "",
+            email: "",
+            comments: "",
+            isFriendly: true,
+            employment: ""
+        }
+    )
+...
+<fieldset>
+                <legend>Current employment status</legend>
+                <input
+                    type="radio"
+                    id="unemployed"
+                    name="employment"
+                    value="unemployed"
+                    checked={formData.employment === "unemployed"}
+                    onChange={handleChange}
+                />
+                <label htmlFor="unemployed">Unemployed</label>
+                <br />
+
+                <input
+                    type="radio"
+                    id="part-time"
+                    name="employment"
+                    value="part-time"
+                    checked={formData.employment === "part-time"}
+                    onChange={handleChange}
+                />
+                <label htmlFor="part-time">Part-time</label>
+                <br />
+
+                <input
+                    type="radio"
+                    id="full-time"
+                    name="employment"
+                    value="full-time"
+                    checked={formData.employment === "full-time"}
+                    onChange={handleChange}
+                />
+                <label htmlFor="full-time">Full-time</label>
+                <br />
+
+            </fieldset>
+```
+
+> Radio buttons are a combination of input text and checkboxes. therefore they will have value(text) and checked state.
+
+> In order to have only one radio button at a time selected you gave to all radio buttons the same **name** (similar to what we do in HTML)
+
+> **checked={formData.employment === "part-time"}** without this check the selection will be buggy in React. We use checked to let React manage this component
+
+## Select boxes
+
+```
+ const [formData, setFormData] = React.useState(
+        {
+            firstName: "",
+            lastName: "",
+            email: "",
+            comments: "",
+            isFriendly: true,
+            employment: "",
+            favColor: ""
+        }
+    )
+
+...
+ <label htmlFor="favColor">What is your favorite color?</label>
+            <br />
+            <select
+                id="favColor"
+                value={formData.favColor}
+                onChange={handleChange}
+                name="favColor">
+                <option value="">--Choose--</option>
+                <option value="red">Red</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="indigo">Indigo</option>
+                <option value="violet">Violet</option>
+            </select>
+
+```
+
+### Submit a form
+
+```
+...
+function handleSubmit(event) {
+    event.preventDefault()
+    // submitToApi(formData)
+    console.log(formData)
+}
+...
+<form onSubmit={handleSubmit}>
+...
+<button>Submit</button>
+</form>
+```
+
+> **button** by default is a **submit** type button. if you want to change it to not be submit just use **type=button**
+
+> **event.preventDefault()** will not refresh the page and clear the form.
+> **without preventDefault** the url would become: _/index.html?firstName=asdasd&lastName=asdasd&email=&comments=&isFriendly=on&favColor=red_
+
+### Quiz
+
+1. In a vanilla JS app, at what point in the form submission process do you gather all the data from the filled-out form?
+   Right before the form is submitted.
+
+2. In a React app, when do you gather all the data from the filled-out form?
+   As the form is being filled out. The data is all held in local state.
+
+3. Which attribute in the form elements (value, name, onChange, etc.) should match the property name being held in state for that input?
+   `name` property.
+
+4. What's different about saving the data from a checkbox element vs. other form elements?
+   A checkbox uses the `checked` property to determine what should be saved in state. Other form elements use the `value` property instead.
+
+5. How do you watch for a form submit? How can you trigger a form submit?
+   -Can watch for the submit with an onSubmit handler on the `form` element.
+   -Can trigger the form submit with a button click.
