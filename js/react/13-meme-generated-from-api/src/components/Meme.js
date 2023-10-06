@@ -1,23 +1,36 @@
 import React from "react";
-import memesData from "../memesData.js";
 
 export default function Meme() {
-  function getMemeImage() {
-    const memesArray = allMememImages.data.memes;
-    const randomNumber = Math.floor(Math.random() * memesArray.length);
-    const url = memesArray[randomNumber].url;
-    setMeme((prevMeme) => ({
-      ...prevMeme,
-      randomImage: url,
-    }));
-  }
+  const [allMemes, setAllMemes] = React.useState([]);
+  React.useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => setAllMemes(data.data));
+
+    // you cant make this effect function async
+    // because this function needs to return a function,
+    // that will be cleanup for this effect and thats not async(not returning a promise)
+    //const res = await fetch("https://api.imgflip.com/get_memes")
+    //const data = await res.json()
+    //setAllMemes(data.data.memes)
+    return () => {};
+  }, []); // will run this only once therefore empty array dep
+
+  // how to work with async/await
+  //React.useEffect(() => {
+  //  async function getMemes() {
+  //    const res = await fetch("https://api.imgflip.com/get_memes");
+  //    const data = await res.json();
+  //    setAllMemes(data.data.memes);
+  //  }
+  //  getMemes();
+  //}, []);
 
   const [meme, setMeme] = React.useState({
     topText: "",
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg",
   });
-  const [allMememImages, setAllMemeImages] = React.useState(memesData);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -26,6 +39,17 @@ export default function Meme() {
       [name]: value,
     }));
   }
+
+  function getMemeImage() {
+    const memesArray = allMemes.memes;
+    const randomNumber = Math.floor(Math.random() * memesArray.length);
+    const url = memesArray[randomNumber].url;
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      randomImage: url,
+    }));
+  }
+
   return (
     <main>
       <div className="form">
