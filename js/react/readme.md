@@ -237,7 +237,7 @@ export default function Card(props) {
 }
 ```
 
-### Adding event listener to buttons in React
+## Adding event listener to buttons in React
 
 > https://legacy.reactjs.org/docs/events.html#mouse-events
 
@@ -735,7 +735,7 @@ function handleChange(event) {
 <input
     type="checkbox"
     id="isFriendly"
-    checked={formData.isFriendly>}
+    checked={formData.isFriendly}
     onChange={handleChange}
     name="isFriendly"
 />
@@ -875,3 +875,196 @@ function handleSubmit(event) {
 5. How do you watch for a form submit? How can you trigger a form submit?
    -Can watch for the submit with an onSubmit handler on the `form` element.
    -Can trigger the form submit with a button click.
+
+---
+
+## Getting data from api
+
+1. Getting data: fetch/axios or any library
+2. Save data and save it to state
+
+```
+import React from "react"
+export default function App() {
+    const [starWarsData, setStarWarsData] = React.useState({})
+
+    // console.log("Component rendered")
+
+    fetch("https://swapi.dev/api/people/1")
+        .then(res => res.json())
+        .then(data => setStarWarsData(data))
+
+    return (
+        <div>
+            <pre>{JSON.stringify(starWarsData, null, 2)}</pre>
+        </div>
+    )
+}
+```
+
+> Any time the component is rendering there is a fetch that is updating the state by setStarWarsData and makes rendering this component infinitely.
+
+### Handling this kind of side effects in react
+
+What are React's primary tasks?
+
+-   work with the DOM/browser to render UI to the page
+-   manage state for us between render cycles(i.e. state values are "remembered" from one render to the next)
+-   keep the UI updated whenever state changes
+
+What **can't** React handle on its own?
+
+-   out(side) effects!
+    -   localStorage
+    -   API/database interactions
+    -   subscripts(ig. web sockets)
+    -   syncing 2 different internal states together
+    -   basically anything that React isn't in charge of
+
+For this situations React comes with a hook called **useEffect()**. This is a tool that let us synchronize React state with outside systems.
+
+> https://legacy.reactjs.org/docs/hooks-effect.html
+
+> https://overreacted.io/a-complete-guide-to-useeffect/
+
+### useEffect() syntax default behavior & dependency array
+
+```
+   React.useEffect(function() {
+        fetch("https://swapi.dev/api/people/1")
+            .then(res => res.json())
+            .then(data => console.log(data))
+    }, ????)
+```
+
+> The default behavior wont prevent rendering infinitely because useEffect only guarantees that this hook is called after the component are renderer on the screen. This will require a second parameter here: **????**. Even this is optional you will almost need it :) and that's the **dependency array**
+
+```
+   React.useEffect(function() {
+        fetch("https://swapi.dev/api/people/1")
+            .then(res => res.json())
+            .then(data => console.log(data))
+    }, [])
+```
+
+> This will limit the number of time this effect will run, determines when this effect will run. **[]** will run the effect on the very first render of my component and then there is no dependency to watch to trigger effect again.
+
+```
+   const [starWarsData, setStarWarsData] = React.useState({})
+   const [count, setCount] = React.useState(1)
+   React.useEffect(function() {
+        fetch("https://swapi.dev/api/people/${count}")
+            .then(res => res.json())
+            .then(data => setStarWarsData(data))
+    }, [count]
+```
+
+> compare previous array render to new array => if different will run the effect again.
+
+### Quiz
+
+1. What is a "side effect" in React? What are some examples?
+
+-   Any code that affects an outside system.
+-   local storage, API, web-sockets, two states to keep in sync
+
+2. What is NOT a "side effect" in React? Examples?
+
+-   Anything that React is in charge of.
+-   Maintaining state, keeping the UI in sync with the data,
+    render DOM elements
+
+3. When does React run your useEffect function? When does it NOT run the effect function?
+
+-   As soon as the component loads (first render)
+-   On every re-render of the component (assuming no dependencies array)
+-   Will NOT run the effect when the values of the dependencies in the
+    array stay the same between renders
+
+4. How would you explain what the "dependencies array" is?
+
+-   Second parameter to the useEffect function
+-   A way for React to know whether it should re-run the effect function
+
+### State & Effect practice
+
+> App.js
+
+```
+import React from "react"
+import WindowTracker from "./WindowTracker"
+
+export default function App() {
+    /**
+     * Challenge:
+     * 1. Create state called `show`, default to `true`
+     * 2. When the button is clicked, toggle `show`
+     * 3. Only display `<WindowTracker>` if `show` is `true`
+     */
+
+    const [show, setShow] = React.useState(true)
+
+    function toggle() {
+        setShow(prevShow => !prevShow)
+    }
+
+    return (
+        <div className="container">
+            <button onClick={toggle}>
+                Toggle WindowTracker
+            </button>
+            {show && <WindowTracker />}
+        </div>
+    )
+}
+```
+
+> WindowTracker.js
+
+```
+import React from "react"
+
+export default function WindowTracker() {
+
+    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth)
+
+    React.useEffect(() => {
+        window.addEventListener("resize", function() {
+            setWindowWidth(window.innerWidth)
+        })
+    }, [])
+
+    return (
+        <h1>Window width: {windowWidth}</h1>
+    )
+}
+```
+
+> If h1 is not displayed this will cause a memory leak because we set an event listener on something thats not render.
+
+```
+    React.useEffect(() => {
+        function watchWidth() {
+            setWindowWidth(window.innerWidth)
+        }
+        window.addEventListener("resize", watchWidth )
+        return function() {
+             window.removeEventListener("resize", watchWidth)
+        }
+    }, [])
+```
+
+### Using an async function inside use effect
+
+> **useEffect** takes a function as its parameter. If that function returns something, it needs to be a cleanup function. Otherwise, it should return nothing. If we make it an async function, it automatically returns a promise instead of a function or nothing. Therefore, if you want to use async operations inside of useEffect, you need to define the function separately inside of the callback function, as seen below:
+
+```
+React.useEffect(() => {
+    async function getMemes() {
+        const res = await fetch("https://api.imgflip.com/get_memes")
+        const data = await res.json()
+        setAllMemes(data.data.memes)
+    }
+    getMemes()
+}, [])
+```
