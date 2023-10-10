@@ -9,12 +9,30 @@
 > https://react.dev/learn/writing-markup-with-jsx
 
 ```
-const element = <h1>Hello, world!</h1>;
+const element = <h1>Hello, world!</h1>
 ```
 
 This funny tag syntax is neither a string nor HTML. It is called JSX, and it is a syntax extension to JavaScript. JSX produces React “elements
 
 > JSX returns plain JAVASCRIPT objects
+
+### Rendering JSX component
+
+```
+function Page() {
+    return (
+        <div>
+            <h1>Hello, world!</h1>
+        </div>
+    );
+}
+
+ReactDOM.render(Page, document.getElementById('root'));
+
+// or REACT 18
+
+const root = ReactDOM.createRoot(document.getElementById('root')).render(<Page />)
+```
 
 ### Quiz
 
