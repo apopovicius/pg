@@ -16,7 +16,7 @@ $ npm i -g @nest/cli
 $ nest new project-name
 ```
 
-During creation It will ask you to choose the package management tool(yarn, npm) and in the end you will have listed the commands to start using your new porject
+During creation It will ask you to choose the package management tool(yarn, npm) and in the end you will have listed the commands to start using your new project
 
 ```
 $ cd project-name

@@ -1,6 +1,6 @@
 > # Nest.js
 >
-> `Nest (NestJS) is a framework for building efficient, scalable Node.js server-side applications. It uses progressive JavaScript, is built with and fully supports TypeScript (yet still enables developers to code in pure JavaScript) and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming).` - definition from official page
+> `Nest (NestJS) is a framework for building efficient, scalable Node.js server-side applications. It uses progressive JavaScript, is built with and fully supports TypeScript (yet still enables developers to code in pure JavaScript) and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming)` - _definition from official page_
 
 ## Installing globally nestjs cli
 
@@ -16,7 +16,7 @@ $ npm i -g @nest/cli
 $ nest new project-name
 ```
 
-During creation It will ask you to choose the package management tool(yarn, npm) and in the end you will have listed the commands to start using your new porject
+During creation It will ask you to choose the package management tool(yarn, npm) and in the end you will have listed the commands to start using your new project
 
 ```
 $ cd project-name
@@ -37,25 +37,25 @@ $ npm run start:dev
 
 Open the project with your fav IDE
 
-- **node_modules** -> here are our project dependencies that are managed by **package.json** file
+-   **node_modules** -> here are our project dependencies that are managed by **package.json** file
 
-- **src** -> your source code files
+-   **src** -> your source code files
 
-- **test** -> test files(e2e testing)
+-   **test** -> test files(e2e testing)
 
-- **tsconfig.json** -> typescript configuration
+-   **tsconfig.json** -> typescript configuration
 
 > ### **src** folder
 
-- **.spec** -> The unit tests for the controller
+-   **.spec** -> The unit tests for the controller
 
-- **main.ts** -> The entry file of the application which uses the core function NestFactory to create a Nest application instance
+-   **main.ts** -> The entry file of the application which uses the core function NestFactory to create a Nest application instance
 
-- **app.controller** -> here is the income-ing request handler
+-   **app.controller** -> here is the income-ing request handler
 
-- **app.module** -> The root module of the application.
+-   **app.module** -> The root module of the application.
 
-- **app.service** -> handle logic for controller
+-   **app.service** -> handle logic for controller
 
 ---
 
@@ -86,12 +86,12 @@ Also new controller was added in app.modules controller list.
 **@Get, @Post, @Put** inside your class decorators for your handling methods of various requests
 
 ```js
-@Controller("coffees")
+@Controller('coffees')
 export class CoffeesController {
-  @Get("nested")
-  findAll() {
-    return "this action return all coffees";
-  }
+    @Get('nested')
+    findAll() {
+        return 'this action return all coffees';
+    }
 }
 ```
 
@@ -247,8 +247,8 @@ $ nest g m XYZ
 
 ```js
 @Module({
-  controllers: [CoffeesController],
-  providers: [CoffeesService],
+    controllers: [CoffeesController],
+    providers: [CoffeesService],
 })
 export class CoffeesModule {}
 ```
@@ -267,7 +267,7 @@ In Nest, modules are singletons by default, and thus you can share the same inst
 
 Every module is automatically a shared module. Once created it can be reused by any module. Let's imagine that we want to share an instance of the RandomService between several other modules. In order to do that:
 
-- we first need to export the RandomService provider by adding it to the module's **exports** array:
+-   we first need to export the RandomService provider by adding it to the module's **exports** array:
 
 ```
 @Module({
@@ -277,7 +277,7 @@ Every module is automatically a shared module. Once created it can be reused by 
 })
 ```
 
-- Now any module that imports the RandomModule has access to the RandomService and will share the same instance with all other modules that import it as well.
+-   Now any module that imports the RandomModule has access to the RandomService and will share the same instance with all other modules that import it as well.
 
 ---
 
@@ -321,9 +321,9 @@ e.g. Having a POST request, with DTOs we can define shape or interface for what 
 
 ```js
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+    const app = await NestFactory.create(AppModule);
+    app.useGlobalPipes(new ValidationPipe());
+    await app.listen(3000);
 }
 ```
 
@@ -362,8 +362,8 @@ export class UpdateCoffeeDto {
 To remove duplication of code use `PartialType`
 
 ```js
-import { PartialType } from "@nestjs/mapped-types";
-import { CreateCoffeeDto } from "./create-coffee.dto";
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateCoffeeDto } from './create-coffee.dto';
 export class UpdateCoffeeDto extends PartialType(CreateCoffeeDto) {}
 ```
 
@@ -376,9 +376,9 @@ It can filter out proprieties that should NOT be received by a method handler vi
 
 ```js
 app.useGlobalPipes(
-  new ValidationPipe({
-    whitelist: true, // 👈
-  }),
+    new ValidationPipe({
+        whitelist: true, // 👈
+    })
 );
 ```
 
@@ -402,10 +402,10 @@ In addition ValidationPipe also give an option to STOP a request from being proc
 ```js
 /* Throw errors when whitelisted properties are found */
 app.useGlobalPipes(
-  new ValidationPipe({
-    forbidNonWhitelisted: true, // 👈
-    whitelist: true,
-  }),
+    new ValidationPipe({
+        forbidNonWhitelisted: true, // 👈
+        whitelist: true,
+    })
 );
 ```
 
@@ -426,16 +426,15 @@ Usually payloads come over the network as plain JavaScript objects.
 
 ```js
 app.useGlobalPipes(
-  new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    transform: true, // 👈
-  }),
+    new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true, // 👈
+    })
 );
 ```
 
 This auto transformation performs primitive Type conversions for things such booleans and numbers.
-eg
 
 ```js
   @Get(':id')
