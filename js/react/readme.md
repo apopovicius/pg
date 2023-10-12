@@ -561,6 +561,25 @@ export default function App(props) {
 }
 ```
 
+### Lazy initialization in state
+
+> As each time the state changes the component rerenders resulting in calling again same repetitive code that is costly
+
+```
+ const [notes, setNotes] = React.useState(
+    JSON.parse(localStorage.getItem("notes")) || [],
+ );
+
+```
+
+> In order to have lazy initialization and this code executed only once use a function as parameter of useState.
+
+```
+  const [notes, setNotes] = React.useState(
+    () => JSON.parse(localStorage.getItem("notes")) || [],
+  );
+```
+
 ### Advices
 
 > Incoming props should always be immutable and never changed. We can see props as properties pass to a component to configure it.
