@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css'
 import Die from "./components/Die"
+import DieDots from "./components/DieDots"
 import {nanoid} from "nanoid"
 import Confetti from "react-confetti"
 
@@ -54,7 +55,7 @@ function App() {
     }));
   }
 
-  const diceElements = dice.map(die => <Die
+  const diceElements = dice.map(die => <DieDots
     value={die.value}
     key={die.id}
     isHeld={die.isHeld}
