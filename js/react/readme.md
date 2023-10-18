@@ -1105,3 +1105,194 @@ React.useEffect(() => {
     getMemes()
 }, [])
 ```
+
+## Redux
+
+> $npm install redux react-redux
+
+### Terminology
+
+> **Redux** - State management tool that helps to resolve complex state management with a single store as Central Data Store (CDS)
+
+> **Reducers** - manages the state and returns the newly updated state
+
+> **Actions** - part of reducers functions that receive an object as parameter that have 2 proprieties type: unique identifier and payload
+
+> **Dispatch** - this is created whenever we want to send actions to update data
+
+### Basic counter example
+
+> 1. Create the store in `src\store\index.jsx`
+
+```javascript
+import {createStore} from 'redux';
+
+const reducer = (state = { counter: 0},  action) => {
+  return state;
+}
+
+export default const store = createStore(reducer);
+```
+
+> **createStore** allow us to have a store that will contain and maintain our states. This function requires a callback function as parameter named **reducer** by me where all the state management will happen.
+
+> **reducer** is the callback function we've create will have to receive 2 parameters: **state** and **action**, both essential for handling the state.
+
+> 2. Import it in the top level of your application so that it can be access by all components. Go to index.js or main.jsx and import **Provider** and pass it to the store making this provider component the father of the App component as follow
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { Provider } from 'react-redux';
+import store from './store/index.jsx';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <Provider store={store}>
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+        ,
+    </Provider>
+);
+```
+
+> **<Provider store={store}>** wraps the application App and have using the store imported from our file we create.
+
+> 3. Make use of state created in your app component. For this you will need to import 2 functions **useSelector** and **useDispatch**
+
+```javascript
+import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+
+function App() {
+    const counter = useSelector((state) => state.counter);
+    const dispatch = useDispatch();
+    const inc = () => {
+        dispatch({ type: 'inc' });
+    };
+    const dec = () => {
+        dispatch({ type: 'dec' });
+    };
+    const addBy = () => {
+        dispatch({ type: 'addBy', payload: 10 });
+    };
+    return (
+        <>
+            <h1>Counter app</h1>
+            <h2>{counter}</h2>
+            <button onClick={inc}>+</button>
+            <button onClick={dec}>-</button>
+            <button onClick={addBy}>+10</button>
+        </>
+    );
+}
+
+export default App;
+```
+
+> **useSelector** is the function that offer you access to your state from store and it receive an callback as parameter.
+
+> **useDispatch** is your helper function that will help you manipulate your state. in our example we've attached it to the onClick handler of 3 buttons. It can be seen that this functions receive as a parameter an object where we tell the reducer what action will be perform on our state. In our example we define **type as having value: inc, dec, addBy**. this is the unique identifier in the reducer function of our store. This object can also contain optional payload information we name it **payload**. This way will tell reducer function take this payload and alter the state with this payload.
+
+> 4. Adapt store to handle the dispatch types. See below final store implementation
+
+```javascript
+import { createStore } from 'redux';
+
+const reducer = (state = { counter: 0 }, action) => {
+    // sync function
+    // should not mutate the original state
+    // in our case the action is build like this: {type: "unique_identifier", payload: value}
+    if (action.type === 'inc') {
+        return { counter: state.counter + 1 };
+    }
+    if (action.type === 'dec') {
+        return { counter: state.counter - 1 };
+    }
+    if (action.type === 'addBy') {
+        return { counter: state.counter + action.payload };
+    }
+    return state; // return {counter :0}
+};
+
+const store = createStore(reducer);
+export default store;
+```
+
+> On this final step we make use of the second parameter of the reducer called **action**
+> if(action.type === 'inc') -> this will handle stateChange by adding one to the current value. Similar things happen for the other 2 types from this example: **dec, addBy**
+
+### Using redux-toolkit
+
+> https://redux-toolkit.js.org/introduction/getting-started
+
+> npm install @redux/toolkit
+
+```javascript
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+    name: 'counter',
+    initialState: { counter: 0 },
+    reducers: {
+        inc(state, action) {
+            state.counter++;
+        },
+        dec(state, action) {
+            state.counter--;
+        },
+        addBy(state, action) {
+            state.counter += action.payload;
+        },
+    },
+});
+
+export const actions = counterSlice.actions;
+//export const { inc, dec, addBy } = counterSlice.actions
+const store = configureStore({
+    reducer: counterSlice.reducer,
+});
+
+export default store;
+```
+
+> **createSlice** will create your state **counter** and will define the **reducers** the way you want to change the state. In order to access this methods you have to export the **actions** as being **counterSlice.actions**
+
+> **reducers** is an object containing redux "case reducer" functions (functions intended to handle a specific action type, equivalent to a single case statement in a switch). The keys in the object will be used to generate string action type constants.
+
+> The store will be config using **configureStore** this receives an object as parameter that will contain the key: **reducer:counterSlice.reducer**
+
+> You can observe that the **counterSlice** have two key components: **actions** and **reducer** that will do the magic.
+
+> Doc:
+>
+> https://redux-toolkit.js.org/api/createSlice
+>
+> https://redux-toolkit.js.org/api/configureStore
+
+> App component will just call the actions
+
+```javascript
+...
+  const inc = () => {
+    dispatch(actions.inc());
+  }
+
+  const dec = () => {
+    dispatch(actions.dec());
+  }
+
+  const addBy = () => {
+    dispatch(actions.addBy(10));
+  }
+  return (
+    <>
+      <h1>Counter app</h1>
+      <h2>{counter}</h2>
+      <button onClick={inc}>+</button>
+      <button onClick={dec}>-</button>
+      <button onClick={addBy}>+10</button>
+    </>
+  );
+```
