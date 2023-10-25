@@ -8,21 +8,23 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Res,
 } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CareerService } from "./career.service";
 import { CreateCareerDto } from "./dto/create-career-dto";
 import { UpdateCareerDto } from "./dto/update-career-dto";
+import { PaginationQueryDto } from "./dto/pagination-query-dto";
 
 @ApiTags("career")
 @Controller("career")
 export class CareerController {
   constructor(private readonly careerService: CareerService) {}
   @Get()
-  findAll() {
+  findAll(@Query() paginationDto: PaginationQueryDto) {
     //return "Get all years of career";
-    return this.careerService.findAll();
+    return this.careerService.findAll(paginationDto);
   }
 
   @Get(":year")

@@ -1,14 +1,34 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Query } from '@nestjs/common';
 import { Career } from './entity/career';
 import { CreateCareerDto } from './dto/create-career-dto';
 import { UpdateCareerDto } from './dto/update-career-dto';
+import { PaginationQueryDto } from './dto/pagination-query-dto';
 
 @Injectable()
 export class CareerService {
   private careerList: Career[] = [];
 
-  findAll() {
-    return this.careerList;
+  private giveMeListPaginated(limit: number, offset: number) {
+    let list = [...this.careerList];
+    list.splice(0, offset);
+    let final = []
+    for(let i=0;i<limit; i++)
+    {
+      if(i >= list.length)
+        break;
+      final.push(list[i]);
+    }
+    return final;
+  }
+
+  findAll(paginationQuery: PaginationQueryDto) {
+    let careerList = [...this.careerList];
+    console.log(paginationQuery);
+    if(Object.keys(paginationQuery).length) {
+      const {limit, offset} = paginationQuery;
+      careerList = this.giveMeListPaginated(limit, offset);
+    }
+    return careerList;
   }
 
   findOne(year: string) {
@@ -24,9 +44,10 @@ export class CareerService {
   }
 
   addExperienceDto(createCareerDto: CreateCareerDto) {
-    console.log(createCareerDto)
+    //console.log(createCareerDto)
     const {role, company, duration, year, skills} = createCareerDto;
-    const newCareerXP = new Career(role, company, duration, +year, skills);
+    const newYear = +year + this.careerList.length;
+    const newCareerXP = new Career(role, company, duration, newYear, skills);
     this.careerList.push(newCareerXP);
   }
 
