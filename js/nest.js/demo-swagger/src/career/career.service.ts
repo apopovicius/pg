@@ -19,15 +19,18 @@ export class CareerService {
   }
 
   addExperiance(year: string, role: string, company: string, duration: number, skills: string[]) {
-//  addExperience(createCareerDto: CreateCareerDto) {
-    //console.log(createCareerDto)
     const newCareerXP = new Career(role, company, duration, +year, skills);
     this.careerList.push(newCareerXP);
   }
-  
+
+  addExperienceDto(createCareerDto: CreateCareerDto) {
+    console.log(createCareerDto)
+    const {role, company, duration, year, skills} = createCareerDto;
+    const newCareerXP = new Career(role, company, duration, +year, skills);
+    this.careerList.push(newCareerXP);
+  }
 
   updateExperience(year: string, role: string, company: string, duration: number, newYear: number, skills: string[]) {
-  //updateExperience(year: string, updateCareerDto: UpdateCareerDto) {
     const existing = this.findOne(year);
     if(existing) {
       const updatedCareer = {...existing};
@@ -42,12 +45,28 @@ export class CareerService {
     }
   }
 
+  updateExperienceDto(yearToUpdate: string, updateCareerDto: UpdateCareerDto) {
+    const existing = this.findOne(yearToUpdate);
+    if(existing) {
+      const updatedCareer = {...existing};
+      const {role, company, duration, skills, year} = updateCareerDto;
+      if(role) updatedCareer.role = role;
+      if(company) updatedCareer.company = role;
+      if(duration) updatedCareer.duration = duration;
+      if(skills) updatedCareer.skills = skills;
+      if(year) updatedCareer.year = year;
+
+      const indexOf = this.careerList.findIndex(e => e.year === +yearToUpdate);
+      this.careerList[indexOf] = updatedCareer;
+    }
+  }
+
+
   removeExperience(year: string) {
     const existingIndex = this.careerList.findIndex(e => e.year === +year);
     if(existingIndex >= 0) {
       console.log('found one')
       this.careerList.splice(existingIndex, 1);
     }
-    return
   }
 }

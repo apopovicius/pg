@@ -37,15 +37,15 @@ export class CareerController {
     status: 201,
     description: "The record has been successfully created",
   })
-  addExperience(
-     @Body() body,
-  ) {
-  //   return `adding experience to career ${body.role}@${body.company} from ${body.year}`;
+  addExperience(@Body() body) {
+    //return `adding experience to career ${body.role}@${body.company} from ${body.year}`;
     this.careerService.addExperiance(body.year, body.role, body.company, body.duration, body.skills);
   }
-  //addExperience(@Body() createCareerDto: CreateCareerDto) {
-    //this.careerService.addExperience(createCareerDto);
-  //}
+
+  @Post('dto')
+  addExperienceDto(@Body() createCareerDto: CreateCareerDto) {
+    this.careerService.addExperienceDto(createCareerDto);
+  }
 
 
   @Patch(":year")
@@ -59,9 +59,11 @@ export class CareerController {
   //   return `updating the experience for year: ${year}`;
     return this.careerService.updateExperience(year, role, company, duration, newYear, skills);
   }
-  // updateExperience(@Param('year') year: string, @Body() updateCareerDto: UpdateCareerDto) {
-  //   return this.careerService.updateExperience(year, updateCareerDto);
-  // }
+  
+  @Patch("dto/:year")
+  updateExperienceDto(@Param('year') year: string, @Body() updateCareerDto: UpdateCareerDto) {
+     return this.careerService.updateExperienceDto(year, updateCareerDto);
+  }
 
   @Delete(":year")
   //@HttpCode(HttpStatus.NO_CONTENT)
