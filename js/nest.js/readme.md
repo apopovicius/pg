@@ -8,6 +8,8 @@
 $ npm i -g @nest/cli
 ```
 
+> https://docs.nestjs.com/cli/usages
+
 ---
 
 ## Create new nest project
@@ -45,7 +47,7 @@ Open the project with your fav IDE
 
 -   **tsconfig.json** -> typescript configuration
 
-> ### **src** folder
+### **src** folder
 
 -   **.spec** -> The unit tests for the controller
 
@@ -59,7 +61,7 @@ Open the project with your fav IDE
 
 ---
 
-> ## Controllers
+## Controllers
 
 > Handling incoming requests and sending back responses
 >
@@ -163,7 +165,7 @@ export class CoffeesController {
   }
 ```
 
-> **Route wildcards**
+**Route wildcards**
 
 Pattern based routes are supported as well. For instance, the asterisk is used as a wildcard, and will match any combination of characters.
 
@@ -175,7 +177,7 @@ The 'ab*cd' route path will match abcd, ab_cd, abecd, and so on. The characters 
 
 ---
 
-> ## Providers/Services
+## Providers/Services
 
 > Providers are a fundamental concept in Nest. Many of the basic Nest classes may be treated as a provider – services, repositories, factories, helpers, and so on. The main idea of a provider is that it can be injected as a dependency
 
@@ -233,7 +235,7 @@ export class CoffeesController {
 
 ---
 
-> ## Modules
+## Modules
 
 > A module is a class annotated with a **@Module()** decorator. The **@Module()** decorator provides metadata that **Nest** makes use of to organize the application structure.
 
@@ -281,7 +283,7 @@ Every module is automatically a shared module. Once created it can be reused by 
 
 ---
 
-> ## DTO - Data Transfer Objects
+## DTO - Data Transfer Objects
 
 We can define interfaces for input/output in our system.
 e.g. Having a POST request, with DTOs we can define shape or interface for what we're expecting to receive for our body
@@ -313,7 +315,7 @@ e.g. Having a POST request, with DTOs we can define shape or interface for what 
   }
 ```
 
-> ## Validate Input with DTOs
+## Validate Input with DTOs
 
 **ValidationPipe** - provides a convenient way of enforcing validation rules for all incoming client payloads.
 
@@ -370,7 +372,7 @@ export class UpdateCoffeeDto extends PartialType(CreateCoffeeDto) {}
 > PartialType will return a CreateCoffeeDto with all fields OPTIONAL<br>
 > PartialType not only marks all fields optional also inherits all the validations rules and add @IsOptional validation rule on the fly
 
-> ## Handling malicious request data with ValidationPipe
+## Handling malicious request data with ValidationPipe
 
 It can filter out proprieties that should NOT be received by a method handler via "whitelisting"
 
@@ -409,7 +411,7 @@ app.useGlobalPipes(
 );
 ```
 
-> ## Auto-transform payloads to DTO instances using ValidationPipe
+## Auto-transform payloads to DTO instances using ValidationPipe
 
 Usually payloads come over the network as plain JavaScript objects.
 
