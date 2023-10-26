@@ -41,11 +41,12 @@ export class CareerController {
   })
   addExperience(@Body() body) {
     //return `adding experience to career ${body.role}@${body.company} from ${body.year}`;
-    this.careerService.addExperiance(body.year, body.role, body.company, body.duration, body.skills);
+    this.careerService.addExperiencence(body.year, body.role, body.company, body.duration, body.skills);
   }
 
   @Post('dto')
   addExperienceDto(@Body() createCareerDto: CreateCareerDto) {
+    console.log(createCareerDto instanceof CreateCareerDto);
     this.careerService.addExperienceDto(createCareerDto);
   }
 
