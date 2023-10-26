@@ -38,7 +38,7 @@ export class CareerService {
     return careerItem;
   }
 
-  addExperiance(year: string, role: string, company: string, duration: number, skills: string[]) {
+  addExperiencence(year: string, role: string, company: string, duration: number, skills: string[]) {
     const newCareerXP = new Career(role, company, duration, +year, skills);
     this.careerList.push(newCareerXP);
   }
