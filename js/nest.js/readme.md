@@ -288,6 +288,7 @@ Every module is automatically a shared module. Once created it can be reused by 
 We can define interfaces for input/output in our system.
 e.g. Having a POST request, with DTOs we can define shape or interface for what we're expecting to receive for our body
 
+
 ```js
   @Post()
   create(@Body() body) {
