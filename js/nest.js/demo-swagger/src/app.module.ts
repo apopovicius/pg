@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 //import { CareerController } from './career/career.controller';
 //import { CareerService } from './career/career.service';
 import { CareerModule } from './career/career.module';
+import { CareerService } from './career/career.service';
 
 @Module({
   imports: [CareerModule],
