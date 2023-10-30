@@ -17,4 +17,10 @@ async function main2() {
 
 console.log(0);
 main2();
+
+console.log(main);
 console.log(1);
+
+const myTest = () => {};
+
+console.log(myTest());
