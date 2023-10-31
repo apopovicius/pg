@@ -13,7 +13,7 @@ struct Shape {
 template <typename T>
 struct ShapeCRTP: public Shape {
     Shape* Clone() override {
-        return new T(*(this));
+        return new T(*static_cast<T*>(this));
     }
 };
 
