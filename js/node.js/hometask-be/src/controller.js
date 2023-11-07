@@ -60,42 +60,6 @@ const getAllUnpaidJobsForProfile = async (profileId) => {
     return unpaid;
 };
 
-const getBestProfession = async (start, end) => {
-    if (!start || !end) return;
-
-    const allProfessions = await Profile.findAll({
-        attributes: ['profession'],
-        group: ['profession'],
-        raw: true,
-    });
-
-    let professionProfiles;
-    for (const prof of allProfessions) {
-        const profiles = await Profile.findAll({
-            attributes: ['id'],
-            where: { profession: prof.profession },
-            raw: true,
-        });
-        professionProfiles.profession = profiles;
-    }
-
-    return professionProfiles;
-    // max of sum of the jobs paid for profession
-    // const paidForEachContract = await Job.findAll({
-    //     attributes: [
-    //         'ContractId',
-    //         [sequelize.fn('sum', sequelize.col('price')), 'total_paid'],
-    //         'paymentDate',
-    //     ],
-    //     where: {
-    //         paid: true,
-    //     },
-    //     group: ['ContractId'],
-    // });
-
-    // return paidForEachContract;
-};
-
 const tryPayJob = async (jobId) => {
     const job = await Job.findOne({
         include: [{ model: Contract }],
@@ -212,11 +176,160 @@ const tryDeposit = async (from, to, amount) => {
     return { status: true, msg: 'Successfully' };
 };
 
+const getBestProfession = async (start, end) => {
+    if (!start || !end)
+        return { status: false, msg: 'no start and no end date' };
+
+    const contractorContracts = await getContractsForProfileType('Contractor');
+    const contractCosts = await getContractCosts(
+        contractorContracts,
+        start,
+        end,
+        'Contractor'
+    );
+    if (!contractCosts) {
+        return { status: false, msg: 'no contracts that falls in this period' };
+    }
+
+    const totalsPerProfession = totalPaid(contractCosts, 'profession');
+    const { maxTotalPrice, theProfession } = maxPaid(totalsPerProfession);
+    return theProfession;
+};
+
+const getBestClients = async (start, end, limit) => {
+    if (!start || !end)
+        return { status: false, msg: 'no start and no end date' };
+    const clientsContract = await getContractsForProfileType('Client');
+    const contractCosts = await getContractCosts(
+        clientsContract,
+        start,
+        end,
+        'Client'
+    );
+    if (!contractCosts) {
+        return { status: false, msg: 'no contracts that falls in this period' };
+    }
+
+    const totalsPerFullName = totalPaid(contractCosts);
+    const ranked = Object.entries(totalsPerFullName).sort(
+        (a, b) => b[1] - a[1]
+    );
+    const rankedWithLimit = [];
+    for (let i = 0; i < ranked.length; i++) {
+        if (i === +limit) break;
+        const [fullName, paid] = ranked[i];
+        const element = {
+            id: contractCosts.find((e) => e.fullName === fullName).client,
+            fullName,
+            paid,
+        };
+        rankedWithLimit.push(element);
+    }
+    return rankedWithLimit;
+};
+
+const getContractsForProfileType = async (type) => {
+    const contracts = await Contract.findAll({
+        include: [
+            {
+                model: Profile,
+                as: type,
+            },
+        ],
+    });
+    return contracts;
+};
+
+const getContractCosts = async (contracts, start, end, type) => {
+    const contractCosts = await totalCostPerContract(
+        contracts,
+        start,
+        end,
+        type
+    );
+    return contractCosts;
+};
+
+const totalCostPerContract = async (profilesContracts, start, end, type) => {
+    const contractCosts = [];
+    for (const contract of profilesContracts) {
+        const jobs = await getAllPaidJobsForAContract(contract.id, start, end);
+        const totals = jobs.reduce((acc, item) => {
+            return acc + item.price;
+        }, 0);
+        if (totals === 0) continue;
+        const contractPrice = {
+            id: contract.id,
+            totalPaid: totals,
+            contractor: contract.ContractorId,
+            client: contract.ClientId,
+            fullName:
+                type === 'Contractor'
+                    ? contract.Contractor.firstName +
+                      ' ' +
+                      contract.Contractor.lastName
+                    : contract.Client.firstName +
+                      ' ' +
+                      contract.Client.lastName,
+            profession:
+                type === 'Contractor'
+                    ? contract.Contractor.profession
+                    : contract.Client.profession,
+        };
+        contractCosts.push(contractPrice);
+    }
+    return contractCosts;
+};
+
+const totalPaid = (contractCosts, by = '') => {
+    const totalPrice = {};
+
+    contractCosts.forEach((item) => {
+        const { totalPaid, profession, fullName } = item;
+        const key = by === 'profession' ? profession : fullName;
+        if (totalPrice[`${key}`] === undefined) {
+            totalPrice[`${key}`] = totalPaid;
+        } else {
+            totalPrice[`${key}`] += totalPaid;
+        }
+    });
+    return totalPrice;
+};
+
+const getAllPaidJobsForAContract = async (ContractId, start, end) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const paidJobs = await Job.findAll({
+        where: {
+            [Op.and]: [
+                { ContractId },
+                { paid: 1 },
+                { paymentDate: { [Op.between]: [startDate, endDate] } },
+            ],
+        },
+    });
+    return paidJobs;
+};
+
+const maxPaid = (totalPaid) => {
+    let maxTotalPrice = 0;
+    let theProfession = null;
+
+    for (const type in totalPaid) {
+        if (totalPaid[type] >= maxTotalPrice) {
+            maxTotalPrice = totalPaid[type];
+            theProfession = type;
+        }
+    }
+    return { maxTotalPrice, theProfession };
+};
+
 module.exports = {
     findContractByIdForProfile,
     findAllContractsForProfile,
     getAllUnpaidJobsForProfile,
-    getBestProfession,
     tryPayJob,
     tryDeposit,
+    getBestProfession,
+    getBestClients,
 };
