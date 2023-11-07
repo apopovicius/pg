@@ -7,9 +7,10 @@ const {
     findContractByIdForProfile,
     findAllContractsForProfile,
     getAllUnpaidJobsForProfile,
-    getBestProfession,
     tryPayJob,
     tryDeposit,
+    getBestProfession,
+    getBestClients,
 } = require('./controller');
 
 const app = express();
@@ -76,13 +77,10 @@ app.post('/balances/deposit/:userId', getProfile, async (req, res) => {
  * for any contractor that worked in the query time range.
  * GET /admin/best-profession?start=<date>&end=<date>
  */
-app.get('/admin/best-profession', getProfile, async (req, res) => {
-    const contractsSum = await getBestProfession(
-        req.query.start,
-        req.query.end
-    );
-    if (!contractsSum) return res.status(404).end();
-    res.json(contractsSum);
+app.get('/admin/best-profession', async (req, res) => {
+    const profession = await getBestProfession(req.query.start, req.query.end);
+    if (!profession.status == false) return res.status(404).end();
+    res.json(profession);
 });
 
 /**
@@ -90,6 +88,16 @@ app.get('/admin/best-profession', getProfile, async (req, res) => {
  * limit query parameter should be applied, default limit is 2
  * GET /admin/best-clients?start=<date>&end=<date>&limit=<integer>
  */
-app.get('/admin/best-clients', getProfile, async (req, res) => {});
+app.get('/admin/best-clients', getProfile, async (req, res) => {
+    let limit = req.query.limit;
+    if (!limit) limit = 2;
+    const bestClient = await getBestClients(
+        req.query.start,
+        req.query.end,
+        limit
+    );
+    if (!bestClient.status == false) return res.status(404).end();
+    res.json(bestClient);
+});
 
 module.exports = app;

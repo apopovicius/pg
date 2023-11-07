@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:3001
 @contractId = 7
-@profileId = 2
+@profileId = 1
 @clientId = 4
 @jobId = 5
 
@@ -16,24 +16,29 @@ profile_id: {{profileId}}
 GET {{baseUrl}}/jobs/unpaid/
 profile_id: {{profileId}}
 
+### GET BEST PAID PROFESSION
+GET {{baseUrl}}/admin/best-profession
+    ?start=2020-08-16
+    &end=2020-08-18
+profile_id: {{profileId}}
+
+### GET BEST CLIENTS
+GET {{baseUrl}}/admin/best-clients
+    ?start=2020-08-10
+    &end=2020-08-18
+    &limit=1000
+profile_id: {{profileId}}
+
 ### POST PAY A JOB
-POST {{baseUrl}}/jobs/{{jobId}}/pay
-    profile_id: {{profileId}}
+POST {{baseUrl}}/jobs/{{jobId}}/pay/
+profile_id: {{profileId}}
 Content-Type: application/json
 
 ### POST DEPOSIT TO CLIENT BALANCE
-POST {{baseUrl}}/balances/deposit/{{clientId}}
-    profile_id: {{profileId}}
+POST {{baseUrl}}/balances/deposit/{{clientId}}/
+profile_id: {{profileId}}
 Content-Type: application/json
 
 {
     "amount": 15
 }
-
-### GET BEST PROFESSION
-GET {{baseUrl}}/admin/best-profession
-    ?start=2020-08-10
-    &end=2020-08-17
-    profile_id: {{profileId}}
-
-#GET /admin/best-clients?start=<date>&end=<date>&limit=<integer>
