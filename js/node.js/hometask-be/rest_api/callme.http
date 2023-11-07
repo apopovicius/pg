@@ -2,7 +2,7 @@
 @contractId = 7
 @profileId = 1
 @clientId = 4
-@jobId = 5
+@jobId = 1
 
 ### GET CONTRACTS BY CONTRACT ID FOR PROFILE ID
 GET {{baseUrl}}/contracts/{{contractId}}
@@ -26,7 +26,7 @@ profile_id: {{profileId}}
 GET {{baseUrl}}/admin/best-clients
     ?start=2020-08-10
     &end=2020-08-18
-    &limit=1000
+    &limit=3
 profile_id: {{profileId}}
 
 ### POST PAY A JOB
@@ -40,5 +40,5 @@ profile_id: {{profileId}}
 Content-Type: application/json
 
 {
-    "amount": 15
+    "amount": 10
 }
