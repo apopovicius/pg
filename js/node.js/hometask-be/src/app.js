@@ -11,7 +11,12 @@ const {
     tryDeposit,
     getBestProfession,
     getBestClients,
-} = require('./controller');
+} = require('./controllers/controller');
+
+const {
+    getBestProfessionDirty,
+    getBestClientsDirty,
+} = require('./controllers/queriesWithNoAssociation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -84,6 +89,21 @@ app.get('/admin/best-profession', async (req, res) => {
 });
 
 /**
+ * @returns the profession that earn the most money(sum of jobs paid)
+ * for any contractor that worked in the query time range.
+ * GET /admin/best-profession?start=<date>&end=<date>
+ */
+app.get('/admin/best-profession/dirty', async (req, res) => {
+    // const profession = await getBestProfession(req.query.start, req.query.end);
+    const profession = await getBestProfessionDirty(
+        req.query.start,
+        req.query.end
+    );
+    if (!profession.status == false) return res.status(404).end();
+    res.json(profession);
+});
+
+/**
  * @returns the clients that paid the most for jobs in query time period
  * limit query parameter should be applied, default limit is 2
  * GET /admin/best-clients?start=<date>&end=<date>&limit=<integer>
@@ -92,6 +112,23 @@ app.get('/admin/best-clients', getProfile, async (req, res) => {
     let limit = req.query.limit;
     if (!limit) limit = 2;
     const bestClient = await getBestClients(
+        req.query.start,
+        req.query.end,
+        limit
+    );
+    if (!bestClient.status == false) return res.status(404).end();
+    res.json(bestClient);
+});
+
+/**
+ * @returns the clients that paid the most for jobs in query time period
+ * limit query parameter should be applied, default limit is 2
+ * GET /admin/best-clients?start=<date>&end=<date>&limit=<integer>
+ */
+app.get('/admin/best-clients/dirty', getProfile, async (req, res) => {
+    let limit = req.query.limit;
+    if (!limit) limit = 2;
+    const bestClient = await getBestClientsDirty(
         req.query.start,
         req.query.end,
         limit
