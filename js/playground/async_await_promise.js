@@ -69,6 +69,7 @@ f();
  * Then await waits until one of them is called
  * (in the example above it happens in the line (*)) and then proceeds with the result.
  *
- * The await keyword before a promise makes JavaScript wait until that promise settles, and then: * 1. If it’s an error, an exception is generated — same as if throw error were called at that very place.
+ * The await keyword before a promise makes JavaScript wait until that promise settles, and then:
+ * 1. If it’s an error, an exception is generated — same as if throw error were called at that very place.
  * 2. Otherwise, it returns the result.
  */
