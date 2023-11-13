@@ -22,9 +22,22 @@ GET {{baseUrl}}/admin/best-profession
     &end=2020-08-18
 profile_id: {{profileId}}
 
-
 ### GET BEST PAID PROFESSION
 GET {{baseUrl}}/admin/best-profession/dirty
+    ?start=2020-08-08
+    &end=2020-08-18
+profile_id: {{profileId}}
+
+
+### GET BEST PAID PROFESSION
+GET {{baseUrl}}/admin/best-profession/sql
+    ?start=2020-08-08
+    &end=2020-08-18
+profile_id: {{profileId}}
+
+
+### GET BEST PAID PROFESSION
+GET {{baseUrl}}/admin/best-profession/v2
     ?start=2020-08-08
     &end=2020-08-18
 profile_id: {{profileId}}
@@ -42,6 +55,7 @@ GET {{baseUrl}}/admin/best-clients/dirty
     &end=2020-08-18
     &limit=5
 profile_id: {{profileId}}
+
 
 ### POST PAY A JOB
 POST {{baseUrl}}/jobs/{{jobId}}/pay/

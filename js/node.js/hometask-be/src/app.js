@@ -18,6 +18,8 @@ const {
     getBestClientsDirty,
 } = require('./controllers/queriesWithNoAssociation');
 
+const { bestProfessionSQL, bestProfession } = require('./controllers/v2');
+
 const app = express();
 app.use(bodyParser.json());
 app.set('sequelize', sequelize);
@@ -100,6 +102,32 @@ app.get('/admin/best-profession/dirty', async (req, res) => {
         req.query.end
     );
     if (!profession.status == false) return res.status(404).end();
+    res.json(profession);
+});
+
+/**
+ * @returns the profession that earn the most money(sum of jobs paid)
+ * for any contractor that worked in the query time range.
+ * GET /admin/best-profession?start=<date>&end=<date>
+ */
+app.get('/admin/best-profession/sql', async (req, res) => {
+    const profession = await bestProfessionSQL(
+        new Date(req.query.start),
+        new Date(req.query.end)
+    );
+    res.json(profession);
+});
+
+/**
+ * @returns the profession that earn the most money(sum of jobs paid)
+ * for any contractor that worked in the query time range.
+ * GET /admin/best-profession?start=<date>&end=<date>
+ */
+app.get('/admin/best-profession/v2', async (req, res) => {
+    const profession = await bestProfession(
+        new Date(req.query.start),
+        new Date(req.query.end)
+    );
     res.json(profession);
 });
 
