@@ -31,7 +31,7 @@ app.set('models', sequelize.models);
 app.get('/contracts/:id', getProfile, async (req, res) => {
     const contract = await findContractByIdForProfile(
         req.params.id,
-        req.profile.id
+        req.profile.i
     );
     if (!contract) return res.status(404).end();
     res.json(contract);
