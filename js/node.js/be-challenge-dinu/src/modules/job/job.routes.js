@@ -1,16 +1,16 @@
-const router = require("express").Router();
-const { CustomError } = require("../../middleware/customError");
-const { getUnpaidJobsByUser, tryPayJob } = require("./job.controller");
+const router = require('express').Router();
+const { CustomError } = require('../../middleware/customError');
+const { getUnpaidJobsByUser, tryPayJob } = require('./job.controller');
 
-router.get("/unpaid", async (req, res) => {
-  const unpaidJobs = await getUnpaidJobsByUser(req.profile.id);
-  if (!unpaidJobs.length) throw new CustomError("No unpaid jobs found", 404);
-  res.json(unpaidJobs);
+router.get('/unpaid', async (req, res) => {
+    const unpaidJobs = await getUnpaidJobsByUser(req.profile.id);
+    if (!unpaidJobs.length) throw new CustomError('No unpaid jobs found', 404);
+    res.json(unpaidJobs);
 });
 
-router.post("/:job_id/pay", async (req, res) => {
-  await tryPayJob(req.params.job_id, req.profile.id);
-  res.json(`Job ${req.paramas.job_id} was paid`);
+router.post('/:job_id/pay', async (req, res) => {
+    await tryPayJob(req.params.job_id, req.profile.id);
+    res.json(`Job ${req.params.job_id} was paid`);
 });
 
 module.exports = router;
