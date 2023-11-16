@@ -85,6 +85,10 @@ const tryPayJob = async (jobId, clientId) => {
             job.paid = true;
             job.paymentDate = sequelize.literal('CURRENT_TIMESTAMP');
 
+            // Note: The save() instance method is not aware of associations.
+            // In other words, if you change a value from a child object that was eager loaded along a parent object,
+            // calling save() on the parent will completely ignore the change that happened on the child.
+            // https://sequelize.org/docs/v6/core-concepts/assocs
             await Promise.all([
                 client.save({ transaction: t }),
                 contractor.save({ transaction: t }),
