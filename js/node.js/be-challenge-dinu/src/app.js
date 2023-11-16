@@ -15,7 +15,7 @@ const morgan = require("morgan");
 app.use(
   morgan(
     "dev",
-    ":method :url :status :res[content-length] - :response-time ms - [:date[clf]]",
+    ":method :url :status - :res[content-length] - :response-time ms - [:date[clf]]",
   ),
 );
 
