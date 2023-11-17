@@ -1,33 +1,29 @@
-const { Contract } = require("./contract.model");
-const { Op } = require("sequelize");
+const {
+    getContractById,
+    getNonTerminatedContracts,
+} = require('./contract.service');
 
-const getContractById = async (contractId, profileId) => {
-  const contract = await Contract.findOne({
-    where: {
-      [Op.and]: [
-        { id: contractId },
-        {
-          [Op.or]: [{ ContractorId: profileId }, { ClientId: profileId }],
-        },
-      ],
-    },
-  });
-  return contract;
+const { CustomError } = require('../../middleware/customError');
+const getAllNonTerminatedContract = async (req, res) => {
+    const nonTerminatedContracts = await getNonTerminatedContracts(
+        req.profile.id
+    );
+    if (!nonTerminatedContracts.length)
+        throw new CustomError('There is no contract in progress!', 404);
+    res.json(nonTerminatedContracts);
 };
 
-const getNonTerminatedContracts = async (profileId) => {
-  console.log("here");
-  const nonTerminated = await Contract.findAll({
-    where: {
-      [Op.and]: [
-        {
-          [Op.or]: [{ ClientId: profileId }, { ContractorId: profileId }],
-        },
-        { status: { [Op.not]: "terminated" } },
-      ],
-    },
-  });
-  return nonTerminated;
+const getContract = async (req, res) => {
+    const contract = await getContractById(req.params.id, req.profile.id);
+    if (!contract)
+        throw new CustomError(
+            `No contract with id ${req.params.id} was found!`,
+            404
+        );
+    res.json(contract);
 };
 
-module.exports = { getContractById, getNonTerminatedContracts };
+module.exports = {
+    getAllNonTerminatedContract,
+    getContract,
+};
