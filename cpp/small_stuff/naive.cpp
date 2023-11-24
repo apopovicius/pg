@@ -8,7 +8,7 @@ class Animal {
 class Cat: public Animal {
     CatSpeakBehaviour behaviour  = new CatSpeakBehaviour();
 
-    public void speak() ovveride{
+    public void speak() override {
         std::cout << behavior.Speak();
     }
 };
@@ -16,7 +16,7 @@ class Cat: public Animal {
 class Dog: public Animal {
     DogSpeakBehaviour behaviour  = new DogSpeakBehaviour();
 
-    public void speak() ovveride{
+    public void speak() override {
         return behavior.Speak();
     }
 };
