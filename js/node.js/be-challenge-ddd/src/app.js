@@ -25,10 +25,14 @@ app.use(getProfile);
 const contractRouter = require('./modules/contract/contract.routes');
 const jobsRouter = require('./modules/job/job.routes');
 const depositRouter = require('./modules/balances/balances.routes.js');
+const professionRouter = require('./modules/admin/profession.routes');
+const clientRouter = require('./modules/admin/clients.routes');
 
 app.use('/contracts', contractRouter);
 app.use('/jobs', jobsRouter);
-app.use('/balances/', depositRouter);
+app.use('/balances', depositRouter);
+app.use('/admin', professionRouter);
+app.use('/admin', clientRouter);
 
 const errorHandler = require('./middleware/errorHandler');
 app.use(errorHandler);
