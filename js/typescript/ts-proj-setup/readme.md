@@ -14,4 +14,4 @@ To generate the js file from ts by compile we need to change this config file an
 ...
 ```
 
-If we just compile the file with **tsc** command will generate the js file next to the ts file. So to make use of the config file we will use the watch mode by _-w_: **tsc -w**
+If we just compile the file with **tsc** command will generate the js file next to the ts file. So to make use of the config file we will use the watch mode by _-w_: **tsc -w** this way all changes in the ts file will generate new content in **js** format in the **dist** folder.
