@@ -866,3 +866,5 @@ function getArea(shape: Shape) {
 
 For the default we define a **never** type that will trigger an Typescript error in case we forgot to include a case for all the possible type of the shape. (e.g. we don't include case 'square').
 
+Reference:
+https://www.youtube.com/watch?v=30LWjhZzg50
