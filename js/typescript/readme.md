@@ -1,5 +1,7 @@
 # TypeScript
 
+> https://www.typescriptlang.org/cheatsheets
+
 Typescript is a development tool wrapped around JS, that offers **type safety** to javascript.
 
 ```javascript
@@ -23,9 +25,11 @@ It just do a static check. Thats the only job for the typescript, just analyzing
 
 ## Types
 
+> https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+
 > Number, String, Boolean, null, undefined, void, object, array, tuples, ..., any, never, unknown
 
-### any
+## any
 
 In case you don't specify a type and TypeScript can't infer it from context, the compiler will typically default to **any**
 
@@ -82,6 +86,8 @@ function handleError(msg: string): never {
 }
 ```
 
+---
+
 ## Objects
 
 ```javascript
@@ -92,12 +98,16 @@ function createCourse(): { name: string, price: number } {
     return { name: 'react-js', price: 399 };
 }
 
-//bad behavior of Objects
-createUser({ name: 'Mark', isPaid: false, email: 'm@h.ck' }); // error
-// trick to hide this error;
+//!!!Observation: bad behavior of Objects
+// error cause of extra parameter
+createUser({ name: 'Mark', isPaid: false, email: 'm@h.ck' });
+
+// trick to hide this error
 let newUser = { name: 'Mark', isPaid: false, email: 'm@h.ck' };
 createUser(newUser); // NOT ANYMORE AN ERROR
 ```
+
+---
 
 ## Type Aliases
 
@@ -159,6 +169,8 @@ user.creditCardNumber = card;
 
 > **?** marks the creditCardNumber as optional. this means you can set it or not depending on the use-case
 
+---
+
 ## Arrays
 
 ```javascript
@@ -188,9 +200,11 @@ a.push(102); // error
 a[0] = 101; // error
 ```
 
+---
+
 ## Union types
 
-This is a combination of two or three or more data types that you can include into a variable.
+This is a combination of two or three or more data types that you can include into a variable by using the operator **|**. The union type offer the possibility for a variable to be _either one type_ **or** _another_
 
 ```javascript
 let score: number | string = 33;
@@ -242,6 +256,8 @@ seatAllotment = 'test'; // NOT ALLOWED
 seatAllotment = 'aisle'; //OK
 ```
 
+---
+
 ## Tuples
 
 ```javascript
@@ -271,6 +287,8 @@ export {};
 ```
 
 > https://stackoverflow.com/questions/64069552/typescript-array-push-method-cant-catch-a-tuple-type-of-the-array
+
+---
 
 ## Enums
 
@@ -313,6 +331,8 @@ const enum Fruits {
     Pineapple
 }
 ```
+
+---
 
 ## Interfaces
 
@@ -391,6 +411,8 @@ const point: _3D = {
     Z: '3',
 };
 ```
+
+---
 
 ## Classes
 
@@ -547,3 +569,300 @@ Also to be notice in case of _abstract classes_ the child has to _extend_ from p
 _**Also an abstract class cant be instantiated!**_
 
 The power of abstract is that you can provide some functionality that will be inherited for free in all its child classes.
+
+---
+
+## Generics
+
+A generic function can be declared using this format: **function xyz< Type >(arg: Type): Type{}**
+
+```typescript
+function identity(arg: number): number {
+    return arg;
+}
+
+// this can receive a number and can be returning a string which is BAD
+function identityNS(arg: number | string): string | number {
+    return arg;
+}
+
+//NOT A GOOD IDEA either
+function identityN(arg: any): any {
+    return arg;
+}
+
+//defining a generic function
+function identityT<Type>(arg: Type): Type {
+    return arg;
+}
+
+const ret = identityT(1); // ret will be number;
+const ret2 = identityT('myStr'); // string
+
+// this is similar two identityT but we are using shorthand
+// You can define your own letter, in our example we used T
+function identityShortT<T>(arg: T): T {
+    return arg;
+}
+
+interface Genetics {
+    chromoX: boolean;
+    chromoY: boolean;
+}
+
+function identify<Genetics>(arg: Genetics): Genetics {
+    return arg;
+}
+```
+
+### Generics in array
+
+```typescript
+// function getElement<T>(elements: Array<T>): T
+function getElement<T>(elements: T[]): T {
+    return elements[0];
+}
+// <AT>(elements: Array<AT>): AT
+const element = <AT>(elements: AT[]): AT => {
+    return elements[0];
+};
+```
+
+When you see **<T,>** the comma after type this is just an highlighter used mostly in React to say this is not JSX language this is using generics.
+
+### Generic constraints
+
+In order to achieve any constraint on the generic type use the keyword **extends**
+
+```typescript
+function toObj<A, B>(a: A, b: B): object {
+    return {
+        a,
+        b,
+    };
+}
+
+function toObj2<A, B extends number>(a: A, b: B): object {
+    return {
+        a,
+        b,
+    };
+}
+
+toObj(5, 'two');
+//toObj2(5, "two"); //not allowed
+```
+
+Here below a common use-case example:
+
+```typescript
+interface DB {
+    connection: string;
+    userName: string;
+    password: string;
+}
+
+function init<V, T extends DB>(handler: V, db: T): number {
+    return 5;
+}
+
+init(5, { connection: 'a', userName: 'B', password: 'p' });
+```
+
+## Generic classes
+
+```typescript
+interface Quiz {
+    name: string;
+    type: string;
+}
+
+interface Course {
+    name: string;
+    author: string;
+    price: number;
+}
+
+//generic class
+class Sellable<T> {
+    public cart: T[] = [];
+    addToCart(product: T) {
+        this.cart.push(product);
+    }
+}
+
+const mySell = new Sellable<Quiz>();
+```
+
+**Observation**: function **addToCart(product: T)** is already generic and if you add the **<T,>** to the function signature will trigger a compilation error.
+
+--
+
+## Type narrowing
+
+This is done using the keyword **typeof**
+
+> https://www.typescriptlang.org/docs/handbook/2/narrowing.html
+
+**typeof** type guards
+As we’ve seen, JavaScript supports a typeof operator which can give very basic information about the type of values we have at runtime. TypeScript expects this to return a certain set of strings:
+
+-   "string"
+-   "number"
+-   "bigint"
+-   "boolean"
+-   "symbol"
+-   "undefined"
+-   "object" - this includes [] and null
+-   "function"
+
+```typescript
+function perform(val: number | string) {
+    if (typeof val === 'string') return val.toLowerCase();
+    return val + 3;
+}
+
+perform(5); // 8
+perform('AAA'); //aaa
+
+function transformId(id: string | null): string | void {
+    if (!id) {
+        console.log('provide id');
+        return;
+    }
+    return id.toLowerCase();
+}
+
+const X = transformId('ABC');
+```
+
+In JavaScript, constructs like if first “coerce” their conditions to booleans to make sense of them, and then choose their branches depending on whether the result is true or false. Values like:
+
+-   0
+-   NaN
+-   "" (the empty string)
+-   0n (the bigint version of zero)
+-   null
+-   undefined
+
+all coerce to false, and other values get coerced to true. You can always coerce values to booleans by running them through the Boolean function, or by using the shorter double-Boolean negation. (The latter has the advantage that TypeScript infers a narrow literal boolean type true, while inferring the first as type boolean.)
+
+```typescript
+function printAll(strs: string | string[] | null) {
+    // !!!!!!!!!!!!!!!!
+    //  DON'T DO THIS!
+    //   KEEP READING
+    // !!!!!!!!!!!!!!!!
+    if (strs) {
+        if (typeof strs === 'object') {
+            for (const s of strs) {
+                console.log(s);
+            }
+        } else if (typeof strs === 'string') {
+            console.log(strs);
+        }
+    }
+}
+```
+
+In this example may look we cover everything.
+_BUT_ there is one thing it didn't cover: **"" - empty string**. Empty string is falsy!
+
+### Type narrowing using in operator
+
+```typescript
+interface User {
+    email: string;
+}
+
+interface Admin {
+    email: string;
+    isAdmin: boolean;
+}
+
+function isAdminAccount(account: User | Admin): boolean {
+    // in operator will narrow down account to Admin type
+    if ('isAdmin' in account) return true;
+    return false;
+}
+```
+
+### Type narrowing using instanceof
+
+As stated in the below code if you create a new object with **new** keyword you can detect the type by using the keyword **instanceof**
+
+```typescript
+// new keyword works with instanceof
+function logValue(x: Date | string) {
+    if (x instanceof Date) {
+        console.log(x.toUTCString());
+    } else {
+        console.log(x.toLocaleUpperCase());
+    }
+}
+```
+
+### Type narrowing with type predicates
+
+Using keyword **as** we can check if the method from the type is defined resulting we narrow to what we are looking after.
+An other important aspect is the return type that make use of keyword **is**. This will prevent method to return true or false and it will return the Type of the object.
+
+```typescript
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+
+function isFish(pet: Fish | Bird): pet is Fish {
+    return (pet as Fish).swim() !== undefined;
+}
+```
+
+### Discriminated unions & Exhaustiveness checking
+
+For the discriminated unions concept there is a recommendation to add **kind** into the object definition so that it will be easier to detect the **kind** of it :D
+
+The exhaustive checking means you have to go throw all kind of variable and get its kind.
+
+```typescript
+interface Circle {
+    kind: 'circle';
+    radius: number;
+}
+
+interface Square {
+    kind: 'square';
+    side: number;
+}
+
+interface Rectangle {
+    kind: 'rectangle';
+    length: number;
+    width: number;
+}
+
+type Shape = Circle | Square | Rectangle;
+function getAreaDiscriminatedUnions(shape: Shape) {
+    if (shape.kind === 'circle') return Math.PI * shape.radius;
+    if (shape.kind === 'square') return shape.side * shape.side;
+    if (shape.kind === 'rectangle') return shape.length * shape.width;
+}
+
+// using never for default
+// calling getArea with an other shape type from the one defined in cases
+// will trigger Typescript error
+function getArea(shape: Shape) {
+    switch (shape.kind) {
+        case 'circle':
+            return Math.PI * shape.radius;
+        case 'rectangle':
+            return shape.length * shape.width;
+        case 'square':
+            return shape.side * shape.side;
+        default:
+            const _exhaustiveCheck: never = shape;
+            return _exhaustiveCheck;
+    }
+}
+```
+
+For the default we define a **never** type that will trigger an Typescript error in case we forgot to include a case for all the possible type of the shape. (e.g. we don't include case 'square').
+
