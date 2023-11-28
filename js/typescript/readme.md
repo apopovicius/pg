@@ -487,7 +487,7 @@ Similar to **private** we have **protected** keyword used for inherited classes 
 
 An other important keyword used is **super**. We used it to call the parent **constructor** and as it can be seen it can call the **setters, getters and even parent methods**.
 
-## Classes & interfaces
+### Classes & interfaces
 
 ```typescript
 interface TakePhoto {
@@ -529,7 +529,7 @@ The _Youtube_ implements _TakePhoto_ and _Story_ interface. In addition to the m
 
 If you miss a member or a function implementation an error will be trigger by tsc compiler.
 
-## Abstract classes
+### Abstract classes
 
 ```typescript
 abstract class TakePhoto2 {
@@ -669,7 +669,7 @@ function init<V, T extends DB>(handler: V, db: T): number {
 init(5, { connection: 'a', userName: 'B', password: 'p' });
 ```
 
-## Generic classes
+### Generic classes
 
 ```typescript
 interface Quiz {
