@@ -4,21 +4,12 @@ const almanac = fs.readFileSync('05.in').toString('utf-8').split('\r\n\r\n');
 const getDestination = (map, target) => {
     const lines = map.split('\r\n').filter((e) => e !== '');
     for (let line of lines) {
-        const [start, destinationStart, step] = line
+        const [destStart, start, step] = line
             .split(' ')
             .map((x) => Number(x));
         const stop = start + step;
         if (target >= start && target < stop) {
-            // console.log(
-            //     `[start: ${start}, target:${target}, stop: ${
-            //         start + step
-            //     }], [destStart: ${destination} ->  destination: ${
-            //         destination + target - start
-            //     }], [${target - start} = ${
-            //         destination + target - start - destination
-            //     }]`
-            // );
-            const destination = destinationStart + (target - start);
+            const destination = destStart + (target - start);
             console.log(`${target} ==> ${destination}`);
             return destination;
         }
