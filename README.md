@@ -16,6 +16,8 @@
 
 ## Interesting links
 
+-   [Conventional commit messages](https://gist.github.com/qoomon/4dfcdf8eec66a051ecd85625518cfd13)
+
 -   [Data Structures](https://github.com/apopovicius/Data_Structure_and_Algorithms_Library)
 
 -   [LeetCode problems solutions](https://github.com/apopovicius/LeetCode_problems_solution)
