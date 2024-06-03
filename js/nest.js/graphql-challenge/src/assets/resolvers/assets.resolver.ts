@@ -54,14 +54,13 @@ export class AssetsResolver {
   //   if (lastPrice) return lastPrice.price;
   // }
 
-  @ResolveField(() => Float)
+  @ResolveField(() => AssetPrice)
   async lastPrice(
     @Parent() asset: Asset,
     @Context() { loaders }: { loaders: IDataLoaders },
   ) {
-    //TODO make sure you are using a new loader that will just query for the last price not the hole price list
     const prices = await loaders.assetPriceLoader.load(asset.id);
-    return prices[0].price;
+    return prices[0];
   }
 
   // @Mutation(() => [Asset])

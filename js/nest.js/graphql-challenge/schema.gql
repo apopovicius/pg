@@ -19,7 +19,7 @@ type Asset {
   id: ID!
   symbol: String!
   name: String!
-  lastPrice: Float
+  lastPrice: AssetPrice
   prices: [AssetPrice!]!
 }
 

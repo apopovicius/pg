@@ -18,7 +18,7 @@ export class Asset {
   name: string;
 
   @Field({ nullable: true })
-  lastPrice?: number;
+  lastPrice?: AssetPrice;
 
   @OneToMany(() => AssetPrice, (price) => price.asset, {
     cascade: ['insert', 'update'],
