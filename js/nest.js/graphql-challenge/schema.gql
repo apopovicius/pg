@@ -1,0 +1,33 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""asset price"""
+type AssetPrice {
+  id: ID!
+  price: Float!
+  timestamp: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""asset"""
+type Asset {
+  id: ID!
+  symbol: String!
+  name: String!
+  lastPrice: AssetPrice
+  prices: [AssetPrice!]!
+}
+
+type Query {
+  assets: [Asset!]!
+  asset(symbol: String!): Asset!
+}
+
+type Mutation {
+  syncAsset: [Asset!]!
+}
