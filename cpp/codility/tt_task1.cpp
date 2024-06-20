@@ -1,13 +1,13 @@
-#include <ctype>
+#include <string>
 
 //! Todo should replace the stack array with std::vector so that we really remove items from stack :)
-int solution(string &S) {
+int solution(const std::string &S) {
     int stack[12] = {0};
     unsigned result = 0, stackSize=0;
 
-    for(auto &ch: S) {
+    for(const char &ch: S) {
         if(isdigit(ch)) {
-            stack[stackSize++] = it - '0';
+            stack[stackSize++] = ch - '0';
         }
         else if( ch == '+' ) {
             // we have 2 items to pop
