@@ -314,6 +314,6 @@ DELETE /users
 
 ## References
 
--   [Begineers guide to creating a REST API](http://www.andrewhavens.com/posts/20/beginners-guide-to-creating-a-rest-api/)
+-   [Beginners guide to creating a REST API](http://www.andrewhavens.com/posts/20/beginners-guide-to-creating-a-rest-api/)
 -   [RESTful best practices](https://github.com/tfredrich/RestApiTutorial.com/raw/master/media/RESTful%20Best%20Practices-v1_2.pdf)
 -   [Best practices for designing a pragmatical RESTful API](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api)
