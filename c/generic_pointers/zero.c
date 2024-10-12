@@ -11,8 +11,7 @@ void zero_out(void *ptr, object_kind_t kind){
     }
      case BOOL:  {
       ((bool_t*)ptr)->value=0;
-      break;  
+      break;
     }
-    
   }
 }

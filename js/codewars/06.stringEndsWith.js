@@ -12,7 +12,7 @@ function solution(str, ending) {
 }
 
 function solution2(str, ending) {
-    return str.substring(str.length - ending.length) == ending;
+    return str.substring(str.length - ending.length) === ending;
 }
 
 console.log(solution2('abc', 'bc'));

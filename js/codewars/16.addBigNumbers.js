@@ -19,7 +19,7 @@ function add(a, b) {
         a = a.padStart(b.length, '0');
     }
 
-    //after padding we sure that the arrays have same lenght
+    //after padding we sure that the arrays have same length
     let aArray = a.split('');
     let bArray = b.split('');
     let carry = 0;

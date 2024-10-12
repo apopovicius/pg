@@ -18,13 +18,13 @@ function squareDigits2(num) {
         num = Math.floor(num / 10);
     }
     digits_reversed.reverse();
-    return digits_reversed.reduce((accumalator, current) => {
+    return digits_reversed.reduce((accumulator, current) => {
         if (Math.floor(current / 10) > 0) {
             return (
-                (accumalator * 10 + Math.floor(current / 10)) * 10 +
+                (accumulator * 10 + Math.floor(current / 10)) * 10 +
                 (current % 10)
             );
-        } else return accumalator * 10 + current;
+        } else return accumulator * 10 + current;
     }, 0);
 }
 

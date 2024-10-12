@@ -40,7 +40,7 @@ function formatDuration(seconds) {
     let minutesString = `${minutes} minute`;
     let secString = `${sec} second`;
 
-    if (years != 0) {
+    if (years !== 0) {
         readableDuration += yearString;
         if (years > 1) {
             readableDuration += 's';
@@ -48,7 +48,7 @@ function formatDuration(seconds) {
         readableDuration += '*';
     }
 
-    if (days != 0) {
+    if (days !== 0) {
         readableDuration += daysString;
         if (days > 1) {
             readableDuration += 's';
@@ -56,7 +56,7 @@ function formatDuration(seconds) {
         readableDuration += '*';
     }
 
-    if (hours != 0) {
+    if (hours !== 0) {
         readableDuration += hoursString;
         if (hours > 1) {
             readableDuration += 's';
@@ -64,7 +64,7 @@ function formatDuration(seconds) {
         readableDuration += '*';
     }
 
-    if (minutes != 0) {
+    if (minutes !== 0) {
         readableDuration += minutesString;
         if (minutes > 1) {
             readableDuration += 's';
@@ -72,7 +72,7 @@ function formatDuration(seconds) {
         readableDuration += '*';
     }
 
-    if (sec != 0) {
+    if (sec !== 0) {
         readableDuration += secString;
         if (sec > 1) {
             readableDuration += 's';

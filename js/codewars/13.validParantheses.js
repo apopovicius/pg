@@ -15,7 +15,7 @@ function validParentheses(parens) {
         if (p === ')') open--;
         if (open < 0) return false; // includes check when string starts with `)`
     }
-    return open === 0 ? true : false;
+    return open === 0;
 }
 
 console.log(validParentheses('()'));
