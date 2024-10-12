@@ -152,7 +152,7 @@ function six(fn) {
     return fn ? fn(6) : 6;
 }
 function seven(fn) {
-    return fn ? fn(7) : 7;-
+    return fn ? fn(7) : 7;
 }
 function eight(fn) {
     return fn ? fn(8) : 8;

@@ -31,7 +31,7 @@ words[i] and chars consist of lowercase English letters.
  * @param {string} chars
  * @return {number}
  */
-var countCharacters = function (words, chars) {
+const countCharacters = function (words, chars) {
     let counter = 0;
 
     let charsFreq = {};
@@ -66,7 +66,7 @@ var countCharacters = function (words, chars) {
 };
 
 let words = ['cat', 'bt', 'hat', 'tree'],
-    chars = 'atach';
+    chars = 'attach';
 
 console.log(countCharacters(words, chars));
 

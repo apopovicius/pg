@@ -15,7 +15,7 @@ For example (Input --> Output):
 
 function productOfDigits(num) {
     let digits = [];
-    while (num != 0) {
+    while (num !== 0) {
         digits.push(num % 10);
         num = (num / 10) | 0;
     }
@@ -35,7 +35,7 @@ function persistence(num) {
     }
 }
 
-// string vervsion
+// string version
 function persistenceUsingToString(num) {
     var times = 0;
 

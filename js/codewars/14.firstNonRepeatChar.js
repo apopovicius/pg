@@ -15,7 +15,7 @@ If a string contains all repeating characters, it should return an empty string 
 
 function firstNonRepeatingLetter(s) {
     let charsSet = new Set(s.toLowerCase());
-    for (ch of charsSet) {
+    for (let ch of charsSet) {
         if (s.split('').filter((el) => el.toLowerCase() === ch).length === 1)
             return s[s.toLowerCase().indexOf(ch)];
     }

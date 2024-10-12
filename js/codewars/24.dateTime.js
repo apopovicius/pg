@@ -9,7 +9,7 @@ let allSeconds = Date.now();
 console.log(allSeconds);
 
 /*
-Create a human readable time format using the Date time object
+Create a human-readable time format using the Date time object
 YYYY-MM-DD HH:mm
 DD-MM-YYYY HH:mm
 DD/MM/YYYY HH:mm
@@ -17,10 +17,10 @@ DD/MM/YYYY HH:mm
 
 // format date javascript
 function dateFormater(date, separator) {
-    var day = ('' + date.getDate()).padStart(2, '0');
+    const day = ('' + date.getDate()).padStart(2, '0');
     // add +1 to month because getMonth() returns month from 0 to 11
-    var month = ('' + date.getMonth() + 1).padStart(2, '0');
-    var year = date.getFullYear();
+    const month = ('' + date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
     let hh = ('' + date.getHours()).padStart(2, 0);
     let mm = ('' + date.getMinutes()).padStart(2, 0);
 
@@ -35,8 +35,8 @@ console.log(dateFormater(myDate, '.'));
 
 console.log('dd-mm-yyyy => ' + myDate.toLocaleDateString());
 
-var date = new Date();
-var options = {
+const date = new Date();
+const options = {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

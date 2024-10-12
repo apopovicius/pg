@@ -36,7 +36,7 @@ Constraints:
  * @param {number} target
  * @return {number}
  */
-var numRollsToTarget = function (n, k, target) {};
+const numRollsToTarget = function (n, k, target) {};
 
 // n = how many elements in sum
 // k = range (1-k)

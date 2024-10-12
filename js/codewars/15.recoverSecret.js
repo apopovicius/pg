@@ -62,7 +62,7 @@ var recoverSecret = function (triplets) {
     let secretMixed = Array.from(new Set(triplets.flat()));
     let count = 0;
     while (count !== triplets.length) {
-        for (triplet of triplets) {
+        for (let triplet of triplets) {
             if (orderTriplet(triplet[0], triplet[1], triplet[2], secretMixed)) {
                 count = 0;
             } else {
