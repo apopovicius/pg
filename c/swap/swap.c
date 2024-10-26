@@ -1,4 +1,6 @@
 #include "swap.h"
+#include <stdlib.h>
+#include <string.h>
 
 void swap_ints(int *a, int *b) {
   int temp = *a;
