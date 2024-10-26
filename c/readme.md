@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/tsoding/nobuild/refs/heads/master/nobuild.h
 
 1. copy raw file nobuild.h from repo
 2. create nobuild.c
-```
+```c
 #define NOBUILD_IMPLEMENTATION
 #include "./nobuild.h"
 // portable - pedantic
@@ -34,16 +34,16 @@ int main(int argc, char **argv) {
 ```
 
 3. build it!
-```
+```bash
 $gcc -o nobuild nobuild.`` 
 ```
 
 4. rebuild!
-```
+```bash
 $./nobuild
 ```
 
 5. rebuild & run!
-```
+```bash
 ./nobuild run
 ```
