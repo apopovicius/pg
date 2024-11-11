@@ -1,0 +1,34 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.0/schema.json",
+    "version": "v1.0",
+    "name": "Explore cities game",
+    "description": "Declarative agent created with Teams Toolkit",
+    "instructions": "$[file('instruction.txt')]",
+    "conversation_starters": [
+        {
+            "title": "Getting Started",
+            "text": "I am ready to play the Explore Cities Game! Give me a city to guess, and start with the first clue."
+        },
+        {
+            "title": "Ready for a challenge",
+            "text": "Let us try something different. Can we play a round using the travelers diary?"
+        },
+        {
+            "title": "Feeling more Adventurous",
+            "text": "I am in the mood for a challenge! Can we play the game using the historical map? I can figure out the city from those ancient clues."
+        }
+    ],
+    "capabilities": [
+        {
+            "name": "OneDriveAndSharePoint",
+            "items_by_url": [
+                {
+                    "url": "${{SP_SITE_URL}}"
+                },
+                {
+                    "url": "${{SP_SITE_URL2}}"
+                }
+            ]
+        }
+    ]
+}
