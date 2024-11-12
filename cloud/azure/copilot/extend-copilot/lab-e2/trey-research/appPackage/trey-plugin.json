@@ -33,6 +33,19 @@
       }
     },
     {
+      "name": "getProjects",
+      "description": "Returns detailed information about projects matching the specified project name and/or consultant name",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$.results",
+          "properties": {
+            "title": "$.name",
+            "subtitle": "$.description"
+          }
+        }
+      }
+    },
+    {
       "name": "postBillhours",
       "description": "Charge time to a specific project on behalf of the logged in user, and return the number of hours remaining in their forecast.",
       "capabilities": {
@@ -49,6 +62,24 @@
           "body": "* **ProjectName**: {{function.parameters.projectName}}\n* **Hours**: {{function.parameters.hours}}"
         }
       }
+    },
+    {
+      "name": "postAssignConsultant",
+      "description": "Assign (add) consultant to a project when name, role and project name is specified.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "$.results.clientName",
+            "subtitle": "$.results.status"
+          }
+        },
+        "confirmation": {
+          "type": "AdaptiveCard",
+          "title": "Assign consultant to a project when name, role and project name is specified.",
+          "body": "* **ProjectName**: {{function.parameters.projectName}}\n* **ConsultantName**: {{function.parameters.consultantName}}\n* **Role**: {{function.parameters.role}}\n* **Forecast**: {{function.parameters.forecast}}"
+        }
+      }
     }
   ],
   "runtimes": [
@@ -63,7 +94,9 @@
       "run_for_functions": [
         "getConsultants",
         "getUserInformation",
-        "postBillhours"
+        "getProjects",
+        "postBillhours",
+        "postAssignConsultant"
       ]
     }
   ],
@@ -81,6 +114,9 @@
       },
       {
         "text": "Find a Trey consultant who is available now and has Python skills"
+      },
+      {
+        "text": "Add Avery as a developer on the Contoso project for Trey"
       }
     ]
   }

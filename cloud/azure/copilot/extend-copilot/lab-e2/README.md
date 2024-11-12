@@ -193,3 +193,127 @@ app.http("projects", {
 });
 // ...
 ```
+
+
+> Extend the http rest client test file
+
+```bash
+########## /api/projects - working with projects ##########
+
+### Get all projects
+{{base_url}}/projects
+
+### Get project by id
+{{base_url}}/projects/1
+
+### Get project by project or client name
+{{base_url}}/projects/?projectName=supply
+
+### Get project by consultant name
+{{base_url}}/projects/?consultantName=dominique
+
+### Add consultant to project
+POST {{base_url}}/projects/assignConsultant
+Content-Type: application/json
+
+{
+    "projectName": "contoso",
+    "consultantName": "sanjay",
+    "role": "architect",
+    "forecast": 30
+}
+```
+
+> Add **projects** to the application package by extending **trey-definition.json** OAS file with new API calls
+
+> Add projects to the plugin definition file **trey-plugin.json**
+
+```json
+{
+    "name": "getProjects",
+    "description": "Returns detailed information about projects matching the specified project name and/or consultant name",
+    "capabilities": {
+        "response_semantics": {
+            "data_path": "$.results",
+            "properties": {
+            "title": "$.name",
+            "subtitle": "$.description"
+            }
+        }
+    }
+},
+```
+
+Notice that it includes some response_semantics which instruct Copilot in the important properties to mention when referring to a project in its responses. The POST request has a similar function:
+
+```json
+{
+    "name": "postAssignConsultant",
+    "description": "Assign (add) consultant to a project when name, role and project name is specified.",
+    "capabilities": {
+    "response_semantics": {
+        "data_path": "$",
+        "properties": {
+        "title": "$.results.clientName",
+        "subtitle": "$.results.status"
+        }
+    },
+    "confirmation": {
+        "type": "AdaptiveCard",
+        "title": "Assign consultant to a project when name, role and project name is specified.",
+        "body": "* **ProjectName**: {{function.parameters.projectName}}\n* **ConsultantName**: {{function.parameters.consultantName}}\n* **Role**: {{function.parameters.role}}\n* **Forecast**: {{function.parameters.forecast}}"
+    }
+    }
+}
+```
+
+
+It includes an (adaptive card)[https://adaptivecards.io/] to be used in the confirmation card, which is shown to users to confirm an action prior to issuing a POST request.
+
+Scrolling down, you can see the runtimes object which defines the type of plugin, the OAS definition file location, and a list of functions. The new functions have been added to the list.
+
+```json
+"runtimes": [
+{
+    "type": "OpenApi",
+    "auth": {
+    "type": "None"
+    },
+    "spec": {
+    "url": "trey-definition.json"
+    },
+    "run_for_functions": [
+    "getConsultants",
+    "getUserInformation",
+    "getProjects",
+    "postBillhours",
+    "postAssignConsultant"
+    ]
+}
+],
+```
+
+Finally, it includes some conversation starters which are prompt suggestions shown to users; the new file has a conversation starter relating to projects.
+
+```json
+"capabilities": {
+"localization": {},
+"conversation_starters": [
+    {
+    "text": "What Trey projects am i assigned to?"
+    },
+    {
+    "text": "Charge 5 hours to the Contoso project for Trey Research"
+    },
+    {
+    "text": "Which Trey consultants are Azure certified?"
+    },
+    {
+    "text": "Find a Trey consultant who is available now and has Python skills"
+    },
+    {
+    "text": "Add Avery as a developer on the Contoso project for Trey"
+    }
+]
+}
+```
