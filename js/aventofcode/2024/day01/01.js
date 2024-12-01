@@ -25,8 +25,8 @@ for(let i=0; i<left.length; i++) {
             break;
         }       
     }
-
 }
 
-console.log(sumP1);
-console.log(sumP2);
+
+fs.writeFileSync('02.out', sumP1.toString()+"\n", {encoding: 'utf-8'});
+fs.writeFileSync('02.out', sumP2.toString(), {encoding: 'utf-8', flag: 'a+'});
