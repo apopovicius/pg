@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const content = fs.readFileSync('./01.in').toString('utf-8').split('\r\n');
+const content = fs.readFileSync('data.in').toString('utf-8').split('\r\n');
 const left = [];
 const right = [];
 content.forEach(e => {
@@ -28,5 +28,5 @@ for(let i=0; i<left.length; i++) {
 }
 
 
-fs.writeFileSync('02.out', sumP1.toString()+"\n", {encoding: 'utf-8'});
-fs.writeFileSync('02.out', sumP2.toString(), {encoding: 'utf-8', flag: 'a+'});
+fs.writeFileSync('data.out', sumP1.toString()+"\n", {encoding: 'utf-8'});
+fs.writeFileSync('data.out', sumP2.toString(), {encoding: 'utf-8', flag: 'a+'});
