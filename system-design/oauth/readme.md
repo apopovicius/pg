@@ -69,20 +69,39 @@ Uses the redirect flow where the user is redirected to the authorization server 
 
 ```mermaid
 sequenceDiagram
-participant UserAgent
-participant Application
-participant OAuthServer
-participant API
+    participant UserAgent
+    participant Application
+    participant OAuthServer
+    participant API
 
-UserAgent->>+Application: Login
-Application->>+OAuthServer: Authorization request
-Note over OAuthServer, Application: Follow the login flow by entering user credential, approving access
-OAuthServer->>-Application: Authorization code response
-Note over OAuthServer, Application: the authorization code response is short unique string used to obtain tokens
-Application->>+OAuthServer: Token request(authorization code)
-OAuthServer->>-Application: Token response
+    UserAgent->>+Application: Login
+    rect rgb(191, 223, 255)
+    Note over UserAgent, OAuthServer: Front channel
+    Application->>+OAuthServer: Authorization request
+    Note over OAuthServer, Application: Follow the login flow by entering user credential, approving access
+    OAuthServer->>-Application: Authorization code response
+    Note over OAuthServer, Application: the authorization code response is short unique string used to obtain tokens
+    rect rgb(203, 143, 225)
+    Note over UserAgent, OAuthServer: Back channel
+    Application->>+OAuthServer: Token request using authorization code
+    OAuthServer->>-Application: Token response
 ```
+![Authorization Code](authorization-code.png)
 
+**Back channel**: sent from client to server (http request from client to server, so request cannot be tampered with)
+
+**Front channel**: Passing data via browser's address bar(the user, or malicious software can modify the request and the response)
+
+> Interception Front channel: /redirect?code=XXXX (bad actor being able to see and take the CODE=XXXX)
+
+> Injection Front channel: /redirect?code=XXX (bad actor modifies the code sent via redirect)
+
+!! To prevent **injection** use **PKCE**
+
+**PKCE**: Proof-key for code Exchange
+This is basically a secret hash generated(usually on the client based on a sequence of numbers) used in the flow so that initially is presented to OAuth server the hash and second at token exchange you present the sequence of numbers to OAuth sever where the hash is recalculated and validated to be the same as initially was presented. 
+
+![PKCE](pkce.png)
 
 #### Device flow
 - Scan your QR code from your device to login and authorize
