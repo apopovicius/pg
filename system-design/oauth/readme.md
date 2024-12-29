@@ -29,13 +29,6 @@ Trying to get access to gmail contact in a 3rd party app.
 5. once click allow a successfull screen will be shown
 6. redirect to the app with an access token to be used in further communication with google services
 
-
-## OpenID Connect
-**OAuth** - access the APIs(giving the app a way to make the api calls)
-**OpenID Connect** - used for identification(tell the application about the user authenticated) 
-
-**OpenID** is not a new protocol, is just a small addition to **OAuth**
-
 ## Types of tokens
 - **ACCESS Token** (OAuth) - read by API
 - **ID Token** (OpenID) - read by App
@@ -49,7 +42,6 @@ Trying to get access to gmail contact in a 3rd party app.
 - ⚙️ API (Resource Server)
 
 ! In the specs you will find the naming from paranthesys.
-
 
 ## OAuth Client
 
@@ -67,25 +59,6 @@ This describes ways to obtain the token. So we have categories:
 #### Authorization Code
 Uses the redirect flow where the user is redirected to the authorization server and the ask for password and allow access and after thats done it gets redirect back to the app.
 
-```mermaid
-sequenceDiagram
-    participant UserAgent
-    participant Application
-    participant OAuthServer
-    participant API
-
-    UserAgent->>+Application: Login
-    rect rgb(191, 223, 255)
-    Note over UserAgent, OAuthServer: Front channel
-    Application->>+OAuthServer: Authorization request
-    Note over OAuthServer, Application: Follow the login flow by entering user credential, approving access
-    OAuthServer->>-Application: Authorization code response
-    Note over OAuthServer, Application: the authorization code response is short unique string used to obtain tokens
-    rect rgb(203, 143, 225)
-    Note over UserAgent, OAuthServer: Back channel
-    Application->>+OAuthServer: Token request using authorization code
-    OAuthServer->>-Application: Token response
-```
 ![Authorization Code](authorization-code.png)
 
 **Back channel**: sent from client to server (http request from client to server, so request cannot be tampered with)
@@ -116,7 +89,12 @@ This is basically a secret hash generated(usually on the client based on a seque
 
 ## Hands-on OAuth for web applications
 
-Information needed:
+> This flow is almost the same for the following types of applications:
+- Single page application
+- mobile apps
+- regular web applications 
+
+Before starting node down some information needed:
 - client_id: lLGYhM9fIHcEDaSGWzfVdpQMKWmKIPQs
 - client_secret: xasdada221as231asdas
 - state(just a random string): 1234567
@@ -124,8 +102,8 @@ Information needed:
 - code_challenge(the hash of the secret): ByT0TtV2x-7gj7BltYYohefsc50dqztWv5ath7_wdBM
 - code_challenge_method: tells the authorization server how hash was generated
 
-### 1. Authorization
-This first part is done in browser in the front channel. It requires user to login(use credential) and the URL will look like below.
+### Step 1. Authorization
+> This first part is done in browser in the front channel. It requires user to login(use credential) and the URL will look like below.
 
 ```bash
 https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
@@ -137,27 +115,28 @@ https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
   code_challenge_method=S256
 ```
 
-> One of the mandatory fields is **response_type=code**. This tells to the Authorization server please generate me a code valid that i will be use on the next step (token exchange)
+One of the mandatory fields is **response_type=code**. This tells to the Authorization server please generate me a code valid that i will be use on the next step (token exchange)
 
-> When the redirect comes in place you can check the **state** if matches the thing you initially sent 
+When the redirect comes in place you can check the **state** if matches the thing you initially sent 
 
-> Redirect URL has to be registered/allowed on the Authorization Server
+Redirect URL has to be registered/allowed on the Authorization Server
 
-> Even in spec the **redirect_url** is not required in practice many Authorization Servers requires this parameter
+Even in spec the **redirect_url** is not required in practice many Authorization Servers requires this parameter
 
-> Redirect URL will look like this containing the **code** and **state**:
+Redirect URL will look like this containing the **code** and **state**:
 
 ```bash
 https://example-app.com/redirect?code=iU0W0Syb7_Wv6TddKU_02lQNETSpbvOK828tptLrBZ17T&state=12345667
 ```
 
-> In this flow can be observed that first(authorize part) with **PKCE feature** we've sent the hash of the secret generated(in pair with the hash algorithm it was obtained) on the client side and after(token exchange part) the secret itself it is sent to the Authorization server for the validation to prevent inpersonification 
+ It can be observed that first(authorize part) has **PKCE feature**. 
+ First we've sent the hash of the secret generated(in pair with the hash algorithm it was obtained) on the client side and after(token exchange part) the secret itself it is sent to the Authorization server for the validation to prevent impersonification 
 
 
-### 2. Token exchange
-To be noticed that this request is done on the back channel and reaches the **token** endpoint. 
+### Step 2. Token exchange
+>This request is done on the back channel and reaches the **token** endpoint. 
 
-Also notice that the **client_secret** is included. 
+Notice that the **client_secret** is included at this step.
 
 Other important thing to be observed is that as mentioned above now we are sending the **code_verifier(secret)** to the Authorizaiton server AND NOT THE INITIAL HASH(for matching). This is basically **PKCE** flow
 
@@ -182,6 +161,22 @@ Response looks like this:
 
 This access token can be used to make API calls.
 
+## Hands-on Client Credentials Flow for Service Apps
+> This covers Machine to Machine Application type. For this flow you’ll need to select the API you want to allow this application to be able to access. As part of the registration of this type of app you will end up by clicking in authorize to finish creating the machine-to-machine application, then click the Settings tab to see the client ID and secret. 
+
+With the application credentials in hand, you’re ready to get an access token! To do that, you’ll need to use the authorization server’s token endpoint
+
+Since this is a machine-to-machine flow, there is no user involved in the flow so there is no browser involved either. The application can make a direct request to the authorization server’s token endpoint to get an access token. If you’re using curl, replace the placeholder values in the request below with your own. (Make sure to replace the curly brackets, those are just to indicate placeholder values.)
+
+```bash
+curl -X POST https://xxxxxx.us.auth0.com/oauth/token \
+  -d grant_type=client_credentials \
+  -d client_id={YOUR_CLIENT_ID} \
+  -d client_secret={YOUR_CLIENT_SECRET}
+```
+
+> The important thing to notice here is this **grant_type=client_credentials**. This basically tells the authorization server that we are in a machine to machine oauth flow.
+
 ## Refresh Tokens
 This is the token used to basically refresh the expired access token. Its usefull in the scenarios when you dont want to ask user to login again(e.g. cron jobs)
 
@@ -201,7 +196,7 @@ https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
 ```
 > **scope** appair in the url paramenters now
 
-## Token exchange in back channel
+### Token exchange in back channel
 
 ```bash
 curl -X POST https://dev-3nu78hainebrds5f.us.auth0.com/oauth/token \
@@ -216,6 +211,11 @@ curl -X POST https://dev-3nu78hainebrds5f.us.auth0.com/oauth/token \
 > Observation on the **grant_type=refresh_token** change that initially in the token endpoint was **authorization_code**
 
 ## OpenID Connect
+**OAuth** - access the APIs(giving the app a way to make the api calls)
+**OpenID Connect** - used for identification(tell the application about the user authenticated) 
+
+**OpenID** is not a new protocol, is just a small addition to **OAuth**
+
 > Who is logged in? 
 
 This helps you as OAuth flow doesnt offer any information about the user logged in.
@@ -225,7 +225,7 @@ This helps you as OAuth flow doesnt offer any information about the user logged 
 To do that just add in the authorization flow a new scope.
 That new scope will be **scope=openid**
 
-## authorization in browser
+### authorization in browser
 ```bash
 https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
   response_type=code&
@@ -237,7 +237,7 @@ https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
   code_challenge_method=S256
 ```
 
-## token exchange in backchanel
+### token exchange in backchanel
 This will remain the same(as the one from refresh) but the response will include the id token that will include only few information like: **sub**(user id) and **sid**(session id). This token contains also information about issuer(**iss**) of the token and the audience(**aud** client id).
 
 > If you want to extend the info provided in ID Token add new scope like **email** so that email will be part of that token. 
@@ -246,8 +246,65 @@ This will remain the same(as the one from refresh) but the response will include
 
 > All this scopes are specific to the authoriation server.
 
-References:
+## Always remember
+
+1. **grant_type** in the token endpoint:
+- authorization_code - used in webapp flows to obtain the access token
+- refresh_token - used to obtain the refresh token
+- client_credentials - used in machine to machine flow to obtain the access token
+- device_code - Device Authorization Grant (this is used by devices like TVs)
+- pkce - Proof Key for Code Exchange
+
+2. **OAuth Scopes**
+Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account. An application can request one or more scopes, this information is then presented to the user in the consent screen, and the access token issued to the application will be limited to the scopes granted.
+
+3. **JWT vs JWE**
+You can always make your JWT token encrypted by activating this feature on your app registered
+
+4. **code vs access_token vs refresh_token vs id_token**
+**code** is the unique short string return in browser by the Authorization server so that it can be used in token exchange
+Each type of **token** servers a different purpose like: access, identify the user, refresh access
+
+5. **PKCE** - feature to prevent impersonification 
+In the authorization flow in browser you will provide the hash of the secret you generated on the client side and in the token flow you provide the secret that you use to obtain that hash.
+
+6. **OpenID** is a feature on top of OAuth to tell you who is the user logged in. 
+This is activated by adding the **scope=openid** in the authorization step. As the id token included in the response of the token endpoint is limited you can encrease the **scope** to obtain **email** or **profile** info
+
+7. **redirect_url** is an optional field in the RFC documentation of OAuth but most of the Authorization servers requires this as mandatory being the endpoint where you will receive the **code** on a successul authorization flow.
+
+## OAuth flow duplicated in a mermaid diagram
+> This section can be ignored
+```mermaid
+  sequenceDiagram
+    participant UserAgent
+    participant Application
+    participant OAuthServer
+
+    UserAgent->>+Application: Login
+
+    rect rgb(191, 223, 255)
+      Note over UserAgent, OAuthServer: Front channel
+      Application->>+OAuthServer: Authorization request
+      
+      Note over OAuthServer, Application: user enter credential to approve access
+      OAuthServer->>-Application: Authorization code response
+
+      Note over OAuthServer, Application: the auth code response is short unique string
+    end
+
+    rect rgb(203, 143, 225)
+      Note over UserAgent, OAuthServer: Back channel
+      Application->>+OAuthServer: Token request using authorization code
+      OAuthServer->>-Application: Token response
+    end
+```
+
+
+
+## References:
 [OAuth](https://www.oauth.com)
-[OAuth School](http://oauth.school/)
+[OAuth docs](https://oauth.net/2/)
+[OAuth school](http://oauth.school/)
 [OAuth playground](oauth.com/playground)
 [How to do a sequence diagram in readme file](https://mermaid.js.org/syntax/sequenceDiagram.html)
