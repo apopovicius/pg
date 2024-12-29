@@ -98,10 +98,10 @@ sequenceDiagram
 
 !! To prevent **injection** use **PKCE**
 
-**PKCE**: Proof-key for code Exchange
+**PKCE**: Proof-key for code exchange
 This is basically a secret hash generated(usually on the client based on a sequence of numbers) used in the flow so that initially is presented to OAuth server the hash and second at token exchange you present the sequence of numbers to OAuth sever where the hash is recalculated and validated to be the same as initially was presented. 
 
-![PKCE](pkce.png)
+![PKCE](PKCE.png)
 
 #### Device flow
 - Scan your QR code from your device to login and authorize
@@ -114,6 +114,140 @@ This is basically a secret hash generated(usually on the client based on a seque
 - ⛓ Confidential Clients - application running on a server(this can keep strings secrets since runs in a safe environment)
 - 🖥 Public Clients - application can't keep string secrets (browsers, mobile) like javascript/single page apps("view source"), native apps:
 
+## Hands-on OAuth for web applications
+
+Information needed:
+- client_id: lLGYhM9fIHcEDaSGWzfVdpQMKWmKIPQs
+- client_secret: xasdada221as231asdas
+- state(just a random string): 1234567
+- code_verifier(the secret): 4fb9d850b177fbe6f8cf7b63482bd3107a607d17f35b67d9d26cc796
+- code_challenge(the hash of the secret): ByT0TtV2x-7gj7BltYYohefsc50dqztWv5ath7_wdBM
+- code_challenge_method: tells the authorization server how hash was generated
+
+### 1. Authorization
+This first part is done in browser in the front channel. It requires user to login(use credential) and the URL will look like below.
+
+```bash
+https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
+  response_type=code&
+  client_id={YOUR_CLIENT_ID}&
+  state={RANDOM_STRING}&
+  redirect_uri=https://example-app.com/redirect&
+  code_challenge={YOUR_CODE_CHALLENGE}&
+  code_challenge_method=S256
+```
+
+> One of the mandatory fields is **response_type=code**. This tells to the Authorization server please generate me a code valid that i will be use on the next step (token exchange)
+
+> When the redirect comes in place you can check the **state** if matches the thing you initially sent 
+
+> Redirect URL has to be registered/allowed on the Authorization Server
+
+> Even in spec the **redirect_url** is not required in practice many Authorization Servers requires this parameter
+
+> Redirect URL will look like this containing the **code** and **state**:
+
+```bash
+https://example-app.com/redirect?code=iU0W0Syb7_Wv6TddKU_02lQNETSpbvOK828tptLrBZ17T&state=12345667
+```
+
+> In this flow can be observed that first(authorize part) with **PKCE feature** we've sent the hash of the secret generated(in pair with the hash algorithm it was obtained) on the client side and after(token exchange part) the secret itself it is sent to the Authorization server for the validation to prevent inpersonification 
+
+
+### 2. Token exchange
+To be noticed that this request is done on the back channel and reaches the **token** endpoint. 
+
+Also notice that the **client_secret** is included. 
+
+Other important thing to be observed is that as mentioned above now we are sending the **code_verifier(secret)** to the Authorizaiton server AND NOT THE INITIAL HASH(for matching). This is basically **PKCE** flow
+
+In this case the **redirect_uri** will represent the endpoint where the token will be returned.
+
+But the most important paramenter is the **code** obtained in the authorization flow
+
+```bash
+curl -X POST https://dev-3nu78hainebrds5f.us.auth0.com/oauth/token \
+  -d grant_type=authorization_code \
+  -d redirect_uri=https://example-app.com/redirect \
+  -d client_id={YOUR_CLIENT_ID} \
+  -d client_secret={YOUR_CLIENT_SECRET} \
+  -d code_verifier={YOUR_CODE_VERIFIER} \
+  -d code={YOUR_AUTHORIZATION_CODE}
+```
+
+Response looks like this:
+```bash
+{"access_token":"eyJhbGciOiJSUzI1NiIsI0WCJ9.eyJpc3MiOiJodHRwczovL2Rldi0zbnU3OGhhaW5lYnJkczVmLnVzLmF1dGgwLmNvbS8iLCJzdWIbGUuY29tIiwiaWF0IjoxNzM1NTA0OTMzLCJleHAiOjE3MzU1OTEzMzMsImp0aSI6ImFkZzdUMndkNWtCR1pkZXZmSEM1aXgiLCJjbGllbnRfaWQiOiJsTEdZaE05ZklIY0VEYVNHV3pmVmRwUU1LV21LSVBRcyJ9.Aj8rBa9BgKmi5SKqUFXctCI5rsNnZkLTKtpfMwRe1e_X3gcXz94HP_rPmVQJc5B8YXMPT7j7uRKSJ254QsP_A8ij5g3Cgr-6zRW0r2QDlM-k0C55QasXCt80uzQeoEBk7ehth5LJgS3nLNt_ML2RCWUZuq1Jku9hCbcinIus4FS1CA4Ebkzw8Xz0SDl-I3m3vFDMtg9n49rq68noGRCWwJh0K-KhOB99i52-jdFTBG39F_0sg","expires_in":86400,"token_type":"Bearer"}
+```
+
+This access token can be used to make API calls.
+
+## Refresh Tokens
+This is the token used to basically refresh the expired access token. Its usefull in the scenarios when you dont want to ask user to login again(e.g. cron jobs)
+
+> To include also the refresh token in the response of the token endpoint you will need to change the app settings by adding a new **scope**. By doing this basically you will receive the pair of access and refresh token. e.g. in AUTHO website **scope=offline_access**
+
+### Authorization in browser
+
+```bash
+https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
+  response_type=code&
+  client_id={YOUR_CLIENT_ID}&
+  state={RANDOM_STRING}&
+  scope=offline_access&
+  redirect_uri=https://example-app.com/redirect&
+  code_challenge={YOUR_CODE_CHALLENGE}&
+  code_challenge_method=S256
+```
+> **scope** appair in the url paramenters now
+
+## Token exchange in back channel
+
+```bash
+curl -X POST https://dev-3nu78hainebrds5f.us.auth0.com/oauth/token \
+  -d grant_type=refresh_token \
+  -d redirect_uri=https://example-app.com/redirect \
+  -d client_id={YOUR_CLIENT_ID} \
+  -d client_secret={YOUR_CLIENT_SECRET} \
+  -d code_verifier={YOUR_CODE_VERIFIER} \
+  -d code={YOUR_AUTHORIZATION_CODE}
+```
+
+> Observation on the **grant_type=refresh_token** change that initially in the token endpoint was **authorization_code**
+
+## OpenID Connect
+> Who is logged in? 
+
+This helps you as OAuth flow doesnt offer any information about the user logged in.
+
+> This is the part that introduces **ID Token** that offer information about the user logged in
+
+To do that just add in the authorization flow a new scope.
+That new scope will be **scope=openid**
+
+## authorization in browser
+```bash
+https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
+  response_type=code&
+  client_id={YOUR_CLIENT_ID}&
+  state={RANDOM_STRING}&
+  scope=offline_access+openid&
+  redirect_uri=https://example-app.com/redirect&
+  code_challenge={YOUR_CODE_CHALLENGE}&
+  code_challenge_method=S256
+```
+
+## token exchange in backchanel
+This will remain the same(as the one from refresh) but the response will include the id token that will include only few information like: **sub**(user id) and **sid**(session id). This token contains also information about issuer(**iss**) of the token and the audience(**aud** client id).
+
+> If you want to extend the info provided in ID Token add new scope like **email** so that email will be part of that token. 
+
+> Other relevant scope in OAuth is **profile**
+
+> All this scopes are specific to the authoriation server.
 
 References:
+[OAuth](https://www.oauth.com)
+[OAuth School](http://oauth.school/)
+[OAuth playground](oauth.com/playground)
 [How to do a sequence diagram in readme file](https://mermaid.js.org/syntax/sequenceDiagram.html)
