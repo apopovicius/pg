@@ -30,8 +30,10 @@ Trying to get access to gmail contact in a 3rd party app.
 6. redirect to the app with an access token to be used in further communication with google services
 
 ## Types of tokens
-- **ACCESS Token** (OAuth) - read by API
+
+- **Acces Token** (OAuth) - read by API
 - **ID Token** (OpenID) - read by App
+- **Refresh Token** (OAuth) - refresh the expired access token 
 
 ## Roles in OAUTH
 
