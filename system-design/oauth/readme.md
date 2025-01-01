@@ -1,4 +1,6 @@
 # OAuth
+
+
 ## Why OAuth?
 > OAuth was created to limit/delegate access to data.
 ### Password anti-pattern
@@ -21,6 +23,8 @@ Let's think as example of a hotel reception. You as client provides the ID card 
 
 > **Resource(API)**: room door
 
+## API Security Concepts
+
 Trying to get access to gmail contact in a 3rd party app.
 1. Open App & click login with gmail
 2. App redirects to **account.google.com** the authorization server
@@ -29,13 +33,7 @@ Trying to get access to gmail contact in a 3rd party app.
 5. once click allow a successfull screen will be shown
 6. redirect to the app with an access token to be used in further communication with google services
 
-## Types of tokens
-
-- **Acces Token** (OAuth) - read by API
-- **ID Token** (OpenID) - read by App
-- **Refresh Token** (OAuth) - refresh the expired access token 
-
-## Roles in OAUTH
+### Roles in OAUTH
 
 - 🤵 User (Resource Owner)
 - 💻 Device (User agent)
@@ -45,9 +43,21 @@ Trying to get access to gmail contact in a 3rd party app.
 
 ! In the specs you will find the naming from paranthesys.
 
-## OAuth Client
+> In the **OAuth** flow the user will only enter password on the **OAuth Server**, so the application will never see the user credentials
 
-The goal of the client is to *obtain the access token* and *use it* to *access the resources* ( APIs requests)
+### Types of clients/applications
+- ⛓ Confidential Clients - application running on a server(this can keep strings secrets since runs in a safe environment)
+- 🖥 Public Clients - application can't keep string secrets (browsers, mobile) like javascript/single page apps("view source"), native apps:
+
+### User Consent
+The main purpose of the **redirect base method** was to make possible the authorization to happen on OAuthServer instead of app. 
+By doing this you gain many security benefits and not only. For example if you want to extend the security of your autorization with MFA in the old flow you would have to change the application, but with this you will only change OAuthServer and it will be available on all types of devices.
+**User consent** is telling by OAuthServer to the user what access is granting to the application, this way the user will know what is the access granting.
+**User consent** This is used to prevent API calls directly from a tool instead of real application that can initiate this flow, making sure the user is the one consenting and initiating this action.
+![Consent](consent.png)
+
+**User consent** is not mandatory. In case of 1st party application this is not mandatory as you already run in a safe environment that you controll.
+Also the **User consent** can be disable for other flows if you consider its not necessary.
 
 ### OAuth flows
 This describes ways to obtain the token. So we have categories: 
@@ -58,7 +68,7 @@ This describes ways to obtain the token. So we have categories:
 - ~~Implicit~~ (deprecated and unsecure) - this was a shortcut of authorization code, it was an workaround for browsers not having [CORS(cross origin resource sharing)](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS&ved=2ahUKEwis4tb4irKKAxX4ERAIHXXNK50QFnoECBcQAQ&usg=AOvVaw2xmyG8mpAqKyMiOwPBDkob)
 - ~~Password~~ (deprecated and unsecure) - it was used to exchange the password for a token, being used in the past from migration of the apps that was storing user passwords to OAuth using the tokens
 
-#### Authorization Code
+1. Authorization Code
 Uses the redirect flow where the user is redirected to the authorization server and the ask for password and allow access and after thats done it gets redirect back to the app.
 
 ![Authorization Code](authorization-code.png)
@@ -78,18 +88,28 @@ This is basically a secret hash generated(usually on the client based on a seque
 
 ![PKCE](PKCE.png)
 
-#### Device flow
+2. Device flow
 - Scan your QR code from your device to login and authorize
 - Enter activation code provided by entering for example nba.com/activate where you basically introduce your credentials
 
 > All flows returns the **ACCESS TOKEN**
 
-### Types of clients
+### Application/Client identity
+- **client id** - the unique identifier for a client/application
+- **authorization code** - short expiration date coupon to be used by application in backchannel to obtian the real access token.
+- **client secret** - this in combination with authorization code makes sure that the **authorization code** was not stolen and it was used by the application that requested this.
+- **PCKE** - Proof-key for code exchange is used in mobile app. this cant be deployed with **client secrets** as this gives everyone using application the access to secrets. this doenst offer information about identity of the application, only make sure the same application initiated the authorization flow will obtain the acess token AND NOT OTHER MALICIOUS APP OR ACTOR.
+- **redirect_uri** - this is the endpoint where the OAuthServer will send back the authorization code.
 
-- ⛓ Confidential Clients - application running on a server(this can keep strings secrets since runs in a safe environment)
-- 🖥 Public Clients - application can't keep string secrets (browsers, mobile) like javascript/single page apps("view source"), native apps:
+### Types of tokens
+- **Acces Token** (OAuth) - read by API
+- **ID Token** (OpenID) - read by App
+- **Refresh Token** (OAuth) - refresh the expired access token 
 
-## Hands-on OAuth for web applications
+## OAuth Client
+The goal of the client is to *obtain the access token* and *use it* to *access the resources* ( APIs requests)
+
+## OAuth for web applications
 
 > This flow is almost the same for the following types of applications:
 - Single page application
@@ -123,7 +143,7 @@ When the redirect comes in place you can check the **state** if matches the thin
 
 Redirect URL has to be registered/allowed on the Authorization Server
 
-Even in spec the **redirect_url** is not required in practice many Authorization Servers requires this parameter
+Even in spec the **redirect_uri** is not required in practice many Authorization Servers requires this parameter
 
 Redirect URL will look like this containing the **code** and **state**:
 
@@ -163,7 +183,72 @@ Response looks like this:
 
 This access token can be used to make API calls.
 
-## Hands-on Client Credentials Flow for Service Apps
+## OAuth for Internet Of Things - RFC8628
+This is how to authenticate devices that doesnt have browsers or enable to use the OAuth flow, devices such TV, apple TV, chrome cast, etc.
+![Device Flow](device-flow.png)
+
+Flow:
+- device starts the authorization flow by talking to OAuthServer, getting a set of instructions including the **code**
+- show the code to the user of **DEVICE** in plain or via a **QR CODE** containing the link to the authorization server with the code attached
+- **USER** of DEVICE uses a phone or computer **to activate that code** and doing authentication here. 
+- in this time the **DEVICE** is pooling the OAuthServer for the confirmation that the flow has ended with success and it will get access as soon as **USER** finish the above step(pooling each 5s for the next 5 min)
+
+### Showcase
+
+1. **DEVICE** initiate the authorization
+
+This request is done from the **DEVICE**
+```bash
+POST https://authorization-server.com/device 
+
+  client_id={YOUR_CLIENT_ID}
+  scope=youtube
+```
+
+2. This is the response it gets. **DEVICE** uses this information to show to the **USER**
+Response
+```json
+{
+  "device_code": "NSD232d2d2ds2asd23085SD",
+  "user_code": "BWD_sSD",
+  "verification_uri": "http://example.com/device",
+  "expires_in":1800,
+  "interval": 5
+}
+```
+3. **USER** decide for example to scan the QR code and proceed with the steps by introducing user password and all steps.
+
+4. **DEVICE** is pooling the OAuthServer for a response to see what happen with the authorization flow initiated 
+```bash
+POST https://authorization-server.com/token 
+
+  grant_type=urn:ietf:params:oauth:grant_type:device_code
+  client_id={YOUR_CLIENT_ID}
+  device_code=NSD232d2d2ds2asd23085SD
+```
+
+> Response pending
+```json
+{
+  "error": "authorization pending"
+}
+```
+
+5. **DEVICE** finally gets the access token after **USER** finished the flow on his end(other device like PC,phone)
+> Response success (after user finish the steps)
+```json
+{
+  "access_token": "RTx4s3ss3sd34sd2sd",
+  "expires_in":3600,
+  "refresh_token": "KS2sd202d2ds2sdD1"
+}
+```
+
+[Device Auth Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow)
+
+
+## Client Credentials Flow for Service Apps
+
 > This covers Machine to Machine Application type. For this flow you’ll need to select the API you want to allow this application to be able to access. As part of the registration of this type of app you will end up by clicking in authorize to finish creating the machine-to-machine application, then click the Settings tab to see the client ID and secret. 
 
 With the application credentials in hand, you’re ready to get an access token! To do that, you’ll need to use the authorization server’s token endpoint
