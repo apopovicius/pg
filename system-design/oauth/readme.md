@@ -307,6 +307,8 @@ curl -X POST https://dev-3nu78hainebrds5f.us.auth0.com/oauth/token \
 
 This helps you as OAuth flow doesnt offer any information about the user logged in.
 
+> Remember that **ID Tokens** are always JWT
+
 > This is the part that introduces **ID Token** that offer information about the user logged in
 
 To do that just add in the authorization flow a new scope.
@@ -325,13 +327,177 @@ https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
 ```
 
 ### token exchange in backchanel
-This will remain the same(as the one from refresh) but the response will include the id token that will include only few information like: **sub**(user id) and **sid**(session id). This token contains also information about issuer(**iss**) of the token and the audience(**aud** client id).
+This will remain the same(as the one from refresh) but the response will include the id token that will include only few information like: **sub**(user id) and **sid**(session id). This token contains also information about issuer(**iss**) of the token and the audience(**aud** client id who is interpreting it or what audience uses this token).
 
 > If you want to extend the info provided in ID Token add new scope like **email** so that email will be part of that token. 
 
 > Other relevant scope in OAuth is **profile**
 
 > All this scopes are specific to the authoriation server.
+
+### other way to obtain id token
+There is an other way to ask Authorization Server for the **ID Token** and thats by changing the **response_type** from *code* to **id_token**. This will ONLY return the **ID Token**
+```bash
+https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
+  response_type=id_token&
+  client_id={YOUR_CLIENT_ID}&
+  state={RANDOM_STRING}&
+  scope=offline_access+openid&
+  redirect_uri=https://example-app.com/redirect&
+  code_challenge={YOUR_CODE_CHALLENGE}&
+  code_challenge_method=S256
+```
+In this scenario the Authorization server will return the **id token** directly in the redirect uri. As it arrives in front channel and can be seen by everyone this token **SHOULD** always be **VALIDATED**. This looks very similar to **implicit flow**. 
+
+```bash
+https://example-app.com/redirect#id_token=eyJ2Sd2sdsd2s2345s2sd&state=12345
+```
+
+### hybrid openid connect flows
+```bash
+https://dev-3nu78hainebrds5f.us.auth0.com/authorize?
+  response_type=code+id_token&
+  client_id={YOUR_CLIENT_ID}&
+  state={RANDOM_STRING}&
+  scope=offline_access+openid&
+  redirect_uri=https://example-app.com/redirect&
+  code_challenge={YOUR_CODE_CHALLENGE}&
+  code_challenge_method=S256
+```
+
+In this scenario the **code** and **id token** will be received in the **front channel** in the **redirect uri**. The power of this combination is that in the id token it will be present a section called **c_hash** that represents the hash of the code generated and this way you can validate the code was not altered.
+
+> To best recomendation around security is **ALWAYS** use **PKCE** in the **code authorization flow** in combination with code and id_token to validate the code and the hash of the code from the id_token(c_hash)
+
+
+### validate the id token
+In order to validate the token we will need a JWT validation library.
+1. validate the signature of the JWT - the identifier of the key used to sign the token and algorithm can be found in the id token sections
+```json
+{
+  "kid":"gaNTZV2234x2s323sxs3",
+  "alg":"RS256"
+}
+```
+2. check the *issuer* of the token - to make sure that the token is coming from the server you think its comming from 
+```json
+{
+  "iss":"https://pk-demo.okta.com/oauth"
+}
+```
+
+3. check the *audience* claim - this tells to who this token is designated and should match your application id
+
+```json
+{
+  "aud":"XS2ds23sd2S2sd2DD"
+}
+```
+
+4. check the timestamps for when it was created(**iat**) and where it will expire (**exp**)
+```json
+{
+  "iat": 1602104200,
+  "exp": 1602107800
+}
+```
+
+5. check the **nonce** value if its the one you set in the request. If you use a front channel flow the request for id token **MUST** contain a **nonce** value. This value can be validated when ID Token is received.
+```json
+{
+  "nonce": "ff23522d2ds2e3"
+}
+```
+
+> After this validation is done you can use the token and see whats inside. Use **sub** to see whats the user id of the token **email** and **name** for other information of the user. Other field you might find is **amr** that tells the app how the user authenticated. In the below example the user used password. There are usecase where the user can use also password and second factor auth or any other combination. Other relevant information is to tell whats the timestamp of the user last login by **auth_time**
+
+```json
+{
+  "sub":"05s2d2d2xcjjl223",
+  "name":"Jhon",
+  "amr": [
+    "pwd"
+  ],
+  "auth_time": 1602104250
+}
+```
+
+## Access Token
+
+At high level there are only 2 types of access tokens:
+- **reference token** - random string of char that doesnt mean anything
+- **structured** or **self-encoded token** - this token inside of it contains information in some sort of format 
+
+**Reference token** can be implemented in a relational db or hashing algoritm that can be store in memcache or redis.
+
+**structured** you wanna insert information like: 
+- user info
+- Application
+- Expiration & created time
+- Scopes
+- Authorization server. 
+
+Most popular format for this form of tokens is **JSON WEB TOKEN**
+
+> Remember **ONLY API** reads the **access token**
+
+## JWT Access Token
+>(JWT)[https://jwt.io/introduction]
+
+### Structure
+> xxxxx.yyyyy.zzzzz
+
+In its compact form, JSON Web Tokens consist of three parts separated by dots (.), which are:
+- Header
+- Payload
+- Signature
+
+**Header** and **Payload** is based64 encoded. This means it can be decoded and you can read them in plain json format.
+
+**Header** talks about only the token, which signing algoritm was used and what is th key identifier used to sign this token.
+
+```json
+{
+  "kid":"ocgR2ds3rfsD",
+  "alg": "RS256"
+}
+```
+
+**Payload** contains the data you actually care about. This data refers in documentations as **claims**
+
+```json
+{
+  "sub":"05s2d2d2xcjjl223",
+  "name":"Jhon",
+  "amr": [
+    "pwd"
+  ],
+  "auth_time": 1602104250
+}
+```
+
+There are three types of claims: 
+- *registered* - predefined claims that are not mandatory but recommended(iss, exp, sub, aud, etc )
+- *public* -  this can be defined at will by the JWT users. 
+- *private* - custom claims created to share infomration between parties that agree on using them and are neighter registered or public claims.
+
+
+**Signature**
+To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that.
+
+For example if you want to use the HMAC SHA256 algorithm, the signature will be created in the following way:
+```
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+```
+
+The signature is used to **verify the message wasn't changed along the way**, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is.
+
+### Token Validation
+- remote - by using introspect remote validation server
+- locally - by using cypto libraries that decode and validate parts of the token
 
 ## Always remember
 
