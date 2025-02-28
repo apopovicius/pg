@@ -63,7 +63,7 @@ get_git_stats() {
     local total_commits=0
     local total_added=0
     local total_deleted=0
-    
+
     # Get stats using git log
     # Use eval to ensure proper handling of shell arguments with quotes
     eval "git log --all --author=\"$author\" $since_option --numstat --pretty=\"%H\"" | awk '
@@ -74,7 +74,7 @@ get_git_stats() {
 
 # If `-t` is used, show the top contributors
 if [ "$SHOW_TOP_CONTRIBUTOR" -eq 1 ]; then
-    echo "\U0001F51D Finding the top contributors..."
+    echo -e "🔝 Finding the top contributors..."
     if [ -n "$SINCE_FILTER" ]; then
         git shortlog -s -n --all --since="$SINCE_FILTER"
     else
@@ -84,7 +84,7 @@ fi
 
 # If `-a` is used, show stats for the author
 if [ -n "$AUTHOR" ]; then
-    echo "\U0001F4CA Fetching stats for author: $AUTHOR (Time filter: ${SINCE_FILTER:-No filter})"
+    echo -e "⏳ Fetching stats for author: $AUTHOR (Time filter: ${SINCE_FILTER:-No filter})"
 
     # Call function to get all stats in one pass
     # Call function to get all stats in one pass
@@ -94,10 +94,10 @@ if [ -n "$AUTHOR" ]; then
         read total_commits total_added total_deleted <<< $(get_git_stats "$AUTHOR" "")
     fi
     # Output results
-    echo "📊 Here are the stats for $AUTHOR"
-    echo "➕ Lines added: +$total_added"
-    echo "➖ Lines deleted: -$total_deleted"
-    echo "✅ Total commits: $total_commits"
+    echo -e "📊 Here are the stats for $AUTHOR"
+    echo -e "➕ Lines added: +$total_added"
+    echo -e "➖ Lines deleted: -$total_deleted"
+    echo -e "✅ Total commits: $total_commits"
 fi
 
 # If no valid options were used, show help
