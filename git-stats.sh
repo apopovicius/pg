@@ -8,7 +8,7 @@ show_help() {
     echo ""
     echo "Options:"
     echo "  -a, --author       Specify the author name (e.g., \"Andrei Popovici\")."
-    echo "  -t, --top          Show the top contributor by commit count."
+    echo "  -t, --top          Show the top contributors by commit count with rankings."
     echo "  -s, --since \"TIME\"  Filter commits from a specific time (e.g., \"1 year ago\", \"6 months ago\")."
     echo "  -h, --help         Show this help message."
     exit 0
@@ -18,6 +18,10 @@ show_help() {
 if [ $# -eq 0 ]; then
     show_help
 fi
+
+# Enable Git's built-in cache for better performance
+git config --local core.commitGraph true
+git config --local gc.writeCommitGraph true
 
 # Default values
 AUTHOR=""
@@ -52,33 +56,52 @@ done
 # ✅ Fix: Only include `--since` if the user provides it
 GIT_SINCE_OPTION=""
 if [ -n "$SINCE_FILTER" ]; then
-    # Handle date parameter with spaces correctly
+    # Store the parameter value without embedding quotes
     GIT_SINCE_OPTION="--since=$SINCE_FILTER"
 fi
 
-# Function to get commit count, lines added, and lines deleted in one pass
+# Function to get commit count, lines added, and lines deleted more efficiently
 get_git_stats() {
     local author="$1"
-    local since_option="$2"
-    local total_commits=0
-    local total_added=0
-    local total_deleted=0
+    local since_filter="$2"
 
-    # Get stats using git log
-    # Use eval to ensure proper handling of shell arguments with quotes
-    eval "git log --all --author=\"$author\" $since_option --numstat --pretty=\"%H\"" | awk '
-    NF == 1 { commits++ }
-    NF == 3 { added += $1; deleted += $2 }
-    END { print commits, added, deleted }'
+    # Get commit count more efficiently with rev-list
+    local total_commits
+    if [ -n "$since_filter" ]; then
+        total_commits=$(git rev-list --count --all --author="$author" --since="$since_filter")
+    else
+        total_commits=$(git rev-list --count --all --author="$author")
+    fi
+
+    # Get only the line stats with one pass
+    local line_stats
+    if [ -n "$since_filter" ]; then
+        line_stats=$(git log --all --author="$author" --since="$since_filter" --numstat --pretty=format: |
+            awk '
+            NF == 3 { added += $1; deleted += $2 }
+            END { print added, deleted }')
+    else
+        line_stats=$(git log --all --author="$author" --numstat --pretty=format: |
+            awk '
+            NF == 3 { added += $1; deleted += $2 }
+            END { print added, deleted }')
+    fi
+
+    # Combine results
+    echo "$total_commits $line_stats"
 }
 
-# If `-t` is used, show the top contributors
+# If `-t` is used, show the top contributors with rankings (#1, #2, etc.)
 if [ "$SHOW_TOP_CONTRIBUTOR" -eq 1 ]; then
     echo -e "🔝 Finding the top contributors..."
+
+    # Build command with appropriate filter if needed
     if [ -n "$SINCE_FILTER" ]; then
-        git shortlog -s -n --all --since="$SINCE_FILTER"
+        git shortlog -s -n --all --since="$SINCE_FILTER" |
+            awk '{printf("#%d %s (%d commits)\n", NR, substr($0, index($0, $1) + length($1) + 1), $1);}'
     else
-        git shortlog -s -n --all
+        git shortlog -s -n --all |
+            awk '{printf("#%d %s (%d commits)\n", NR, substr($0, index($0, $1) + length($1) + 1), $1);}'
     fi
 fi
 
@@ -86,10 +109,9 @@ fi
 if [ -n "$AUTHOR" ]; then
     echo -e "⏳ Fetching stats for author: $AUTHOR (Time filter: ${SINCE_FILTER:-No filter})"
 
-    # Call function to get all stats in one pass
-    # Call function to get all stats in one pass
+    # Get all stats in one efficient pass
     if [ -n "$SINCE_FILTER" ]; then
-        read total_commits total_added total_deleted <<< $(get_git_stats "$AUTHOR" "--since=\"$SINCE_FILTER\"")
+        read total_commits total_added total_deleted <<< $(get_git_stats "$AUTHOR" "$SINCE_FILTER")
     else
         read total_commits total_added total_deleted <<< $(get_git_stats "$AUTHOR" "")
     fi
