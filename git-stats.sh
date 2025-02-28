@@ -107,7 +107,7 @@ fi
 
 # If `-a` is used, show stats for the author
 if [ -n "$AUTHOR" ]; then
-    echo -e "⏳ Fetching stats for author: $AUTHOR (Time filter: ${SINCE_FILTER:-No filter})"
+    echo -e "\n⏳ Fetching stats for author: $AUTHOR (Time filter: ${SINCE_FILTER:-No filter})"
 
     # Get all stats in one efficient pass
     if [ -n "$SINCE_FILTER" ]; then
