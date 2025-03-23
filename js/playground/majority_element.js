@@ -24,7 +24,8 @@ const constSpace = (array) => {
     }
     balance += (num === candidate) ? 1 : -1; 
   }
-  return candidate;
+  const occurrences = array.filter(n => n === candidate).length;
+  return occurrences > Math.floor(array.length / 2) ? candidate : undefined;
 }
 
 console.log(`For array: ${arr1} the O(n) space solution returns: ${onSpace(arr1)} and O(1) space returns: ${constSpace(arr1)}`);
