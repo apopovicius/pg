@@ -5,7 +5,7 @@ def performance_decorator(func):
         start = time.time()
         func()
         end = time.time()
-        print(f"{func.__name__} executed in {end-start} ms")
+        print(f"{func.__name__} executed in {end-start} s")
     return wrapper
 
 @performance_decorator
