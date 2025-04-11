@@ -23,6 +23,12 @@
       ],
       "@shared/sequelize/*": [
         "libs/sequelize/src/*"
+      ],
+      "@shared/config": [
+        "libs/config/src"
+      ],
+      "@shared/config/*": [
+        "libs/config/src/*"
       ]
     }
   }
