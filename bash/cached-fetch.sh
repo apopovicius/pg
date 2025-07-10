@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#!/bin/bash
+
 # A curl utility that caches responses to avoid repeated network calls.
 
 show_help() {
@@ -40,6 +42,7 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 if [ -z "$URL" ]; then
+
     echo "Error: --url is a required argument."
     show_help
     exit 1
@@ -86,10 +89,12 @@ if curl -sS --fail -o "$TMP_OUTPUT" "$URL"; then
 else
     rm -f "$TMP_OUTPUT"
     if [ -f "$CACHE_FILE" ]; then
-        echo "Warning: Using stale cache for '$CACHE_NAME' as fetch failed." >&2
+        echo "Warning: Fetch for '$URL' failed (using stale cache for '$CACHE_NAME')." >&2
         cat "$CACHE_FILE" # Return stale cache on failure
-        exit 0
+        exit 2 # Indicate API fetch failed, but stale cache returned
     fi
-    echo "Error: Failed to fetch URL and no cache was available." >&2
-    exit 1
+    # No cache and fetch failed, return empty and exit successfully
+    echo "Error: Fetch for '$URL' failed and no cache available." >&2
+    echo ""
+    exit 1 # Indicate API fetch failed and no cache available
 fi
