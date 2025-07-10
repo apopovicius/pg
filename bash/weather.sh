@@ -104,10 +104,8 @@ fetch_location_data() {
     fi
 
     api_name=$(echo "$api_url" | sed -E 's/https?:\/\///' | cut -d'/' -f1) # Ensure api_name is set here
-    echo "DEBUG: Attempting geolocation API-URL: $api_url)" >&2
     raw_api_response=$("$(dirname "$0")/cached-fetch.sh" --url "$api_url" --cache-name "geoLocation" --ttl 21600)
     exit_code=$?
-    echo "DEBUG: cached-fetch.sh exit code for $api_url: $exit_code" >&2
 
     if [ "$exit_code" -eq 0 ]; then
       # API call successful, format and check if coordinates_string is valid
