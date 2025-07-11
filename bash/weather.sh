@@ -6,7 +6,7 @@ readonly GEOLOCATION_APIS=(
   "http://ip-api.com/json"
   "https://reallyfreegeoip.org/json/"
   "https://freegeoip.app/json/"
-  "https://api.bigdatacloud.net/data/ip-geolocation-full"
+  "http://ipwho.is"
 )
 readonly GEOLOCATION_BLACKLIST_FILE="/tmp/geolocation_api_blacklist"
 readonly GEOLOCATION_BLACKLIST_DURATION=21600 # 6 hours in seconds
@@ -28,7 +28,7 @@ geo_api_selector() {
 
   if [ "$action" = "get_next_available" ]; then
     for api_url in "${GEOLOCATION_APIS[@]}"; do
-      local api_name=$(echo "$api_url" | sed -E 's/https?:\/\///' | cut -d'/' -f1)
+      local api_name=$(echo "$api_url" | awk -F[/:] '{print $4}')
       local blacklist_until=${blacklist["$api_name"]}
 
       if [ -z "$blacklist_until" ] || [ "$current_time" -ge "$blacklist_until" ]; then
@@ -53,37 +53,48 @@ geo_api_selector() {
 }
 
 standardize_geo_data() {
-  local api_name="$1"
-  local raw_api_response="$2"
-  local loc=""
+  local raw_api_response="$1"
+  local latitude=""
+  local longitude=""
   local city=""
   local country=""
 
-  if [[ "$api_name" =~ ^(ipinfo.io|reallyfreegeoip.org|freegeoip.app)$ ]]; then
-    loc=$(echo "$raw_api_response" | jq -r '.loc' 2>/dev/null)
-    city=$(echo "$raw_api_response" | jq -r '.city' 2>/dev/null)
-    country=$(echo "$raw_api_response" | jq -r '.country' 2>/dev/null)
-  elif [ "$api_name" = "ip-api.com" ]; then
-    local status=$(echo "$raw_api_response" | jq -r '.status' 2>/dev/null)
-    if [ "$status" = "success" ]; then
-      local lat=$(echo "$raw_api_response" | jq -r '.lat' 2>/dev/null)
-      local lon=$(echo "$raw_api_response" | jq -r '.lon' 2>/dev/null)
-      loc="$lat,$lon"
-      city=$(echo "$raw_api_response" | jq -r '.city' 2>/dev/null)
-      country=$(echo "$raw_api_response" | jq -r '.country' 2>/dev/null)
-    fi
-  elif [ "$api_name" = "api.bigdatacloud.net" ]; then
-    local lat=$(echo "$raw_api_response" | jq -r '.latitude' 2>/dev/null)
-    local lon=$(echo "$raw_api_response" | jq -r '.longitude' 2>/dev/null)
-    if [ -n "$lat" ] && [ -n "$lon" ]; then
-      loc="$lat,$lon"
-      city=$(echo "$raw_api_response" | jq -r '.city' 2>/dev/null)
-      country=$(echo "$raw_api_response" | jq -r '.countryName' 2>/dev/null)
-    fi
+  # Check for `.loc` like "48.85,2.35" and split it
+  local loc=$(echo "$raw_api_response" | jq -r '
+    to_entries
+    | map(select(.key | test("^loc"; "i")))
+    | .[0].value // empty' 2>/dev/null)
+  if [[ -n "$loc" && "$loc" == *,* ]]; then
+    latitude="${loc%%,*}"
+    longitude="${loc##*,}"
+  else
+    # Find latitude key (matches: lat, latitude, etc.)
+    latitude=$(echo "$raw_api_response" | jq -r '
+      to_entries
+      | map(select(.key | test("^lat(i(tude)?)?$"; "i")))
+      | .[0].value // empty' 2>/dev/null)
+
+    # Find longitude key (matches: lon, long, lng, etc.)
+    longitude=$(echo "$raw_api_response" | jq -r '
+      to_entries
+      | map(select(.key | test("^lon(g(i(tude)?)?)?$"; "i") or test("^lng$"; "i")))
+      | .[0].value // empty' 2>/dev/null)
   fi
 
-  # Return a consistent JSON structure
-  echo "{\"loc\":\"$loc\",\"city\":\"$city\",\"country\":\"$country\"}"
+  # Extract city (e.g., city_name, CityName, city)
+  city=$(echo "$raw_api_response" | jq -r '
+    to_entries
+    | map(select(.key | test("^city"; "i")))
+    | .[0].value // ""' 2>/dev/null)
+
+  # Extract country (e.g., country_name, countryCode)
+  country=$(echo "$raw_api_response" | jq -r '
+    to_entries
+    | map(select(.key | test("^country"; "i")))
+    | .[0].value // ""' 2>/dev/null)
+
+  # Return structured JSON output
+  echo "{\"latitude\":\"$latitude\",\"longitude\":\"$longitude\",\"city\":\"$city\",\"country\":\"$country\"}"
 }
 
 fetch_location_data() {
@@ -103,31 +114,30 @@ fetch_location_data() {
       break # No more APIs to try
     fi
 
-    api_name=$(echo "$api_url" | sed -E 's/https?:\/\///' | cut -d'/' -f1) # Ensure api_name is set here
+    api_name=$(echo "$api_url" | awk -F[/:] '{print $4}')
     raw_api_response=$("$(dirname "$0")/cached-fetch.sh" --url "$api_url" --cache-name "geoLocation" --ttl 21600)
     exit_code=$?
 
     if [ "$exit_code" -eq 0 ]; then
       # API call successful, format and check if coordinates_string is valid
-      standardized_geo_json=$(standardize_geo_data "$api_name" "$raw_api_response")
-      coordinates_string=$(echo "$standardized_geo_json" | jq -r '.loc' 2>/dev/null)
+      standardized_geo_json=$(standardize_geo_data "$raw_api_response")
+      latitude=$(echo "$standardized_geo_json" | jq -r '.latitude // empty' 2>/dev/null)
+      longitude=$(echo "$standardized_geo_json" | jq -r '.longitude // empty' 2>/dev/null)
 
-      if [ -n "$coordinates_string" ] && [ "$coordinates_string" != "null" ]; then
+      if [[ -n "$latitude" && "$latitude" != "null" && -n "$longitude" && "$longitude" != "null" ]]; then
         echo "$standardized_geo_json"
-        return 0 # Successfully fetched and parsed location, exit function
+        return 0
       else
-        # Data was fetched, but 'coordinates_string' is invalid, blacklist API and try next
-        geo_api_selector "blacklist" "$api_name"
-        # Continue to next iteration of the loop
+        # Coordinates are invalid/missing - blacklist this API and continue
+        geo_api_selector "blacklist" "$(echo "$api_url" | awk -F[/:] '{print $4}')"
       fi
     else
-      # cached-fetch.sh indicated a failure (exit code 1 or 2), blacklist API and try next
-      geo_api_selector "blacklist" "$api_name"
-      # Continue to next iteration of the loop
+      # API fetch failed - blacklist and continue
+      geo_api_selector "blacklist" "$(echo "$api_url" | awk -F[/:] '{print $4}')"
     fi
   done
 
-  echo "" # All APIs tried and failed, return empty
+  echo "" # All attempts failed
   return 1
 }
 
@@ -146,19 +156,21 @@ fetch_aq_data() {
 }
 
 get_coordinates() {
-  local standardized_geo_json=$(fetch_location_data)
-  local coordinates_string=""
+  local standardized_geo_json
+  standardized_geo_json=$(fetch_location_data)
+
   if [ -n "$standardized_geo_json" ]; then
-    coordinates_string=$(echo "$standardized_geo_json" | jq -r '.loc' 2>/dev/null)
+    local latitude=$(echo "$standardized_geo_json" | jq -r '.latitude // empty' 2>/dev/null)
+    local longitude=$(echo "$standardized_geo_json" | jq -r '.longitude // empty' 2>/dev/null)
+
+    if [[ -n "$latitude" && "$latitude" != "null" && -n "$longitude" && "$longitude" != "null" ]]; then
+      echo "$latitude,$longitude"
+      return 0
+    fi
   fi
 
-  if [ -n "$coordinates_string" ] && [ "$coordinates_string" != "null" ]; then
-    echo "${coordinates_string%%,*},${coordinates_string##*,}"
-    return 0
-  else
-    echo ""
-    return 1
-  fi
+  echo ""
+  return 1
 }
 
 get_location() {
@@ -166,8 +178,8 @@ get_location() {
   local city=""
   local country=""
   if [ -n "$standardized_geo_json" ]; then
-    city=$(echo "$standardized_geo_json" | jq -r '.city' 2>/dev/null)
-    country=$(echo "$standardized_geo_json" | jq -r '.country' 2>/dev/null)
+    city=$(echo "$standardized_geo_json" | jq -r '.city // empty' 2>/dev/null)
+    country=$(echo "$standardized_geo_json" | jq -r '.country // empty' 2>/dev/null)
   fi
 
   if [ -n "$city" ] || [ -n "$country" ]; then
@@ -187,7 +199,7 @@ get_temperature() {
   if [ -n "$latitude" ] && [ -n "$longitude" ]; then
     api_response=$(fetch_weather_data "$latitude" "$longitude")
   fi
-  local temperature=$(echo "$api_response" | jq -r '.current_weather.temperature')
+  local temperature=$(echo "$api_response" | jq -r '.current_weather.temperature // empty')
   local icon=$(get_weather_icon)
   if [ -z "$temperature" ]; then
     echo "❓ N/A °C"
@@ -208,7 +220,7 @@ get_wind_condition() {
   if [ -n "$latitude" ] && [ -n "$longitude" ]; then
     api_response=$(fetch_weather_data "$latitude" "$longitude")
   fi
-  local windspeed=$(echo "$api_response" | jq -r '.current_weather.windspeed')
+  local windspeed=$(echo "$api_response" | jq -r '.current_weather.windspeed // empty')
   if [ -z "$windspeed" ]; then
     echo "❓ N/A km/h"
   else
@@ -228,7 +240,7 @@ get_aqi() {
   if [ -n "$latitude" ] && [ -n "$longitude" ]; then
     api_response=$(fetch_aq_data "$latitude" "$longitude")
   fi
-  local aqi=$(echo "$api_response" | jq -r '.hourly.us_aqi[0]') # Assuming we want the first hour's AQI
+  local aqi=$(echo "$api_response" | jq -r '.hourly.us_aqi[0] // empty') # Assuming we want the first hour's AQI
   if [ -z "$aqi" ]; then
     echo "❓ Air Quality: N/A"
     return
@@ -260,7 +272,7 @@ get_mmhg_pressure() {
   if [ -n "$latitude" ] && [ -n "$longitude" ]; then
     api_response=$(fetch_weather_data "$latitude" "$longitude")
   fi
-  local pressure_hpa=$(echo "$api_response" | jq -r '.hourly.pressure_msl[0]') # Assuming first hour
+  local pressure_hpa=$(echo "$api_response" | jq -r '.hourly.pressure_msl[0] // empty') # Assuming first hour
   if [ -z "$pressure_hpa" ]; then
     echo "🌬️ N/A mmHg"
     return
