@@ -170,12 +170,11 @@ get_location() {
     country=$(echo "$standardized_geo_json" | jq -r '.country' 2>/dev/null)
   fi
 
-  if [ -z "$city" ] || [ -z "$country" ]; then
-    echo "📍 N/A"
-  else
-    echo "📍 $city, $country"
+  if [ -n "$city" ] || [ -n "$country" ]; then
+    echo "$city, $country"
   fi
 }
+
 get_temperature() {
   local coordinates=$(get_coordinates)
   if [ -z "$coordinates" ]; then
@@ -200,7 +199,7 @@ get_temperature() {
 get_wind_condition() {
   local coordinates=$(get_coordinates)
   if [ -z "$coordinates" ]; then
-    echo "💨 N/A km/h"
+    echo "❓ N/A km/h"
     return
   fi
   local latitude=${coordinates%%,*}
@@ -211,7 +210,7 @@ get_wind_condition() {
   fi
   local windspeed=$(echo "$api_response" | jq -r '.current_weather.windspeed')
   if [ -z "$windspeed" ]; then
-    echo "💨 N/A km/h"
+    echo "❓ N/A km/h"
   else
     echo "💨 ${windspeed} km/h"
   fi
@@ -220,7 +219,7 @@ get_wind_condition() {
 get_aqi() {
   local coordinates=$(get_coordinates)
   if [ -z "$coordinates" ]; then
-    echo "Air Quality: N/A"
+    echo "❓ Air Quality: N/A"
     return
   fi
   local latitude=${coordinates%%,*}
@@ -231,28 +230,28 @@ get_aqi() {
   fi
   local aqi=$(echo "$api_response" | jq -r '.hourly.us_aqi[0]') # Assuming we want the first hour's AQI
   if [ -z "$aqi" ]; then
-    echo "Air Quality: N/A"
+    echo "❓ Air Quality: N/A"
     return
   fi
   if [ "$aqi" -le 50 ]; then
-    echo "🟢 Air Quality: $aqi (Good)"
+    echo "🌀 $aqi - good air quality"
   elif [ "$aqi" -le 100 ]; then
-    echo "🟡 Air Quality: $aqi (Moderate)"
+    echo "🤧 $aqi - moderate air quality"
   elif [ "$aqi" -le 150 ]; then
-    echo "🟠 Air Quality: $aqi (Unhealthy for Sensitive)"
+    echo "🫥 $aqi - unhealthy for sensitive air quality"
   elif [ "$aqi" -le 200 ]; then
-    echo "🔴 Air Quality: $aqi (Unhealthy)"
+    echo "🚷 $aqi - unhealthy air quality"
   elif [ "$aqi" -le 300 ]; then
-    echo "🟣 Air Quality: $aqi (Very Unhealthy)"
+    echo "☣️ $aqi - very unhealthy air quality"
   else
-    echo "⚫ Air Quality: $aqi (Hazardous)"
+    echo "💀 $aqi - hazardous air quality"
   fi
 }
 
 get_mmhg_pressure() {
   local coordinates=$(get_coordinates)
   if [ -z "$coordinates" ]; then
-    echo "🌬️ N/A mmHg"
+    echo "❓ N/A mmHg"
     return
   fi
   local latitude=${coordinates%%,*}
@@ -268,11 +267,11 @@ get_mmhg_pressure() {
   fi
   local pressure_mmhg=$(awk "BEGIN { printf \"%.0f\", $pressure_hpa * 0.75006 }")
   if ((pressure_mmhg < 740)); then
-    echo "🌬️ $pressure_mmhg mmHg (🔽 Low)"
+    echo "🌬️ $pressure_mmhg mmHg - low" # 🔽
   elif ((pressure_mmhg > 770)); then
-    echo "🌬️ $pressure_mmhg mmHg (🔼 High)"
+    echo "🌬️ $pressure_mmhg mmHg - high" # 🔼
   else
-    echo "🌬️ $pressure_mmhg mmHg (✅ Normal)"
+    echo "🌬️ $pressure_mmhg mmHg - normal" # ⏺️
   fi
 }
 
@@ -282,11 +281,11 @@ get_last_updated_times() {
     return
   fi
 
-  local weather=$(grep "^weather:" "$log_file" | cut -d':' -f2- | sed 's/.*T//')
-  local geoLocation=$(grep "^geoLocation:" "$log_file" | cut -d':' -f2- | sed 's/.*T//')
-  local airQuality=$(grep "^airQuality:" "$log_file" | cut -d':' -f2- | sed 's/.*T//')
+  local weather=$(grep "^weather:" "$log_file" | cut -d':' -f2- | sed -E 's/.*T([0-9]{2}:[0-9]{2}).*/\1/')
+  local geoLocation=$(grep "^geoLocation:" "$log_file" | cut -d':' -f2- | sed -E 's/.*T([0-9]{2}:[0-9]{2}).*/\1/')
+  local airQuality=$(grep "^airQuality:" "$log_file" | cut -d':' -f2- | sed -E 's/.*T([0-9]{2}:[0-9]{2}).*/\1/')
 
-  echo "Updated: W(${weather:-N/A}) A(${airQuality:-N/A}) L(${geoLocation:-N/A})"
+  echo -e "Last sync:☁️ ${weather:-N/A} | 🌬️ ${airQuality:-N/A} | 📍 ${geoLocation:-N/A}"
 }
 
 get_weather() {
@@ -295,9 +294,8 @@ get_weather() {
   local pressure=$(get_mmhg_pressure)
   local aqi=$(get_aqi)
   local location=$(get_location)
-  local last_updated=$(get_last_updated_times)
 
-  echo -e "$temp_with_icon | $wind\n$pressure\n$aqi\n$location\n$last_updated"
+  echo -e "$temp_with_icon | $wind\n$pressure\n$aqi\n$location"
 }
 
 is_night() {
@@ -363,6 +361,7 @@ show_help() {
   echo "  --aqi             Get the Air Quality Index."
   echo "  --pressure        Get the atmospheric pressure in mmHg."
   echo "  --location        Get the current location."
+  echo "  --updated         Get the last updated times."
   echo "  --help            Show this help message."
   echo
   echo "If no command is provided, a full weather summary is displayed."
@@ -391,6 +390,9 @@ case "$1" in
   ;;
 --location)
   get_location
+  ;;
+--updated)
+  get_last_updated_times
   ;;
 --help)
   show_help
