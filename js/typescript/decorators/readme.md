@@ -1,6 +1,8 @@
 # Decorators
 
-Decorators are just functions in a particular form which can apply to:
+Decorators are a mechanism to add metadata information to our source code.
+
+They are just functions in a particular form which can apply to:
 
 - Class
 - Class Property
@@ -18,6 +20,8 @@ function simpleDecorator() {
 @simpleDecorator
 class A {}
 ```
+
+**Limitation** on typescript we can add decorators only to classes and individual functional are not yet supported.
 
 ## Class decorator
 
