@@ -1,0 +1,15 @@
+{
+  "name": "test-dynamodb",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.857.0"
+  }
+}
