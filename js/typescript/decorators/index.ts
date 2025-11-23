@@ -1,4 +1,4 @@
-import { calledWith, logTiming, timing } from "./perfDecorators";
+import { calledWith, logTiming, timing, logAccess, format, getFormat } from "./perfDecorators";
 
 const delay = <T>(time: number, data: T): Promise<T> =>
   new Promise((resolve) =>
@@ -9,6 +9,12 @@ const delay = <T>(time: number, data: T): Promise<T> =>
 
 @logTiming
 class Users {
+  @format("Hello, %s")
+  greeting: string;
+
+  constructor() {
+    this.greeting = "World";
+  }
 
   @timing()
   async getUsers() {
@@ -21,6 +27,16 @@ class Users {
       id: `user:${id}`,
     });
   }
+
+  @logAccess
+  get greet() {
+    const formatString = getFormat(this, "greeting");
+    return formatString.replace("%s", this.greeting);
+  }
+
+  set greet(value: string) {
+    this.greeting = value;
+  }
 }
 
 (async function () {
@@ -32,6 +48,10 @@ class Users {
   await users.getUser(42);
 
   await users.getUsers();
+
+  console.log(users.greet);
+  users.greet = "Universe";
+  console.log(users.greet);
 
   // @ts-ignore
   users?.printTimings();
