@@ -361,32 +361,85 @@ Since TypeScript 5.0, the "Standard Decorators" (Stage 3 ECMAScript proposal) ar
 ### Key Differences
 
 1.  **No `experimentalDecorators`**: You do not need to enable the compiler flag (or you can set it to `false`).
-2.  **Different API**: The arguments passed to the decorator function are different. Instead of `target`, `propertyKey`, and `descriptor`, you receive:
-    -   `value`: The element being decorated (e.g., the method function).
-    -   `context`: An object containing metadata about the element (kind, name, accessors, etc.).
-3.  **Parameter Decorators**: Not yet supported in the Stage 3 proposal (but likely coming in a future stage).
-4.  **Metadata**: The `reflect-metadata` system is not part of the standard. Instead, the standard proposes a `context.metadata` object (Stage 3 Metadata proposal).
+2.  **Different API**: The arguments passed to the decorator function are completely different.
+3.  **No Parameter Decorators**: Not yet supported in the Stage 3 proposal.
 
-### Example of a Standard Decorator
+### The Decorator Signature
+
+Standard decorators always receive two arguments: `value` and `context`.
 
 ```typescript
-function logged(value, context) {
-  const kind = context.kind;
-  const name = context.name;
+type Decorator = (value: Input, context: Context) => Output | void;
+```
 
-  if (kind === "method") {
-    return function (...args) {
-      console.log(`Starting ${name} with arguments ${args.join(", ")}`);
-      const result = value.apply(this, args);
-      console.log(`Ending ${name}`);
-      return result;
-    };
-  }
+#### 1. The `value` Argument
+The element being decorated.
+-   **Class**: The class constructor itself.
+-   **Method**: The method function.
+-   **Getter/Setter**: The getter or setter function.
+-   **Field**: `undefined` (since the field doesn't exist yet when decorated).
+-   **Auto-Accessor**: The object `{ get: () => any, set: (value: any) => void }`.
+
+#### 2. The `context` Argument
+An object containing metadata and utilities. This is the most powerful part of the new spec.
+
+**Common Properties:**
+-   `kind`: The type of decorated element. Values: `'class'`, `'method'`, `'getter'`, `'setter'`, `'field'`, `'accessor'`.
+-   `name`: The name of the element (string or symbol).
+-   `private`: Boolean indicating if it's a private member (`#foo`).
+-   `static`: Boolean indicating if it's a static member.
+-   `addInitializer(initializer: () => void)`: Registers a callback to run after the decoration is finished (e.g., after the class is defined or instance created).
+-   `metadata`: An object shared across all decorators of the class to store arbitrary metadata.
+
+**Access Object (`context.access`):**
+Provides access to the value at runtime (even if private).
+-   `get(object)`: Get the value from an instance.
+-   `set(object, value)`: Set the value on an instance.
+-   `has(object)`: Check if property exists.
+
+### Context Interface Details
+
+Here is a detailed look at the context types you will encounter:
+
+```typescript
+interface ClassDecoratorContext {
+  kind: "class";
+  name: string | undefined;
+  addInitializer(initializer: () => void): void;
+  metadata: Record<string | number | symbol, unknown>;
 }
 
-class Class {
-  @logged
-  method(arg) {}
+interface ClassMethodDecoratorContext {
+  kind: "method";
+  name: string | symbol;
+  static: boolean;
+  private: boolean;
+  access: { has(o: object): boolean; get(o: object): unknown };
+  addInitializer(initializer: () => void): void;
+  metadata: Record<string | number | symbol, unknown>;
+}
+
+// Similar interfaces exist for Getter, Setter, Field, and Accessor contexts
+```
+
+### Example: Using `context`
+
+```typescript
+function logged(value: Function, context: ClassMethodDecoratorContext) {
+  const methodName = String(context.name);
+
+  if (context.private) {
+    console.log(`Warning: Decorating private method ${methodName}`);
+  }
+
+  context.addInitializer(() => {
+    console.log(`Method ${methodName} has been initialized.`);
+  });
+
+  return function (this: any, ...args: any[]) {
+    console.log(`Call: ${methodName}`);
+    return value.apply(this, args);
+  };
 }
 ```
 
