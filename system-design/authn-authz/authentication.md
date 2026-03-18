@@ -593,6 +593,7 @@ const refreshToken = jwt.sign(payload, refreshSecret, { expiresIn: '7d' });
 - [OpenID Connect](https://openid.net/connect/)
 - [JOSE](https://auth0.com/blog/demystifying-jose-jwt-family/)
 - [No way, JOSE](https://www.youtube.com/watch?v=pblbKDugjq8)
+- [RSA](https://rsa.sambego.tech/) - not covered but good reference to study
 
 ---
 
